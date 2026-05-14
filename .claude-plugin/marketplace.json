@@ -1,0 +1,13 @@
+{
+  "name": "claude-coach",
+  "owner": {
+    "name": "delkrak"
+  },
+  "plugins": [
+    {
+      "name": "coach",
+      "source": ".",
+      "description": "A coach for your Claude Code workflow."
+    }
+  ]
+}
