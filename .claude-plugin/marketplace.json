@@ -7,12 +7,11 @@
     {
       "name": "coach",
       "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/Delkrak/claude-coach.git",
-        "path": "plugins/coach"
+        "source": "url",
+        "url": "https://github.com/Delkrak/claude-coach.git"
       },
       "description": "A coach for your Claude Code workflow.",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "delkrak"
       }
