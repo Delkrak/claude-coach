@@ -6,7 +6,8 @@
   "plugins": [
     {
       "name": "coach",
-      "source": "./",
+      "source": "github",
+      "repo": "Delkrak/claude-coach",
       "description": "A coach for your Claude Code workflow."
     }
   ]
