@@ -11,7 +11,7 @@
         "url": "https://github.com/Delkrak/claude-coach.git"
       },
       "description": "A coach for your Claude Code workflow.",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "delkrak"
       }
