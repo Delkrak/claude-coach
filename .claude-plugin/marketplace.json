@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "coach",
-      "source": ".",
+      "source": "./",
       "description": "A coach for your Claude Code workflow."
     }
   ]

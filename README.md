@@ -6,13 +6,17 @@ claude-coach is a Claude Code plugin that helps your commands and skills improve
 
 ## Installation
 
-Add the marketplace and install the plugin:
+Add the marketplace:
 
 ```
-/plugin install github@delkrak/claude-coach
+/plugin marketplace add Delkrak/claude-coach
 ```
 
-Then install the `coach` plugin from the marketplace.
+Then install the `coach` plugin:
+
+```
+/plugin install coach@claude-coach
+```
 
 ## Commands
 
