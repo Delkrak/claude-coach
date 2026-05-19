@@ -9,13 +9,7 @@ If $ARGUMENTS provides a name, use it (lowercase, hyphenated, e.g. `my-command`)
 Otherwise, ask what the command should be called.
 
 ### 2. Gather the specification
-Ask the user to describe:
-- **Purpose** — one sentence: what does this command do?
-- **Arguments** — what does `$ARGUMENTS` represent, if anything? (e.g. a name, a target, a mode)
-- **Steps** — what should Claude do, in order? Ask for as much detail as the user can give; you will structure it.
-- **Context** — any specific files, locations, or patterns the command should reference?
-
-Wait for the user's full answer before proceeding.
+First ask: *"How thorough should this command be?"* — the answer calibrates everything that follows. A high-quality command warrants deep questioning (10+ questions covering purpose, arguments, steps, context, success criteria, anti-patterns, edge cases, typical situations, failure modes). A low-quality or one-off command warrants just enough to produce a working draft (2–3 questions). Ask questions one at a time or in small grouped batches until the spec meets that standard — do not proceed to drafting until it does.
 
 ### 3. Draft the command
 Structure the draft as:
