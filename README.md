@@ -3,7 +3,6 @@
 A coach for your Claude Code workflow.
 
 claude-coach is a Claude Code plugin that helps your commands and skills improve over time — capturing corrections from each session and applying them back to the source.
-
 ## Installation
 
 Add the marketplace:
@@ -17,9 +16,7 @@ Then install the `coach` plugin:
 ```
 /plugin install coach@claude-coach
 ```
-
 ## Commands
-
 ### `/coach:coach-command`
 
 Reviews the current session for corrections and applies them to a target command.
