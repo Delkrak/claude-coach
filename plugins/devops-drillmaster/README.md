@@ -1,9 +1,10 @@
 # devops-drillmaster
 
-A drill master for a DevOps way of working with Claude. It turns your **objective** into
-**processes** (skills made of steps), **policies** (skills made of rules) and **artifacts** (what
-steps produce), mapped onto your real tools; keeps a **field log** on every issue and PR; and runs
-**after-action reviews** that change the process one experiment at a time.
+A drill sergeant hired to run your agile setup with Claude. It talks like one — status first,
+short, direct — and uses the agile words your team already knows. It turns your **objective** into
+**processes** (skills made of steps) and **policies** (skills made of rules for every output),
+mapped onto your real tools; keeps an **impediment log** on every work item; and runs
+**retrospectives** that change the process one experiment at a time.
 
 ```
 /plugin install devops-drillmaster@claude-coach
@@ -19,34 +20,32 @@ steps produce), mapped onto your real tools; keeps a **field log** on every issu
 2. **Research before asking.** Your tracker, git host, CI and Claude plan are inventoried and their
    docs read, into `.drillmaster/toolchain.md`. A vendor's designed workflow is proposed as the
    default, after thorough research.
-3. **You and the priority.** Your experience level, and how much process to start with, each stage
-   rated for relevance from the research: Light (capture → build → review), Standard (+ refine, AI
-   review) or Full (+ release, operate, incidents).
-4. **Design with you,** one decision per question: stages, processes, policies, artifacts, who moves
-   each tracker state, where the field logs live, and how steps are added or removed later.
+3. **You and the priority.** Your experience level, and how much process to start with, each process
+   rated for relevance from the research: Light, Standard or Full.
+4. **Design with you,** one decision per question: processes, policies for every output, artifacts,
+   who moves each tracker state, where the logs live, and how steps are added or removed later.
 5. **Stress test.** Three independent read-only reviewers walk real and invented scenarios through
    the process before it goes live; you decide each finding.
 
-### `/devops-drillmaster:field-log`
+### `/devops-drillmaster:impediment-log`
 
-The logging step every process begins and ends with. It records your corrections, development
-friction, missing information and time, on the issue and then the PR (or wherever you chose), never
-in the repository. When a PR is marked ready, it writes the **debrief**: what happened, friction,
-time per stage.
+The log every process starts with and closes with its **process summary** (outcome, impediments,
+time). It records your corrections, development friction and missing information, on the issue and
+then the PR, or in the repository if you chose. When a PR is marked ready, it writes the **item
+summary** from the process summaries.
 
-### `/devops-drillmaster:after-action-review`
+### `/devops-drillmaster:retrospective`
 
-The military's after-action review: what was supposed to happen, what happened, why, what to
-sustain or improve. It reads field logs, debriefs, tracker times and session transcripts, judges
-running experiments, and proposes changes one at a time, each an experiment tied to a measure in
-your objective.
+What was supposed to happen, what happened, why, what to keep and what to improve. It reads
+impediment logs, summaries, tracker times and session transcripts, judges running experiments, and
+proposes changes one at a time, each an experiment tied to a measure in your objective.
 
 ## Rules
 
 [`POLICIES.md`](POLICIES.md) is the drill master's own rulebook: how a policy is written (numbered
 rules, only MUST / MUST NOT / MAY, an Intent and a Check per rule), how a skill changes, evidence,
 what is logged, files, preserving what works, and how it works with you (one decision per question,
-research before asking, the objective is yours).
+research before asking, the objective is yours, drill-sergeant voice with agile terms).
 
 ## Hooks
 
@@ -54,37 +53,36 @@ They run only in a project with `.drillmaster/process.md`.
 
 | Event | What it does |
 |---|---|
-| `UserPromptSubmit` | A message that reads like a correction reminds Claude to log it with `field-log`. Claude decides whether it is one. |
-| `PostToolUse` (`Bash`, MCP tools) | A call that often ends a step (`gh pr create`, `gh pr ready`, `gh pr merge`, a tracker's save tool, or a `Done hints:` entry in `process.md`) leaves a marker. |
-| `Stop` | With a marker pending, Claude is asked once whether the step is done, to log its end, and to write the debrief if a PR was marked ready. |
+| `UserPromptSubmit` | A message that reads like a correction reminds Claude to log it with `impediment-log`. Claude decides whether it is one. |
+| `PostToolUse` (`Bash`, MCP tools) | A call that often ends a process (`gh pr create`, `gh pr ready`, `gh pr merge`, a tracker's save tool, or a `Done hints:` entry in `process.md`) leaves a marker. |
+| `Stop` | With a marker pending, Claude is asked once whether the process is done, to write its process summary, and the item summary if a PR was marked ready. |
 
 ## Files in a project
 
 ```
 .drillmaster/
-  objective.md        # yours: goal, measures, direction
-  process.md          # the index: stages, processes, policies, artifacts, states, log storage, step model
-  toolchain.md        # your tools, as configured, with the docs read
-  templates/          # one template per artifact
-  <skill>/history.md  # how each skill changed
-  <skill>/versions/   # each skill at each change
-  experiments.md      # changes being checked against a measure
-  aar/<date>.md       # after-action reports
-  drills/<item id>/   # field log and debrief per work item, only if you choose "drills" storage
+  objective.md          # yours: goal, measures, direction
+  process.md            # the index: processes, policies, artifacts, states, log storage, step model
+  toolchain.md          # your tools, as configured, with the docs read and your settings
+  templates/            # one template per artifact
+  <skill>/history.md    # how each skill changed
+  <skill>/versions/     # each skill at each change
+  experiments.md        # changes being checked against a measure
+  retrospectives/       # one report per retrospective
+  items/<item id>/      # impediment log and item summary, only if you choose "items" storage
 ```
 
-Field logs and debriefs live on issues and PRs by default ("comments"), or under `drills/` if you
-choose.
+Impediment logs and summaries live on issues and PRs by default ("comments"), or under `items/` if
+you choose.
 
 ## Process list and policy list
 
 What setup offers, in suggested order:
-- [`process-list/`](process-list/): `0-template.md` is the shape of an AI agent
-  process (its input and the policies it must meet, its steps, its output and the policies it must
-  meet, how each is checked and documented); `1-capture.md` … `9-after-action-review.md` are the
-  suggested processes of the DevOps loop.
-- [`policy-list/`](policy-list/): `0-template.md` is the shape of a policy;
-  `1-issue-policy.md` … `8-incident-policy.md` cover every output, code included.
+- [`process-list/`](process-list/): `0-template.md` is the shape of an AI agent process (its input
+  and the policies it must meet, its steps, its output and the policies it must meet, how each is
+  checked and documented); `1-capture.md` … `9-retrospective.md` are the suggested processes.
+- [`policy-list/`](policy-list/): `0-template.md` is the shape of a policy; `1-issue-policy.md` …
+  `8-incident-policy.md` cover every output, code included.
 
 ## Tests
 

@@ -10,7 +10,7 @@ import {
   readSession,
   selectSessions,
   formatSession,
-} from '../skills/after-action-review/transcripts.mjs'
+} from '../skills/retrospective/transcripts.mjs'
 
 const project = path.resolve(os.tmpdir(), 'repo', 'app')
 const worktree = path.join(project, '.claude', 'worktrees', 'fix-login')

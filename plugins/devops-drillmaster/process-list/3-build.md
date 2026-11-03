@@ -11,7 +11,7 @@ An AI agent process. It serves the objective's measure **<measure>**.
 
 - A work-ready issue with its start-work brief   ← must meet: `issue-policy` §3 (work-ready)
 - Checked: at 3.2, by the agent (including that its "today" still matches the code)
-- Documented: the field log
+- Documented: the impediment log
 
 ## Steps
 
@@ -25,14 +25,14 @@ An AI agent process. It serves the objective's measure **<measure>**.
 3.7 Check the code against `code-architecture-policy`, `code-style-policy` and `code-test-policy`,
     and run the project's checks.
 3.8 Open the PR as a draft and check it against `pr-policy`.
-3.9 **log** — development friction, noticed items; end.
+3.9 **log** — process summary: what was built, development friction, noticed items, time; end.
 
 ## Output
 
 - Code   ← must meet: `code-architecture-policy`, `code-style-policy`, `code-test-policy`
 - A draft PR   ← must meet: `pr-policy`
 - Checked: at 3.7 and 3.8, by the agent and the project's checks (CI)
-- Documented: the field log; CI results on the PR
+- Documented: the impediment log; CI results on the PR
 
 ## Hands off to
 

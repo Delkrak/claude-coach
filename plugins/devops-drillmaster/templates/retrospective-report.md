@@ -1,4 +1,4 @@
-# After-action report — <DD-MM-YYYY>
+# Retrospective — <DD-MM-YYYY>
 
 Scope: <work items / dates / sessions read>. Focus: <owner's focus, or none>.
 
@@ -9,14 +9,14 @@ Scope: <work items / dates / sessions read>. Focus: <owner's focus, or none>.
 ## 2. What happened
 
 - Measures: <each measure, its value over the scope>
-- Time per stage: <median and worst, from field logs and tracker times>
-- Friction: <counts per kind and per gap, top causes, linked>
+- Time per process: <median and worst, from impediment logs and tracker times>
+- Impediments: <counts per kind and per gap, top causes, linked>
 
 ## 3. Why
 
 <Causes, each tied to evidence.>
 
-## 4. Sustain
+## 4. Keep
 
 - <what worked and stays>
 

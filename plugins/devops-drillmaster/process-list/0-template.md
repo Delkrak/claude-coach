@@ -20,7 +20,7 @@ Each step is cited as `<process> <n>.<k>`; a cited id never changes (drill maste
 <n>.2 Check the input against its policies; a gap goes to the owner.
 <n>.3 <the work, one bounded step per id>
 <n>.k Check the output against its policies.
-<n>.k+1 **log** — <what this process records>; end.
+<n>.k+1 **log** — process summary: outcome, impediments (<what this process records>), time; end.
 
 ## Output
 

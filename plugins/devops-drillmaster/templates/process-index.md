@@ -5,7 +5,7 @@ skill (if the owner chose one).
 
 Priority: <Light / Standard / Full>, owner experience: <…>
 Step model: <evidence + experiment / measure-driven ladder / owner decides>, N = <items>
-Log storage: <comments (issue, then PR) | drills (`.drillmaster/drills/<id>/`)>
+Log storage: <comments (issue, then PR) | items (`.drillmaster/items/<id>/`)>
 
 # Processes, in order
 

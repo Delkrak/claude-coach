@@ -15,7 +15,7 @@ Applies to: releases, the output of release (7).
 
 2.1 Claude MUST verify each change in the deployed environment before calling it released.
     Intent: released means working where users are, not merged.
-    Check: the field log records the verification.
+    Check: the impediment log records the verification.
 
 2.2 Each release MUST have notes listing its issues, in the users' words.
     Intent: users and the owner know what changed.

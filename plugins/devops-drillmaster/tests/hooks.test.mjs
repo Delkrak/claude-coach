@@ -43,14 +43,14 @@ test('correction cues match corrections and leave ordinary requests alone', () =
     'wait',
   ])
     assert.ok(isCorrectionCue(prompt), prompt)
-  for (const prompt of ['Add a login page', 'Looks good, commit it', 'Is there another option?', '/devops-drillmaster:after-action-review no'])
+  for (const prompt of ['Add a login page', 'Looks good, commit it', 'Is there another option?', '/devops-drillmaster:retrospective no'])
     assert.ok(!isCorrectionCue(prompt), prompt)
 })
 
 test('the prompt hook adds the note cue as context on a correction', () => {
   const output = run('frictionCue.mjs', [], project(), { prompt: 'No, I said tokens' })
   assert.equal(output.hookSpecificOutput.hookEventName, 'UserPromptSubmit')
-  assert.match(output.hookSpecificOutput.additionalContext, /field-log/)
+  assert.match(output.hookSpecificOutput.additionalContext, /impediment-log/)
   assert.equal(run('frictionCue.mjs', [], project(), { prompt: 'Add a page' }), undefined)
 })
 
@@ -75,8 +75,9 @@ test('after a candidate call, the next stop is blocked once with the question, t
   const first = run('doneCheck.mjs', ['stop'], dir, { ...session, stop_hook_active: false })
   assert.equal(first.decision, 'block')
   assert.match(first.reason, /gh pr create/)
-  assert.match(first.reason, /field-log/)
-  assert.match(first.reason, /debrief/)
+  assert.match(first.reason, /impediment-log/)
+  assert.match(first.reason, /process summary/)
+  assert.match(first.reason, /item summary/)
   assert.equal(run('doneCheck.mjs', ['stop'], dir, { ...session, stop_hook_active: false }), undefined)
 })
 

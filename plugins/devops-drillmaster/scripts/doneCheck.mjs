@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Asks Claude, once, whether a process step is done after a tool call that often ends one, so the
-// field log gets its end entry and a PR marked ready gets its debrief.
+// Asks Claude, once, whether a process is done after a tool call that often ends one, so the
+// process gets its summary in the impediment log and a PR marked ready gets its item summary.
 //   candidate (PostToolUse): a call like `gh pr ready` leaves a marker for this session.
 //   stop (Stop): with a marker pending, block the stop once and ask; Claude decides.
 
@@ -43,9 +43,9 @@ const markerFile = (sessionId) =>
   path.join(markerDir(), `${String(sessionId).replace(/[^A-Za-z0-9-]/g, '_')}.json`)
 
 export const askReason = (hint) =>
-  `You may have finished a process step (\`${hint}\`). If it is done, log its end with the ` +
-  'devops-drillmaster field-log skill; if a PR was just marked ready, write its debrief. If it ' +
-  'is not done, carry on.'
+  `You may have finished a process (\`${hint}\`). If it is done, write its process summary with ` +
+  'the devops-drillmaster impediment-log skill; if a PR was just marked ready, write its item ' +
+  'summary. If it is not done, carry on.'
 
 export const candidate = (event, dir) => {
   const hint = matchedHint(event, doneHintsIn(fs.readFileSync(processIndex(dir), 'utf8')))

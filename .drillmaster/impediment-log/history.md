@@ -1,3 +1,9 @@
+## 03-11-2026 23:40
+- Changed
+  - Renamed field-log to impediment-log — the owner's framing: "a drill sargent gets hired for an agile setup, so the communication style is military, but the terms are agile"
+  - Every process closes with a process summary; the PR debrief became the item summary built from them — "we need one for each process as well"
+  - Repo storage folder drills/ became items/
+
 ## v1 — 03-11-2026 22:42
 - Not working
   - Friction notes were files in the repository, and covered only the owner's corrections

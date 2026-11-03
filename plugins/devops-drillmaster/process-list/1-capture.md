@@ -21,13 +21,13 @@ An AI agent process. It serves the objective's measure **<measure>**.
 1.4 Set the kind and the epic or project, when the owner named them.
 1.5 Check the issue against `issue-policy` §2 (captured).
 1.6 Save it in the backlog state.
-1.7 **log** — the owner's words, anything missing; end.
+1.7 **log** — process summary: the issue saved, the owner's words, anything missing, time; end.
 
 ## Output
 
 - An issue in the backlog   ← must meet: `issue-policy` §2 (captured)
 - Checked: at 1.5, by the agent
-- Documented: the field log
+- Documented: the impediment log
 
 ## Hands off to
 

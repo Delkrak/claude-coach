@@ -11,7 +11,7 @@ An AI agent process. It serves the objective's measure **<measure>**.
 
 - A draft PR   ← must meet: `pr-policy`; its code the code policies
 - Checked: at 4.2, by the agent (CI green)
-- Documented: the field log
+- Documented: the impediment log
 
 ## Steps
 
@@ -23,14 +23,14 @@ An AI agent process. It serves the objective's measure **<measure>**.
 4.5 Repeat 4.3–4.4 until a round finds nothing, up to the project's cap; past it, go to the owner.
 4.6 Check the review against `review-policy`.
 4.7 Mark the PR ready.
-4.8 **log** — rounds, findings, fixes; end.
+4.8 **log** — process summary: rounds, findings, fixes or answers, time; end.
 
 ## Output
 
 - A ready PR whose review trail is on it   ← must meet: `review-policy`
 - Checked: at 4.6, by the agent
-- Documented: the review rounds and answers on the PR; the field log
+- Documented: the review rounds and answers on the PR; the impediment log
 
 ## Hands off to
 
-Debrief (5) and user review (6), with the ready PR.
+Item summary (5) and user review (6), with the ready PR.

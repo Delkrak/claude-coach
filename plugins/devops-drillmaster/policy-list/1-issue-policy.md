@@ -18,7 +18,7 @@ build (3).
 
 2.1 Claude MUST search the tracker for the same thing before creating an issue, and link a related one.
     Intent: no duplicates; related work stays connected.
-    Check: a tracker search precedes the save; documented in the field log.
+    Check: a tracker search precedes the save; documented in the impediment log.
 
 2.2 A captured issue MUST hold the owner's words.
     Intent: refinement starts from what the owner actually said.
@@ -29,7 +29,7 @@ build (3).
 3.1 Claude MUST base every claim about today's behaviour on code read in the current checkout, and
     name the files.
     Intent: the spec describes the system as it is.
-    Check: the "today" section names files; the field log shows them read before the save.
+    Check: the "today" section names files; the impediment log shows them read before the save.
 
 3.2 A work-ready issue MUST state why, today, what, acceptance criteria, out of scope, and notes.
     Intent: every builder finds the same things in the same place.
@@ -42,7 +42,7 @@ build (3).
 3.4 Claude MUST ask the owner every decision the code can't answer, and the consequences that
     aren't obvious, and record the answers on the issue.
     Intent: the owner decides, knowing the cost.
-    Check: the questions and answers are on the issue; the field log counts them.
+    Check: the questions and answers are on the issue; the impediment log counts them.
 
 3.5 Claude MUST split work too big for one PR into sub-issues that each ship something usable.
     Intent: every PR is reviewable and every merge leaves the system working.

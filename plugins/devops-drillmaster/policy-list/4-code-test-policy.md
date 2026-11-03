@@ -15,7 +15,7 @@ Applies to: tests and checks, part of build's (3) output, and what AI review (4)
 
 2.1 Claude MUST start a bug fix with a test that fails without the fix.
     Intent: the test proves the bug was real and stays fixed.
-    Check: the field log shows the failing run before the fix.
+    Check: the impediment log shows the failing run before the fix.
 
 2.2 Each acceptance criterion MUST be covered by the check it names.
     Intent: done is proven, not claimed.

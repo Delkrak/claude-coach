@@ -19,7 +19,7 @@ Applies to: incident issues, the output of operate (8) and an input of capture (
     Check: the four are on the issue.
 
 2.2 An incident issue MUST link the change that caused it, when known.
-    Intent: the process that let it through can be improved in the after-action review.
+    Intent: the process that let it through can be improved in the retrospective.
     Check: the link is on the issue, or it says the cause is unknown.
 
 ## 3. Exceptions

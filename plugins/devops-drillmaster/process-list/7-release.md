@@ -11,7 +11,7 @@ An AI agent process. It serves the objective's measure **<measure>**.
 
 - Merged PRs not yet released   ← must meet: `pr-policy` (as merged)
 - Checked: at 7.2, by the agent
-- Documented: the field log
+- Documented: the impediment log
 
 ## Steps
 
@@ -20,13 +20,13 @@ An AI agent process. It serves the objective's measure **<measure>**.
 7.3 Deploy, or confirm the automatic deploy ran.
 7.4 Verify the change in the deployed environment.
 7.5 Write the release notes and check them against `release-policy`.
-7.6 **log** — what shipped, deploy problems; end.
+7.6 **log** — process summary: what shipped, deploy problems, time; end.
 
 ## Output
 
 - A release, verified, with its notes   ← must meet: `release-policy`
 - Checked: at 7.4 and 7.5, by the agent
-- Documented: the release notes; the field log
+- Documented: the release notes; the impediment log
 
 ## Hands off to
 

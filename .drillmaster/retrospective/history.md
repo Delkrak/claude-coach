@@ -1,3 +1,8 @@
+## 03-11-2026 23:40
+- Changed
+  - Renamed after-action-review to retrospective — "so AAR should be retrospective"
+  - Reads impediment logs, process summaries and item summaries; reports go to .drillmaster/retrospectives/
+
 ## v1 — 03-11-2026 22:42
 - Changed
   - Renamed from coach-improve-process to after-action-review — "which now can be called retrospective", then the military's AAR

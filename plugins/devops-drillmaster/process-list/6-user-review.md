@@ -10,9 +10,9 @@ measure **<measure>**.
 
 ## Input
 
-- A ready PR with its debrief   ← must meet: `review-policy`
+- A ready PR with its item summary   ← must meet: `review-policy`
 - Checked: at 6.2, by the agent
-- Documented: the field log
+- Documented: the impediment log
 
 ## Steps
 
@@ -22,14 +22,14 @@ measure **<measure>**.
 6.4 Feedback: return the PR to draft, build the feedback into it (3.5–3.8), and run AI review (4)
     again.
 6.5 The owner merges; the issue moves to done.
-6.6 **log** — the owner's feedback, rework rounds; end.
+6.6 **log** — process summary: the owner's feedback, rework rounds, time; end.
 
 ## Output
 
 - A merged PR; the issue done   ← must meet: `pr-policy` (as merged)
 - Checked: at 6.5, by the owner
-- Documented: the merge on the PR; the debrief, updated (5.4)
+- Documented: the merge on the PR; the item summary, updated (5.4)
 
 ## Hands off to
 
-Release (7) when the project deploys beyond merge; otherwise the after-action review (9).
+Release (7) when the project deploys beyond merge; otherwise the retrospective (9).

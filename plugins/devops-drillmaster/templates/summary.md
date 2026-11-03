@@ -1,13 +1,14 @@
-## Debrief — <KEE-n>: <title>
+## Item summary — <work item id>: <title>
 
-Posted on the PR when it is marked ready, before the owner's review; updated after merge.
+Built from the process summaries in the impediment log. Posted when the PR is marked ready, before
+the owner's review; updated after merge.
 
 **Outcome:** <what the work item delivered, one or two sentences>
 
-**Time per stage:** <stage> <h:mm> · <stage> <h:mm> · … (from the field log, cross-checked against
-tracker state times)
+**Time per process:** <process> <h:mm> · <process> <h:mm> · … (cross-checked against tracker state
+times)
 
-**Friction** (from the field log)
+**Impediments**
 - Owner corrections: <n> — <one line each, linked>
 - Development friction: <n> — <one line each, linked>
 - Missing information: <n> — <one line each, linked>

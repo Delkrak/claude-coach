@@ -18,7 +18,7 @@ An AI agent process. It serves the objective's measure **<measure>**.
 8.1 Watch the signals.
 8.2 For each incident, capture it as an issue (1), linked to the change that caused it when known,
     and check it against `incident-policy`.
-8.3 **log** — on the incident issue: what happened, how it was found.
+8.3 **log** — process summary, on the incident issue: what happened, how it was found, time.
 
 ## Output
 

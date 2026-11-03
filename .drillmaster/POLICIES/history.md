@@ -1,3 +1,9 @@
+## 03-11-2026 23:40
+- Changed
+  - §6.5 added: speak and write as a drill sergeant hired for an agile team, with agile terms — the owner's framing
+  - Terms are agile throughout: impediment, impediment log, process summary, item summary, retrospective, items/
+  - §0.8 every process step has an id; §4.6 toolchain re-checked on change; §4.7 owner settings raised when off — from the walkthrough
+
 ## v1 — 03-11-2026 22:42
 - Changed
   - Moved into devops-drillmaster; coach's commands keep their own rules — A2

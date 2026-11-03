@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Set up or update a project's DevOps way of working with the drill master - the owner's objective first, then the toolchain researched (tracker, git host, CI, Claude plan), then the owner's experience and priority, then the stages, processes, policies, artifacts, state ownership and log storage decided with the owner one question at a time, then a stress test before it goes live. Use when the owner wants a process for building software with Claude, asks to set up or redo their way of working, or when an after-action review finds work no process covers.
+description: Set up or update a project's DevOps way of working with the drill master - the owner's objective first, then the toolchain researched (tracker, git host, CI, Claude plan), then the owner's experience and priority, then the stages, processes, policies, artifacts, state ownership and log storage decided with the owner one question at a time, then a stress test before it goes live. Use when the owner wants a process for building software with Claude, asks to set up or redo their way of working, or when a retrospective finds work no process covers.
 ---
 
 # Set up the process
@@ -56,7 +56,7 @@ Before any question about a tool ← §6.2:
 3.2 Ask the priority: how much process to start with, showing the processes of
     `process-list/` (plugin root) in order, with each one's likely relevance to this project, from 2.2's
     findings:
-    - **Light**: capture → build → debrief → user review, and the after-action review.
+    - **Light**: capture → build → item summary → user review, and the retrospective.
     - **Standard**: + refine and AI review.
     - **Full**: + release/deploy, operate/monitor, incidents feeding back into capture.
     Then single stages may be added or dropped.
@@ -107,16 +107,16 @@ in order), showing only the processes the priority kept and the policies they ci
     per state the owner wants to change.
 
 5.6 **Log storage**: show, per kept process, what its log steps record (from the process list), then ask
-    where field logs and debriefs live: **comments** (one running comment on the issue, copied to the
-    PR when it opens) or **drills** (`.drillmaster/drills/<work item id>/`). Change single stages on
-    the owner's word.
+    where impediment logs and summaries live: **comments** (one running comment on the issue, copied
+    to the PR when it opens) or **items** (`.drillmaster/items/<work item id>/`). Change single
+    processes on the owner's word.
 
 5.7 **Step model**: how steps are added later — evidence + experiment, measure-driven ladder, or
     owner decides — and N, the number of items after which an unused step may be proposed for
     removal ← §1.8.
 
-5.8 **Time logging**: field log entries at each step's start and end, cross-checked by the
-    after-action review against tracker state times and session transcripts. Confirm.
+5.8 **Time logging**: a start entry and a process summary with its time for every process,
+    cross-checked by the retrospective against tracker state times and session transcripts. Confirm.
 
 ## 6. Show the whole setup
 
@@ -132,7 +132,8 @@ in order), showing only the processes the priority kept and the policies they ci
 
 7.2 Scaffold each new process as a skill from its file in the plugin's `process-list/` (or
     `0-template.md` for one the list lacks): input and output with the policies they must meet, how
-    each is checked and documented, steps with ids beginning and ending with a log step ← §0.8,
+    each is checked and documented, steps with ids beginning with a log step and ending with the
+    process summary ← §0.8,
     and the objective's measure it serves. Scaffold each new policy as a skill from
     the plugin's `policy-list/` the same way, its rules as 5.3 decided and accepted by the owner rule by
     rule ← §0, §2.3.
@@ -159,8 +160,8 @@ in order), showing only the processes the priority kept and the policies they ci
 ## 9. Go live
 
 9.1 Deliver the change as a PR. No separate trial is needed: the first work items run through the
-    new process, and their field logs show what to improve.
+    new process, and their impediment logs show what to improve.
 
-9.3 Tell the owner what was adopted, scaffolded and skipped, and the next step: work as usual; every
-    step keeps the field log, every PR gets a debrief, and `/devops-drillmaster:after-action-review`
-    turns them into improvements.
+9.3 Report to the owner what was adopted, scaffolded and skipped, and the next step: work as usual;
+    every process keeps the impediment log and closes with its summary, every PR gets an item
+    summary, and `/devops-drillmaster:retrospective` turns them into improvements.

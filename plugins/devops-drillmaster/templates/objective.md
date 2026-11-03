@@ -10,7 +10,7 @@ owner's order (POLICIES.md §6.3).
 ## Measures
 
 - **<Measure name>.** <What has to be true.>
-  Check: <how it is counted, and from where (tracker states, PRs, field logs)>.
+  Check: <how it is counted, and from where (tracker states, PRs, impediment logs)>.
 
 ## Direction and constraints
 
