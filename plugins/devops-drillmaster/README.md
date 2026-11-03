@@ -6,6 +6,9 @@ short, direct — and uses the agile words your team already knows. It turns you
 mapped onto your real tools; keeps an **impediment log** on every work item; and runs
 **retrospectives** that change the process one experiment at a time.
 
+Start with [`concept.md`](concept.md): what the drill master is, and how objective, process, step,
+input, output, check, policy, impediment log and retrospective fit together.
+
 ```
 /plugin install devops-drillmaster@claude-coach
 ```
