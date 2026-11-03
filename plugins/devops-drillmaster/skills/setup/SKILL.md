@@ -156,9 +156,6 @@ in order), showing only the processes the priority kept and the policies they ci
 9.1 Deliver the change the way the owner decides (e.g. as the first work item through the new
     process, or a plain PR).
 
-9.2 Claude Code deletes session transcripts after `cleanupPeriodDays` (30 by default) and the
-    after-action review reads them: offer to raise it in `~/.claude/settings.json`, only on a yes.
-
 9.3 Tell the owner what was adopted, scaffolded and skipped, and the next step: work as usual; every
     step keeps the field log, every PR gets a debrief, and `/devops-drillmaster:after-action-review`
     turns them into improvements.
