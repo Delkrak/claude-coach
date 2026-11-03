@@ -26,19 +26,7 @@ keep what stands, and change only what the owner decides now.
 2. Draft `.drillmaster/objective.md` from `templates/objective.md`, quoting the owner. Show it and
    write it only on approval ← §6.3.
 
-## 2. The owner and the weight
-
-1. Ask how much experience the owner has with this kind of process (new · some · experienced). Adapt:
-   a new owner gets more explanation and recommended defaults; an experienced one gets terser
-   questions and more choices.
-2. Ask how heavy the process should start, showing the full loop with each stage's likely relevance
-   to this project (from step 3's findings if they are in, else from the repository):
-   - **Light**: capture → build → user review.
-   - **Standard**: + refine and AI review.
-   - **Full**: + release/deploy, operate/monitor, incidents feeding back into capture.
-   Then single stages may be added or dropped.
-
-## 3. Research the toolchain
+## 2. Research the toolchain
 
 Before any question about a tool ← §6.2:
 
@@ -53,6 +41,18 @@ Before any question about a tool ← §6.2:
 4. Write `.drillmaster/toolchain.md` from `templates/toolchain.md`, every claim with its source or
    marked unverified.
 
+## 3. The owner and the priority
+
+1. Ask how much experience the owner has with this kind of process (new · some · experienced). Adapt:
+   a new owner gets more explanation and recommended defaults; an experienced one gets terser
+   questions and more choices.
+2. Ask the priority: how much process to start with, showing the full loop with each stage's likely
+   relevance to this project, from step 2's findings:
+   - **Light**: capture → build → user review.
+   - **Standard**: + refine and AI review.
+   - **Full**: + release/deploy, operate/monitor, incidents feeding back into capture.
+   Then single stages may be added or dropped.
+
 ## 4. Take stock of what exists
 
 1. Read the project's skills, commands and CLAUDE.md files, and docs that state rules
@@ -66,10 +66,10 @@ Before any question about a tool ← §6.2:
 ## 5. Design it with the owner
 
 One decision per question ← §6.1. Where a default is still being worked out, ask it with pros and
-cons ← §6.4. When step 3 found a vendor's designed workflow, always propose it as the default, adapted to the
+cons ← §6.4. When step 2 found a vendor's designed workflow, always propose it as the default, adapted to the
 plan tier and the other tools, and say what was adapted and why.
 
-1. **Stages and processes**: for each stage in the chosen weight, adopt an existing skill (show it),
+1. **Stages and processes**: for each stage in the chosen priority, adopt an existing skill (show it),
    scaffold a new one, or skip.
 2. **Co-developed defaults**, each its own question with pros and cons:
    - an entry skill a new person or agent reads first (flow, states, policies, pointer to
@@ -80,7 +80,7 @@ plan tier and the other tools, and say what was adapted and why.
      a miss).
 3. **Policies**: which ones, and for each the source of its rules.
 4. **Artifacts**: each artifact a step produces, its template, and where it is stored.
-5. **States**: for each tracker state, who moves it — the tool's automation (only if step 3
+5. **States**: for each tracker state, who moves it — the tool's automation (only if step 2
    verified it is configured) or a process step. Ask per state.
 6. **Log storage**: offer this default and change it on the owner's word:
 

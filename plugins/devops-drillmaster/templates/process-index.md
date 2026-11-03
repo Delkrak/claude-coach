@@ -3,7 +3,7 @@
 The drill master's index. The objective is `.drillmaster/objective.md`; the story is in the
 entry skill (if the owner chose one).
 
-Weight: <Light / Standard / Full>, owner experience: <…>
+Priority: <Light / Standard / Full>, owner experience: <…>
 Step model: <evidence + experiment / measure-driven ladder / owner decides>, N = <items>
 
 # Stages and processes

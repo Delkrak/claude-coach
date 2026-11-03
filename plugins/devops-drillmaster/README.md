@@ -16,11 +16,12 @@ steps produce), mapped onto your real tools; keeps a **field log** on every issu
 1. **Objective first.** Your goal, how you'll know it works, and your constraints, written to
    `.drillmaster/objective.md` for your approval. It is yours; the drill master never changes it
    without your order.
-2. **You and the weight.** Your experience level, and how heavy to start: Light (capture → build →
-   review), Standard (+ refine, AI review) or Full (+ release, operate, incidents).
-3. **Research before asking.** Your tracker, git host, CI and Claude plan are inventoried and their
+2. **Research before asking.** Your tracker, git host, CI and Claude plan are inventoried and their
    docs read, into `.drillmaster/toolchain.md`. A vendor's designed workflow is proposed as the
    default, after thorough research.
+3. **You and the priority.** Your experience level, and how much process to start with, each stage
+   rated for relevance from the research: Light (capture → build → review), Standard (+ refine, AI
+   review) or Full (+ release, operate, incidents).
 4. **Design with you,** one decision per question: stages, processes, policies, artifacts, who moves
    each tracker state, where the field logs live, and how steps are added or removed later.
 5. **Stress test.** Three independent read-only reviewers walk real and invented scenarios through
