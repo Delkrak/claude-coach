@@ -39,7 +39,7 @@ it can be referenced, and says how to verify it.
 > is proven*, verified by reading each criterion. Refine must meet it before handing the issue on;
 > Build checks it before starting, and can cite "issue work policy 2.3" when it stops.
 
-### Work capture
+### Impediment capture
 
 Every work process captures its impediments, typically as its last step, so that work process can
 be improved. What slowed it down, what was missing, what the owner had to correct: recorded with
@@ -50,7 +50,7 @@ the work item, not left in the chat.
 
 ### Retrospective
 
-The only place work processes and work policies change. From the work capture it asks what should
+The only place work processes and work policies change. From the impediment capture it asks what should
 have happened, what happened, why, what to keep and what to improve. One change at a time, each
 change an experiment judged against the owner's objective.
 
@@ -67,7 +67,7 @@ flowchart LR
     input["Input"]
     proc["Work process<br/>steps"]
     output["Output"]
-    cap[("Work capture<br/>impediments")]
+    cap[("Impediment capture")]
     retro{{"Retrospective"}}
 
     input -->|checked| proc -->|checked| output
