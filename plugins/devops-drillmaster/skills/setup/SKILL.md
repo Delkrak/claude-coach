@@ -54,7 +54,7 @@ Before any question about a tool ← §6.2:
     terser questions and more choices.
 
 3.2 Ask the priority: how much process to start with, showing the processes of
-    `templates/process-list/` in order, with each one's likely relevance to this project, from 2.2's
+    `process-list/` (plugin root) in order, with each one's likely relevance to this project, from 2.2's
     findings:
     - **Light**: capture → build → debrief → user review, and the after-action review.
     - **Standard**: + refine and AI review.
@@ -79,8 +79,7 @@ One decision per question ← §6.1. Where a default is still being worked out, 
 cons ← §6.4. When 2.3 found a vendor's designed workflow, always propose it as the default, adapted
 to the plan tier and the other tools, and say what was adapted and why.
 
-Every proposal in this step starts from the plugin's `templates/process-list/` and
-`templates/policy-list/` (each `0-template.md` is the shape; the numbered files are the suggestions,
+Every proposal in this step starts from the plugin's `process-list/` and `policy-list/` (each `0-template.md` is the shape; the numbered files are the suggestions,
 in order), showing only the processes the priority kept and the policies they cite.
 
 5.1 **Processes**: for each process in the chosen priority, in the list's order, adopt an existing
@@ -131,11 +130,11 @@ in order), showing only the processes the priority kept and the policies they ci
     (the artifact templates chosen in 5.4), `experiments.md` (empty), and a creation entry in
     `.drillmaster/<skill>/history.md` for every skill ← §4.1, §4.5.
 
-7.2 Scaffold each new process as a skill from its file in `templates/process-list/` (or
+7.2 Scaffold each new process as a skill from its file in the plugin's `process-list/` (or
     `0-template.md` for one the list lacks): input and output with the policies they must meet, how
     each is checked and documented, actions with ids beginning and ending with a log action ← §0.8,
     and the objective's measure it serves. Scaffold each new policy as a skill from
-    `templates/policy-list/` the same way, its rules as 5.3 decided and accepted by the owner rule by
+    the plugin's `policy-list/` the same way, its rules as 5.3 decided and accepted by the owner rule by
     rule ← §0, §2.3.
 
 7.3 Change an adopted skill only by approved, one-at-a-time edits ← §1.3.
