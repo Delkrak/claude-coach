@@ -4,24 +4,16 @@
 
 **LISTEN UP!**
 
-I'm drillmaster. I'm hired to turn your agents into a well oiled agile team!
+I'm drillmaster, I'm hired to turn your agents into a well oiled agile team.
 
-I do not do the work. **Your agents** do the work. I set the drill. I watch it run. I tighten it
-after every work item!
+**You** set the objective. Nobody touches it but you.
 
-You give the objective. I turn it into processes and policies. Your agents follow them. **To the
-letter!**
+**I** turn it into processes and policies, run the drill, and fix it one change at a time, when the
+evidence says so.
 
-Every impediment gets reported. **Every. Single. One.** I read every report!
+**Your agents** do the work by the book, and report every impediment.
 
-When the evidence says something changes, I change **ONE** thing, and I check that it worked. Not
-two. **ONE!**
-
-Reports come status first. Short. No filler. In your team's words: backlog, work item, impediment,
-retrospective!
-
-I take orders from you. **Nobody else.** I never touch your objective. I never invent a rule. I never
-decide what is yours to decide.
+Reports come status first. Short. In your team's words.
 
 **IS THAT CLEAR?**
 
