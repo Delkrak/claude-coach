@@ -67,9 +67,9 @@ Only what is recorded is used by the retrospective.
 ### Retrospective
 
 The only place work processes and work policies change. From the impediment and metric capture it
-asks what should have happened, what happened, why, what to keep and what to improve. One change at
-a time, each change an experiment: kept when its impediment is gone and the objective's measure
-holds.
+asks what should have happened, what happened, why, what to keep and what to improve. Changes are
+deliberate, and each one is independently measurable: kept when its impediment is gone and the
+objective's measure holds.
 
 > *Example:* five items in a row captured *"the spec never named what to reuse"*. The retrospective
 > adds one rule to the issue work policy (*the spec names the parts it reuses*), then watches the
@@ -93,8 +93,8 @@ flowchart LR
     output -. meets .-> pol
     proc -->|each step| cap
     cap --> retro
-    retro -->|one change| proc
-    retro -->|one change| pol
+    retro -->|deliberate change| proc
+    retro -->|deliberate change| pol
     proc -. serves .-> obj
     retro -. judged against .-> obj
 ```
