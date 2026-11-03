@@ -49,3 +49,11 @@ Researched: <DD-MM-YYYY HH:mm>
 ## Unverified
 
 - <what could not be checked, and how it would be>
+
+## Owner settings
+
+Settings the process relies on that only the owner can change. When one doesn't behave as expected,
+the process raises it (POLICIES.md §4.7).
+
+- <tool> · <setting, e.g. "on PR merged → move issue to Done"> · where: <settings path> · relied on
+  by: <process> <action id>

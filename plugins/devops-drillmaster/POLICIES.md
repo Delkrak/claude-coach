@@ -191,6 +191,12 @@ an uncited rule binds anyway.
     Check: every change to a tool is followed by a dated `toolchain.md` entry and a check of
     `process.md`.
 
+4.7 When a step relies on an owner setting (`toolchain.md`, Owner settings) and its effect doesn't
+    happen as expected, Claude MUST tell the owner which setting and what was expected, and MUST log
+    it as missing information.
+    Intent: a setting that is off is found the first time it matters, not after work piles up.
+    Check: every such mismatch appears in the field log and was raised with the owner.
+
 ## 5. Preserving what works
 
 5.1 In every AAR Claude MUST name what worked and record it under "Working well" or "Preserved".

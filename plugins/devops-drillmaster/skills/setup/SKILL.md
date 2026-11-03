@@ -139,6 +139,11 @@ in order), showing only the processes the priority kept and the policies they ci
 
 7.3 Change an adopted skill only by approved, one-at-a-time edits ← §1.3.
 
+7.4 List every setting the process relies on that only the owner can change (e.g. a tracker
+    automation that moves issues on PR events), with where to change it, under **Owner settings**
+    in `toolchain.md`, and show the owner the list. The process raises it when one doesn't behave as
+    expected ← §4.7.
+
 ## 8. Stress test before going live
 
 8.1 Start 3 read-only reviewers with the same brief: read `objective.md`, `process.md` and every
@@ -153,8 +158,8 @@ in order), showing only the processes the priority kept and the policies they ci
 
 ## 9. Go live
 
-9.1 Deliver the change the way the owner decides (e.g. as the first work item through the new
-    process, or a plain PR).
+9.1 Deliver the change as a PR. No separate trial is needed: the first work items run through the
+    new process, and their field logs show what to improve.
 
 9.3 Tell the owner what was adopted, scaffolded and skipped, and the next step: work as usual; every
     step keeps the field log, every PR gets a debrief, and `/devops-drillmaster:after-action-review`
