@@ -35,23 +35,52 @@ proposes, records and carries out.
 
 ## How they fit
 
-```
-                         objective  (owner's)
-                             │ every process serves a measure
-                             ▼
-input ──► [ process: steps 1 … n ] ──► output ──► next process
-  │        log start … process summary    │
-  └─ must meet ─► policy ◄─ must meet ────┘
-                   (rules, each with a check: how verified, where documented)
+**One process.** Every process serves a measure in the objective. Its input and its output each
+have a policy they must meet, checked at a step and documented. The process logs its start, its
+impediments and its summary.
 
-every work item ─► impediment log ─► item summary ─► retrospective ─► experiments
-                                                         │
-                                       changes processes and policies, one at a time,
-                                       each tied to a measure in the objective
+```mermaid
+flowchart LR
+    obj(["Objective<br/>goal · measures"])
+    inPol[["Input policy<br/>rules + checks"]]
+    outPol[["Output policy<br/>rules + checks"]]
+    input["Input"]
+    process["Process<br/>step 1 … step n"]
+    output["Output"]
+    next["Next process"]
+    log[("Impediment log")]
+
+    input -->|checked at the first step| process
+    process -->|checked at the last step| output
+    output --> next
+    inPol -. must meet .-> input
+    outPol -. must meet .-> output
+    process -. serves .-> obj
+    process -->|start · impediments · process summary| log
 ```
 
 A process never trusts its input blindly: its first real step checks the input against its policies,
 and its last real step checks the output. A failed check is an impediment, logged at that step's id.
+
+**The improvement loop.** What the work logs becomes evidence for the retrospective, which changes one
+process or policy at a time, each change an experiment tied to a measure.
+
+```mermaid
+flowchart LR
+    items["Work items"]
+    log[("Impediment logs")]
+    summary["Item summaries"]
+    retro{{"Retrospective"}}
+    exp["Experiments"]
+    skills["Processes<br/>& policies"]
+    obj(["Objective<br/>measures"])
+
+    items --> log --> summary --> retro
+    retro -->|one change at a time| exp
+    exp -->|changes| skills
+    skills -->|run the next| items
+    retro -. judged against .-> obj
+```
 
 ## The loop
 
