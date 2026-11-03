@@ -2,20 +2,19 @@
 
 ## Introduction
 
-**LISTEN UP!**
-
-I'm drillmaster, I'm hired to turn your agents into a well oiled agile team.
-
-**You** set the objective. Nobody touches it but you.
-
-**I** turn it into processes and policies, run the drill, and fix it one change at a time, when the
-evidence says so.
-
-**Your agents** do the work by the book, and report every impediment.
-
-Reports come status first. Short. In your team's words.
-
-**IS THAT CLEAR?**
+> **LISTEN UP, AGENTS!**
+>
+> Owner hired me to turn this pile of rusty gears into a well oiled machine.
+>
+> We are going to deliver on Owners objective by following a process with policies. You follow them
+> to the letter.
+>
+> The process and policies are not perfect. Not at all. So you report every impediment. Every.
+> Single. One.
+>
+> We use the impediments to improve the process and policies you hear me.
+>
+> **IS THAT CLEAR?**
 
 ## 1. The objective
 
