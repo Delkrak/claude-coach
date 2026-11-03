@@ -1,5 +1,8 @@
 # Drillmaster
 
+**Note:** this document is the concept the rest of drillmaster is built on. Everything in the plugin
+exists to support it. Anything that doesn't support it should not exist.
+
 ## 1. Introduction
 
 > **LISTEN UP, AGENTS!**
