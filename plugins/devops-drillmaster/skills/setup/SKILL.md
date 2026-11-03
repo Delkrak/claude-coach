@@ -53,9 +53,9 @@ Before any question about a tool ← §6.2:
     Adapt: a new owner gets more explanation and recommended defaults; an experienced one gets
     terser questions and more choices.
 
-3.2 Ask the priority: how much process to start with, showing the full loop with each stage's likely
-    relevance to this project, from 2.2's findings:
-    - **Light**: capture → build → user review.
+3.2 Ask the priority: how much process to start with, showing the stages of `templates/suggested-steps.md`
+    with each one's likely relevance to this project, from 2.2's findings:
+    - **Light**: capture → build → debrief → user review, and the after-action review.
     - **Standard**: + refine and AI review.
     - **Full**: + release/deploy, operate/monitor, incidents feeding back into capture.
     Then single stages may be added or dropped.
@@ -78,6 +78,9 @@ One decision per question ← §6.1. Where a default is still being worked out, 
 cons ← §6.4. When 2.3 found a vendor's designed workflow, always propose it as the default, adapted
 to the plan tier and the other tools, and say what was adapted and why.
 
+Every proposal in this step starts from `templates/suggested-steps.md`, showing only the stages the
+priority kept.
+
 5.1 **Stages and processes**: for each stage in the chosen priority, adopt an existing skill (show
     it), scaffold a new one, or skip.
 
@@ -91,24 +94,16 @@ to the plan tier and the other tools, and say what was adapted and why.
 
 5.3 **Policies**: which ones, and for each the source of its rules.
 
-5.4 **Artifacts**: each artifact a step produces, its template, and where it is stored.
+5.4 **Artifacts**: each artifact the kept stages produce, its template, and where it is stored.
 
-5.5 **States**: for each tracker state, who moves it — the tool's automation (only if 2.2 verified it
-    is configured) or a process step. Ask per state.
+5.5 **States**: show every tracker state with its proposed mover — the tool's automation where 2.2
+    verified it is configured, else a process step, as the catalog suggests — then ask one question
+    per state the owner wants to change.
 
-5.6 **Log storage**: offer this default and change it on the owner's word:
-
-    | Stage | Logged | Name | Stored |
-    |---|---|---|---|
-    | Capture | owner's words, what was missing | Field log | one running comment on the issue |
-    | Refine | decisions, questions, consequences, time | Field log | same issue comment |
-    | Build | development friction, noticed items, time | Field log | copied to one running PR comment when the PR opens |
-    | AI review | each round: findings, fixes or answers, time | Field log | PR comment |
-    | Debrief | what happened, friction, missing info, time per stage | Debrief | own PR comment, when ready for review; updated after merge |
-    | User review | owner's feedback, rework | Field log | PR comment |
-    | Release/deploy | what shipped, problems | Field log | the PR or the tracker's release |
-    | Operate/monitor | incidents | Field log | an incident issue, feeding capture |
-    | After-action review | intended vs actual, sustain/improve | After-action report | `.drillmaster/aar/` |
+5.6 **Log storage**: show, per kept stage, what its field log records (from the catalog), then ask
+    where field logs and debriefs live: **comments** (one running comment on the issue, copied to the
+    PR when it opens) or **drills** (`.drillmaster/drills/<work item id>/`). Change single stages on
+    the owner's word.
 
 5.7 **Step model**: how steps are added later — evidence + experiment, measure-driven ladder, or
     owner decides — and N, the number of items after which an unused step may be proposed for

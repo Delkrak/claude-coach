@@ -158,14 +158,17 @@ an uncited rule binds anyway.
     - `templates/` — one template per artifact;
     - `<skill>/history.md` and `<skill>/versions/v<N>.md` — how each skill changed;
     - `experiments.md` — every experiment;
-    - `aar/<DD-MM-YYYY>.md` — one after-action report per review.
+    - `aar/<DD-MM-YYYY>.md` — one after-action report per review;
+    - `drills/<work item id>/` — a work item's field log and debrief, only when the owner chose
+      **drills** as log storage.
     Intent: what the process is and how it changed lives with the project, in version control.
-    Check: these files exist where listed, and no work item's log is kept there.
+    Check: these files exist where listed, and work item logs appear only under `drills/`.
 
-4.2 Claude MUST keep each work item's field log and debrief where `process.md`'s Log storage says,
-    never in the repository.
-    Intent: a work item's record travels with the work and doesn't clutter the repository.
-    Check: field logs and debriefs appear on the issue and PR (or where storage says), not in files.
+4.2 Claude MUST keep each work item's field log and debrief where `process.md`'s Log storage says:
+    **comments** (one running comment on the issue, then on the PR) or **drills**
+    (`.drillmaster/drills/<work item id>/`), and nowhere else.
+    Intent: a work item's record is in one known place, chosen by the owner.
+    Check: field logs and debriefs appear only where Log storage says.
 
 4.3 Claude MUST date every entry `DD-MM-YYYY HH:mm`, local time, read from the clock, never guessed.
     Intent: entries sort and compare the same way, and time per step is real.

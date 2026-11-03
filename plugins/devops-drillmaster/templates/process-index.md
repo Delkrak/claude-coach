@@ -34,6 +34,8 @@ Step model: <evidence + experiment / measure-driven ladder / owner decides>, N =
 
 # Log storage
 
-| Stage | Logged | Name | Stored |
-|---|---|---|---|
-| <stage> | <what> | Field log / Debrief / After-action report | <where> |
+Field logs and debriefs: <comments (issue, then PR) | drills (`.drillmaster/drills/<id>/`)>
+
+| Stage | Field log records | Stored (if not the default above) |
+|---|---|---|
+| <stage> | <what, from suggested-steps> | <where> |

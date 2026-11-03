@@ -34,10 +34,12 @@ evidence ← §2.1, §3.
 
 1.3 **end** — at the end of a process step: `time · ended`, plus anything not yet logged.
 
-1.4 Write it where Log storage names for this stage. By default that is one running comment titled
-    `Field log — <item>` on the issue during capture and refinement; when the PR opens, the log is
-    copied into one running comment on the PR and appended there from then on. Update the running
-    comment rather than posting a new one ← §4.2.
+1.4 Write it where Log storage says ← §4.2:
+    - **comments**: one running comment titled `Field log — <item>` on the issue during capture and
+      refinement; when the PR opens, copied into one running comment on the PR and appended there.
+      Update the running comment rather than posting a new one.
+    - **drills**: `.drillmaster/drills/<work item id>/field-log.md`, committed on the work item's
+      branch.
 
 1.5 For an owner correction only, tell the owner in one line: "Logged: <the gap, a few words>."
 
@@ -47,7 +49,8 @@ When the PR is marked ready for the owner's review (the done hook asks):
 
 2.1 Read the item's field log, and cross-check time per stage against the tracker's state times.
 
-2.2 Write the debrief from `templates/debrief.md` as its own PR comment, or where Log storage says.
+2.2 Write the debrief from `templates/debrief.md`: its own PR comment (**comments**), or
+    `.drillmaster/drills/<work item id>/debrief.md` (**drills**).
 
 2.3 Add an observation to each running experiment in `.drillmaster/experiments.md` that this item
     bears on: `seen | not seen — <link>` ← §2.1.

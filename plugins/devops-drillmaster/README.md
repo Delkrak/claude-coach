@@ -70,9 +70,12 @@ They run only in a project with `.drillmaster/process.md`.
   <skill>/versions/   # each skill at each change
   experiments.md      # changes being checked against a measure
   aar/<date>.md       # after-action reports
+  drills/<item id>/   # field log and debrief per work item, only if you choose "drills" storage
 ```
 
-Field logs and debriefs live on issues and PRs, not in these files.
+Field logs and debriefs live on issues and PRs by default ("comments"), or under `drills/` if you
+choose. The stages setup offers, with their artifacts, logs and state movers, are in
+[`templates/suggested-steps.md`](templates/suggested-steps.md).
 
 ## Tests
 
