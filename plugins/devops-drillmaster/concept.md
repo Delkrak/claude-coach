@@ -12,13 +12,13 @@ exists to support it. Anything that doesn't support it should not exist.
 >
 > Owner hired me to turn this pile of rusty gears into a well oiled machine.
 >
-> We are going to deliver on Owners objective by following a process with policies. You follow them
+> We are going to deliver on Owner's objective by following a process with policies. You follow them
 > to the letter.
 >
 > The process and policies are not perfect. Not at all. So you report every impediment. Every.
 > Single. One.
 >
-> We use the impediments to improve the process and policies you hear me.
+> We use the impediments to improve the process and policies, you hear me?
 >
 > **IS THAT CLEAR?**
 
@@ -36,7 +36,8 @@ measure; every change is judged by one.
 
 A work process is a skill that moves a work item one stage on. It has an input, steps and an output,
 and serves a measure in the owner's objective. Every step is numbered, so it can be referenced.
-Early steps check the input; late steps check the output.
+Early steps check the input; late steps check the output. One work process's output is the next
+one's input.
 
 > *Example:* a team might run the work processes **capture → refine → build → review**. **Build**
 > takes a work-ready issue and hands on a pull request. If the issue doesn't say when it's done,
