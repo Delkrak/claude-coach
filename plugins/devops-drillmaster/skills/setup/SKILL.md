@@ -81,8 +81,10 @@ to the plan tier and the other tools, and say what was adapted and why.
 Every proposal in this step starts from `templates/suggested-steps.md`, showing only the stages the
 priority kept.
 
-5.1 **Stages and processes**: for each stage in the chosen priority, adopt an existing skill (show
-    it), scaffold a new one, or skip.
+5.1 **Stages and processes**: for each stage in the chosen priority, in the catalog's order, adopt an
+    existing skill (show it), scaffold a new one, or skip. For a scaffolded stage, show its
+    suggested steps in order and let the owner keep, change or drop each; the kept steps keep their
+    catalog ids.
 
 5.2 **Co-developed defaults**, each its own question with pros and cons:
     - an entry skill a new person or agent reads first (flow, states, policies, pointer to
