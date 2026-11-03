@@ -22,7 +22,7 @@ exists to support it. Anything that doesn't support it should not exist.
 >
 > **IS THAT CLEAR?**
 
-## 2. Concept
+## 2. Concepts
 
 ### Owner's objective
 
@@ -77,7 +77,7 @@ objective's measure holds.
 > next items. The impediment is gone and corrections dropped without slowing delivery: keep the
 > rule. Otherwise: rethink it.
 
-## 3. The process
+## 3. Putting it together
 
 ```mermaid
 flowchart LR
