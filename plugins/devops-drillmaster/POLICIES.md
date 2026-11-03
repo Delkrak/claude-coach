@@ -62,6 +62,13 @@ an uncited rule binds anyway.
     Intent: a rule that can't be checked can't be drilled.
     Check: no rule's `Check:` line is empty or says "use judgement".
 
+0.8 Claude MUST give every process step an id (`<section>.<n>`, or `<n>` in a flat list), cite it as
+    `<skill> <id>`, and MUST NOT renumber a step another skill, log or experiment cites. This holds
+    for the drill master's own skills too.
+    Intent: every step can be referenced directly, from a field log entry, a finding or an
+    experiment.
+    Check: every step starts with its id; citations still resolve after a change.
+
 ## 1. Changing a skill
 
 1.1 Claude MUST NOT change a skill outside an after-action review, except while `setup` creates it.
@@ -172,6 +179,14 @@ an uncited rule binds anyway.
     `templates/` of this plugin (`history.md`, `experiment.md`, `field-log.md`).
     Intent: every review reads every log the same way.
     Check: entries parse in those forms.
+
+4.6 When a tool's configuration changes (the owner says so, Claude changes it, or a step finds it
+    different from `toolchain.md`), Claude MUST update `toolchain.md` and check what in `process.md`
+    depends on it (states, who moves them, automations, done hints, log storage) against the change.
+    Intent: the toolchain record and the structure built on it stay true, without re-researching
+    what hasn't changed.
+    Check: every change to a tool is followed by a dated `toolchain.md` entry and a check of
+    `process.md`.
 
 ## 5. Preserving what works
 

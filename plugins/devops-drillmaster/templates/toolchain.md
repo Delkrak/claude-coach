@@ -1,9 +1,15 @@
 # Toolchain
 
-The tools the process runs on, as configured in this project. Written by `setup`, re-checked by
-`after-action-review`. Every claim cites the doc it was read from or says "unverified".
+The tools the process runs on, as configured in this project. Written by `setup`; updated whenever
+a tool's configuration changes, with what depends on it in `process.md` checked (POLICIES.md §4.6).
+Every claim cites the doc it was read from or says "unverified".
 
 Researched: <DD-MM-YYYY HH:mm>
+
+## Changes
+
+- <DD-MM-YYYY HH:mm> · <tool> · <what changed> · process.md checked: <what was affected, or nothing>
+
 
 ## Tracker (<Linear / Jira / GitHub Issues / …>)
 

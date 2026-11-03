@@ -15,35 +15,44 @@ templates.
 
 **Arguments:** $ARGUMENTS: `start`, `entry`, `end` or `debrief`. With none, pick from the situation.
 
-## Entries
+Every step has an id, cited as `field-log <id>` ← §0.8.
 
-Every entry follows `templates/field-log.md`: time (read from the clock ← §4.3), stage and step,
-**kind**, what happened, the gap for friction, and evidence ← §2.1, §3.
+## 1. Entries
 
-- **start** — at the beginning of a process step: `time · started`.
-- **entry** — whenever one of these happens during a step:
-  - **owner correction**: the owner corrects, redirects, repeats, stops or undoes something (the
-    prompt hook cues this; decide whether it really is one — a new request is not);
-  - **development friction**: work redone, retried, stuck, or slower than it needed to be;
-  - **missing information**: something needed to continue was not where the process said.
-  Classify each by gap: process, policy or not covered ← §3.2, §3.3.
-- **end** — at the end of a process step: `time · ended`, plus anything not yet logged.
+Every entry follows `templates/field-log.md`: time (read from the clock ← §4.3), the process step it
+belongs to by id (e.g. `build-issue-process 3`), **kind**, what happened, the gap for friction, and
+evidence ← §2.1, §3.
 
-Where it goes: the place Log storage names for this stage. By default that is one running comment
-titled `Field log — <item>` on the issue during capture and refinement; when the PR opens, the log
-is copied into one running comment on the PR and appended there from then on. Update the running
-comment rather than posting a new one.
+1.1 **start** — at the beginning of a process step: `time · started`.
 
-After writing, one line to the owner, only for an owner correction: "Logged: <the gap, a few words>."
+1.2 **entry** — whenever one of these happens during a step:
+    - **owner correction**: the owner corrects, redirects, repeats, stops or undoes something (the
+      prompt hook cues this; decide whether it really is one — a new request is not);
+    - **development friction**: work redone, retried, stuck, or slower than it needed to be;
+    - **missing information**: something needed to continue was not where the process said.
+    Classify each by gap: process, policy or not covered ← §3.2, §3.3.
 
-## Debrief
+1.3 **end** — at the end of a process step: `time · ended`, plus anything not yet logged.
+
+1.4 Write it where Log storage names for this stage. By default that is one running comment titled
+    `Field log — <item>` on the issue during capture and refinement; when the PR opens, the log is
+    copied into one running comment on the PR and appended there from then on. Update the running
+    comment rather than posting a new one ← §4.2.
+
+1.5 For an owner correction only, tell the owner in one line: "Logged: <the gap, a few words>."
+
+## 2. Debrief
 
 When the PR is marked ready for the owner's review (the done hook asks):
 
-1. Read the item's field log, and cross-check time per stage against the tracker's state times.
-2. Write the debrief from `templates/debrief.md` as its own PR comment, or where Log storage says.
-3. Add an observation to each running experiment in `.drillmaster/experiments.md` that this item
-   bears on: `seen | not seen — <link>` ← §2.1.
-4. After the merge, update the debrief with the owner's review: rework rounds, comments, merge time.
-5. Suggest `/devops-drillmaster:after-action-review` in one line when a running experiment has 3 or
-   more observations, or the owner's chosen AAR rhythm says it is due. Otherwise say nothing more.
+2.1 Read the item's field log, and cross-check time per stage against the tracker's state times.
+
+2.2 Write the debrief from `templates/debrief.md` as its own PR comment, or where Log storage says.
+
+2.3 Add an observation to each running experiment in `.drillmaster/experiments.md` that this item
+    bears on: `seen | not seen — <link>` ← §2.1.
+
+2.4 After the merge, update the debrief with the owner's review: rework rounds, comments, merge time.
+
+2.5 Suggest `/devops-drillmaster:after-action-review` in one line when a running experiment has 3 or
+    more observations, or the owner's chosen AAR rhythm says it is due. Otherwise say nothing more.

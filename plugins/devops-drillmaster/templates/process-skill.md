@@ -13,6 +13,9 @@ TODO: <the trigger: what the owner says or what state the work is in>.
 
 ## Steps
 
+Each step is cited as `<process name> <n>`; a cited number never changes, and a removed step's
+number is never reused (drill master POLICIES.md §0.8).
+
 1. Log the start in the field log (`devops-drillmaster:field-log`).
 2. TODO: <one bounded action>   ← <policy>-policy §<n>
 3. TODO: <one bounded action>
