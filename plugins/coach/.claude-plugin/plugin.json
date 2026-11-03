@@ -1,6 +1,6 @@
 {
   "name": "coach",
-  "description": "A coach for your Claude Code workflow.",
-  "version": "1.3.0",
+  "description": "A coach for your Claude Code commands: captures corrections from a session and applies them back to the command.",
+  "version": "2.0.0",
   "author": { "name": "delkrak" }
 }

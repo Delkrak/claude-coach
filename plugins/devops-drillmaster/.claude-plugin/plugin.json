@@ -1,0 +1,6 @@
+{
+  "name": "devops-drillmaster",
+  "description": "A drill master for a DevOps way of working: sets up processes and policies around your objective and toolchain, keeps a field log on every issue and PR, and runs after-action reviews that change the process one experiment at a time.",
+  "version": "0.1.0",
+  "author": { "name": "delkrak" }
+}
