@@ -13,7 +13,7 @@ An AI agent process. It serves the objective's measure **<measure>**.
 - Checked: at 5.1, by the agent
 - Documented: —
 
-## Actions
+## Steps
 
 5.1 Check the field log is complete: every process so far has a start and an end.
 5.2 Write the debrief from `templates/debrief.md`: outcome, time per stage, friction by kind,

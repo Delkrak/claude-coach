@@ -6,7 +6,7 @@ description: <What it turns into what, e.g. "Turn a work-ready issue into a draf
 # <n>. <Process> — <Light | Standard | Full>
 
 An AI agent process. It serves the objective's measure **<measure>** (`.drillmaster/objective.md`).
-Each action is cited as `<process> <n>.<k>`; a cited id never changes (drill master POLICIES §0.8).
+Each step is cited as `<process> <n>.<k>`; a cited id never changes (drill master POLICIES §0.8).
 
 ## Input
 
@@ -14,11 +14,11 @@ Each action is cited as `<process> <n>.<k>`; a cited id never changes (drill mas
 - Checked: at <n>.2, by <who>
 - Documented: <where the check's result is recorded>
 
-## Actions
+## Steps
 
 <n>.1 **log** — start.
 <n>.2 Check the input against its policies; a gap goes to the owner.
-<n>.3 <the work, one bounded action per id>
+<n>.3 <the work, one bounded step per id>
 <n>.k Check the output against its policies.
 <n>.k+1 **log** — <what this process records>; end.
 

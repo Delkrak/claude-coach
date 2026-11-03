@@ -14,7 +14,7 @@ measure **<measure>**.
 - Checked: at 6.2, by the agent
 - Documented: the field log
 
-## Actions
+## Steps
 
 6.1 **log** — start.
 6.2 Check the input against its policy.

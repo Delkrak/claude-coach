@@ -84,8 +84,8 @@ in order), showing only the processes the priority kept and the policies they ci
 
 5.1 **Processes**: for each process in the chosen priority, in the list's order, adopt an existing
     skill (show it), scaffold it from the list, or skip. For a scaffolded process, show its input,
-    actions and output in order, and let the owner keep, change or drop each action; kept actions
-    keep their ids.
+    steps and output in order, and let the owner keep, change or drop each step; kept steps keep
+    their ids.
 
 5.2 **Co-developed defaults**, each its own question with pros and cons:
     - an entry skill a new person or agent reads first (flow, states, policies, pointer to
@@ -106,7 +106,7 @@ in order), showing only the processes the priority kept and the policies they ci
     verified it is configured, else a process step, as the process list suggests — then ask one question
     per state the owner wants to change.
 
-5.6 **Log storage**: show, per kept process, what its log actions record (from the process list), then ask
+5.6 **Log storage**: show, per kept process, what its log steps record (from the process list), then ask
     where field logs and debriefs live: **comments** (one running comment on the issue, copied to the
     PR when it opens) or **drills** (`.drillmaster/drills/<work item id>/`). Change single stages on
     the owner's word.
@@ -132,7 +132,7 @@ in order), showing only the processes the priority kept and the policies they ci
 
 7.2 Scaffold each new process as a skill from its file in the plugin's `process-list/` (or
     `0-template.md` for one the list lacks): input and output with the policies they must meet, how
-    each is checked and documented, actions with ids beginning and ending with a log action ← §0.8,
+    each is checked and documented, steps with ids beginning and ending with a log step ← §0.8,
     and the objective's measure it serves. Scaffold each new policy as a skill from
     the plugin's `policy-list/` the same way, its rules as 5.3 decided and accepted by the owner rule by
     rule ← §0, §2.3.

@@ -13,7 +13,7 @@ An AI agent process. It serves the objective's measure **<measure>**.
 - Checked: —
 - Documented: —
 
-## Actions
+## Steps
 
 8.1 Watch the signals.
 8.2 For each incident, capture it as an issue (1), linked to the change that caused it when known,

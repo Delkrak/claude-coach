@@ -13,7 +13,7 @@ An AI agent process. It serves the objective's measure **<measure>**.
 - Checked: at 4.2, by the agent (CI green)
 - Documented: the field log
 
-## Actions
+## Steps
 
 4.1 **log** — start.
 4.2 Check the input against its policies.

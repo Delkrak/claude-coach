@@ -80,7 +80,7 @@ choose.
 
 What setup offers, in suggested order:
 - [`process-list/`](process-list/): `0-template.md` is the shape of an AI agent
-  process (its input and the policies it must meet, its actions, its output and the policies it must
+  process (its input and the policies it must meet, its steps, its output and the policies it must
   meet, how each is checked and documented); `1-capture.md` … `9-after-action-review.md` are the
   suggested processes of the DevOps loop.
 - [`policy-list/`](policy-list/): `0-template.md` is the shape of a policy;

@@ -15,7 +15,7 @@ measure in the objective.
 - Checked: by the after-action review, 2.1–2.4
 - Documented: the after-action report
 
-## Actions
+## Steps
 
 9.1 Run `/devops-drillmaster:after-action-review` on the project's rhythm, or when a debrief says it
     is due.

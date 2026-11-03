@@ -13,7 +13,7 @@ An AI agent process. It serves the objective's measure **<measure>**.
 - Checked: —
 - Documented: —
 
-## Actions
+## Steps
 
 1.1 **log** — start.
 1.2 Search the tracker for the same thing; link or add to it instead of creating a duplicate.

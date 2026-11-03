@@ -56,4 +56,4 @@ Settings the process relies on that only the owner can change. When one doesn't 
 the process raises it (POLICIES.md §4.7).
 
 - <tool> · <setting, e.g. "on PR merged → move issue to Done"> · where: <settings path> · relied on
-  by: <process> <action id>
+  by: <process> <step id>
