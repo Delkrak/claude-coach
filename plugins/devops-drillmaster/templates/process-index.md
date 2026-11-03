@@ -1,41 +1,26 @@
 # <Project>'s process
 
-The drill master's index. The objective is `.drillmaster/objective.md`; the story is in the
-entry skill (if the owner chose one).
+The drill master's index. The objective is `.drillmaster/objective.md`; the story is in the entry
+skill (if the owner chose one).
 
 Priority: <Light / Standard / Full>, owner experience: <…>
 Step model: <evidence + experiment / measure-driven ladder / owner decides>, N = <items>
+Log storage: <comments (issue, then PR) | drills (`.drillmaster/drills/<id>/`)>
 
-# Stages and processes
+# Processes, in order
 
-## <process> — <adopted | scaffolded>
+## <n>. <process> — <adopted | scaffolded>
 - Skill: .claude/skills/<name>/SKILL.md
-- Stage: <capture | refine | build | AI review | user review | release | operate | …>
-- Covers: <what comes in → what goes out>
-- Produces: <artifacts, each with its template>
+- Serves: <measure in objective.md>
+- Input: <what> ← <policy> §<n>
+- Output: <what> ← <policy> §<n>
 - States: <from → to>, moved by <process | tool automation>
-- Cites: <policy>, <policy>
 - Hands off to: <next process>
-- Done hints: <tool calls that often end its work item>
-- Field log: <where this step logs>
+- Done hints: <tool calls that often end it>
 
 # Policies
 
 ## <policy> — <adopted | scaffolded>
 - Skill: .claude/skills/<name>/SKILL.md
-- Covers: <when it applies>
-- Cited by: <process>, <process>
-
-# Artifacts
-
-| Artifact | Made by | Template | Stored |
-|---|---|---|---|
-| <issue spec> | <process> | templates/<file> | <where> |
-
-# Log storage
-
-Field logs and debriefs: <comments (issue, then PR) | drills (`.drillmaster/drills/<id>/`)>
-
-| Stage | Field log records | Stored (if not the default above) |
-|---|---|---|
-| <stage> | <what, from suggested-steps> | <where> |
+- Governs: <which outputs (and the inputs they become)>
+- Cited by: <process> input | output

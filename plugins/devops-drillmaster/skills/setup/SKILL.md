@@ -53,8 +53,9 @@ Before any question about a tool ← §6.2:
     Adapt: a new owner gets more explanation and recommended defaults; an experienced one gets
     terser questions and more choices.
 
-3.2 Ask the priority: how much process to start with, showing the stages of `templates/suggested-steps.md`
-    with each one's likely relevance to this project, from 2.2's findings:
+3.2 Ask the priority: how much process to start with, showing the processes of
+    `templates/process-list/` in order, with each one's likely relevance to this project, from 2.2's
+    findings:
     - **Light**: capture → build → debrief → user review, and the after-action review.
     - **Standard**: + refine and AI review.
     - **Full**: + release/deploy, operate/monitor, incidents feeding back into capture.
@@ -78,13 +79,14 @@ One decision per question ← §6.1. Where a default is still being worked out, 
 cons ← §6.4. When 2.3 found a vendor's designed workflow, always propose it as the default, adapted
 to the plan tier and the other tools, and say what was adapted and why.
 
-Every proposal in this step starts from `templates/suggested-steps.md`, showing only the stages the
-priority kept.
+Every proposal in this step starts from the plugin's `templates/process-list/` and
+`templates/policy-list/` (each `0-template.md` is the shape; the numbered files are the suggestions,
+in order), showing only the processes the priority kept and the policies they cite.
 
-5.1 **Stages and processes**: for each stage in the chosen priority, in the catalog's order, adopt an
-    existing skill (show it), scaffold a new one, or skip. For a scaffolded stage, show its
-    suggested steps in order and let the owner keep, change or drop each; the kept steps keep their
-    catalog ids.
+5.1 **Processes**: for each process in the chosen priority, in the list's order, adopt an existing
+    skill (show it), scaffold it from the list, or skip. For a scaffolded process, show its input,
+    actions and output in order, and let the owner keep, change or drop each action; kept actions
+    keep their ids.
 
 5.2 **Co-developed defaults**, each its own question with pros and cons:
     - an entry skill a new person or agent reads first (flow, states, policies, pointer to
@@ -94,15 +96,18 @@ priority kept.
     - how questions to the owner are asked and counted (e.g. a "Needs input" state as the measure
       of a miss).
 
-5.3 **Policies**: which ones, and for each the source of its rules.
+5.3 **Policies**: every output the kept processes produce is governed by a policy (code included).
+    For each policy the kept processes cite, adopt an existing one, scaffold it from the policy
+    list, or skip; then, rule by rule, keep the list's suggested rules or draft the project's own from
+    its text (as 5.2 decided), each with how it is checked and where that is documented.
 
 5.4 **Artifacts**: each artifact the kept stages produce, its template, and where it is stored.
 
 5.5 **States**: show every tracker state with its proposed mover — the tool's automation where 2.2
-    verified it is configured, else a process step, as the catalog suggests — then ask one question
+    verified it is configured, else a process step, as the process list suggests — then ask one question
     per state the owner wants to change.
 
-5.6 **Log storage**: show, per kept stage, what its field log records (from the catalog), then ask
+5.6 **Log storage**: show, per kept process, what its log actions record (from the process list), then ask
     where field logs and debriefs live: **comments** (one running comment on the issue, copied to the
     PR when it opens) or **drills** (`.drillmaster/drills/<work item id>/`). Change single stages on
     the owner's word.
@@ -126,10 +131,12 @@ priority kept.
     (the artifact templates chosen in 5.4), `experiments.md` (empty), and a creation entry in
     `.drillmaster/<skill>/history.md` for every skill ← §4.1, §4.5.
 
-7.2 Scaffold each new process from `templates/process-skill.md`, its steps numbered with ids and
-    beginning and ending with a field log step ← §0.8. Scaffold each new policy from
-    `templates/policy-skill.md`, its rules drafted as 5.2 and 5.3 decided and accepted by the owner
-    rule by rule ← §0, §2.3.
+7.2 Scaffold each new process as a skill from its file in `templates/process-list/` (or
+    `0-template.md` for one the list lacks): input and output with the policies they must meet, how
+    each is checked and documented, actions with ids beginning and ending with a log action ← §0.8,
+    and the objective's measure it serves. Scaffold each new policy as a skill from
+    `templates/policy-list/` the same way, its rules as 5.3 decided and accepted by the owner rule by
+    rule ← §0, §2.3.
 
 7.3 Change an adopted skill only by approved, one-at-a-time edits ← §1.3.
 

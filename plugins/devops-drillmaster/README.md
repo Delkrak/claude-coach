@@ -74,8 +74,17 @@ They run only in a project with `.drillmaster/process.md`.
 ```
 
 Field logs and debriefs live on issues and PRs by default ("comments"), or under `drills/` if you
-choose. The stages setup offers, with their artifacts, logs and state movers, are in
-[`templates/suggested-steps.md`](templates/suggested-steps.md).
+choose.
+
+## Process list and policy list
+
+What setup offers, in suggested order:
+- [`templates/process-list/`](templates/process-list/): `0-template.md` is the shape of an AI agent
+  process (its input and the policies it must meet, its actions, its output and the policies it must
+  meet, how each is checked and documented); `1-capture.md` … `9-after-action-review.md` are the
+  suggested processes of the DevOps loop.
+- [`templates/policy-list/`](templates/policy-list/): `0-template.md` is the shape of a policy;
+  `1-issue-policy.md` … `8-incident-policy.md` cover every output, code included.
 
 ## Tests
 
