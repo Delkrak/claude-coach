@@ -1,22 +1,23 @@
 #!/usr/bin/env node
-// Asks Claude, once, whether a work item is done after a tool call that often ends one.
-//   candidate (PostToolUse): a call like `gh pr create` leaves a marker for this session.
+// Asks Claude, once, whether a process step is done after a tool call that often ends one, so the
+// field log gets its end entry and a PR marked ready gets its debrief.
+//   candidate (PostToolUse): a call like `gh pr ready` leaves a marker for this session.
 //   stop (Stop): with a marker pending, block the stop once and ask; Claude decides.
 
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { runHook } from './hookInput.mjs'
+import { processIndex, runHook } from './hookInput.mjs'
 
 const DEFAULT_BASH_HINTS = [
-  /\bgh\s+pr\s+(create|merge|review)\b/,
+  /\bgh\s+pr\s+(create|ready|merge|review)\b/,
   /\bgh\s+issue\s+(create|close)\b/,
   /\bglab\s+mr\s+(create|merge)\b/,
 ]
 const DEFAULT_TOOL_HINTS = [/^mcp__.*(save_issue|create_issue|update_issue|pull_request)/i]
 
-/** The project's own done hints: every `Done hints:` entry in .coach/process.md. */
+/** The project's own done hints: every `Done hints:` entry in .drillmaster/process.md. */
 export const doneHintsIn = (processText) =>
   [...processText.matchAll(/Done hints:\s*([^\n·]+)/gi)]
     .flatMap((match) => match[1].split(','))
@@ -36,17 +37,18 @@ export const matchedHint = (event, projectHints = []) => {
   return projectHints.find((hint) => text.toLowerCase().includes(hint.toLowerCase()))
 }
 
-const markerDir = () => process.env.COACH_MARKER_DIR ?? path.join(os.tmpdir(), 'coach-done')
+const markerDir = () =>
+  process.env.DRILLMASTER_MARKER_DIR ?? path.join(os.tmpdir(), 'drillmaster-done')
 const markerFile = (sessionId) =>
   path.join(markerDir(), `${String(sessionId).replace(/[^A-Za-z0-9-]/g, '_')}.json`)
 
 export const askReason = (hint) =>
-  `You may have finished a work item (\`${hint}\`). If it is done, use the coach-note-friction ` +
-  'skill in wrap-up mode for it. If it is not done, carry on.'
+  `You may have finished a process step (\`${hint}\`). If it is done, log its end with the ` +
+  'devops-drillmaster field-log skill; if a PR was just marked ready, write its debrief. If it ' +
+  'is not done, carry on.'
 
 export const candidate = (event, dir) => {
-  const processFile = path.join(dir, '.coach', 'process.md')
-  const hint = matchedHint(event, doneHintsIn(fs.readFileSync(processFile, 'utf8')))
+  const hint = matchedHint(event, doneHintsIn(fs.readFileSync(processIndex(dir), 'utf8')))
   if (!hint || !event.session_id) return undefined
   fs.mkdirSync(markerDir(), { recursive: true })
   fs.writeFileSync(markerFile(event.session_id), JSON.stringify({ hint }))

@@ -1,24 +1,33 @@
-# Coach policies
+# Drill master policies
 
-Applies to: Claude, whenever it runs a coach skill or command (`create-command`, `coach-command`,
-`coach-setup-process`, `coach-note-friction`, `coach-improve-process`).
+Applies to: Claude, whenever it runs a devops-drillmaster skill (`setup`, `field-log`,
+`after-action-review`).
 
-A coach process cites the rule it applies as `← POLICIES.md §<n>`. A cited rule binds at that step;
+A skill step cites the rule it applies as `← POLICIES.md §<n>`. A cited rule binds at that step;
 an uncited rule binds anyway.
 
 ## Definitions
 
-- **Skill**: a skill or command file a coach process can change: a project's process or policy, or
-  one of coach's own.
+- **Owner**: the person whose project this is. The owner decides; the drill master records and
+  carries out.
+- **Objective**: `.drillmaster/objective.md` — the goal, its measures and the direction. Owned by
+  the owner.
 - **Process**: a skill made of steps; it describes how a work item moves.
 - **Policy**: a skill made of rules; it describes what must hold, inside or outside a process.
-- **Work item**: one unit of delivered work: an issue, a pull request, a review.
-- **Friction**: a moment where the user corrected, redirected, repeated, stopped or undid what
-  Claude did, or where work was redone.
-- **Review**: a run of `coach-command` or `coach-improve-process`.
-- **Change**: an edit to a skill's text.
-- **Experiment**: a change with an intended outcome and a check, logged in `experiments.md`.
-- **Evidence**: a session id together with the user's words, quoted.
+- **Artifact**: a thing a process step produces (an issue spec, a start-work brief, a PR, a field
+  log, a debrief); its form is a template in `.drillmaster/templates/`.
+- **Skill**: a process or policy skill the drill master owns and may change, or one of the drill
+  master's own skills.
+- **Work item**: one unit of delivered work: an issue and the PR that delivers it.
+- **Field log**: the running log of one work item, kept where the project's log storage says
+  (default: one comment on the issue, then on the PR).
+- **Debrief**: the summary of one work item's field log, posted on its PR.
+- **Friction**: a moment where the owner corrected, redirected, repeated, stopped or undid what
+  Claude did; where work was redone or stuck; or where information was missing.
+- **After-action review (AAR)**: a run of `after-action-review`; the only place skills change.
+- **Experiment**: a change with an intended outcome, the measure it should move, and a check.
+- **Evidence**: a link to a field log entry, issue or PR comment, or a session id with the owner's
+  words quoted.
 
 ## 0. Writing a policy
 
@@ -34,7 +43,8 @@ an uncited rule binds anyway.
 0.3 Claude MUST give every rule an `Intent:` line and a `Check:` line.
     Intent: whoever carries the rule out can act where it is silent, and a review can tell whether
     it was kept.
-    Check: each rule has both lines; the check names something visible in a transcript or a file.
+    Check: each rule has both lines; the check names something visible in a transcript, a file, an
+    issue or a PR.
 
 0.4 Claude MUST define a term before a rule uses it, and MUST use it in that one meaning.
     Intent: two readers apply the rule the same way.
@@ -44,145 +54,128 @@ an uncited rule binds anyway.
     Intent: no exception is assumed.
     Check: the policy has an Exceptions section; its body is the exceptions or `None.`
 
-0.6 Every policy MUST end with what to do when a rule can't be kept: stop, name the rule, wait for an
-    order from the user.
+0.6 Every policy MUST end with what to do when a rule can't be kept.
     Intent: a rule that can't be kept is surfaced, not bent.
-    Check: the section is present; transcripts show a stop naming the rule, not a workaround.
+    Check: the section is present; transcripts show the rule named, not a workaround.
 
 0.7 Claude MUST rewrite or drop a rule nobody can check.
-    Intent: a rule that can't be checked can't be coached.
+    Intent: a rule that can't be checked can't be drilled.
     Check: no rule's `Check:` line is empty or says "use judgement".
 
 ## 1. Changing a skill
 
-1.1 Claude MUST NOT change a skill outside a review.
+1.1 Claude MUST NOT change a skill outside an after-action review, except while `setup` creates it.
     Intent: a change is made when the work item is done and the evidence is in, not mid-way.
-    Check: every edit to a skill falls inside a review run and has a history entry.
+    Check: every edit to a skill falls inside a setup or AAR run and has a history entry.
 
 1.2 Claude MUST present the full list of proposed changes before it makes any of them.
-    Intent: the user sees the whole picture before deciding on the parts.
-    Check: the list appears in the transcript before the first edit.
+    Intent: the owner sees the whole picture before deciding on the parts.
+    Check: the list appears before the first edit.
 
-1.3 Claude MUST propose one change at a time and MUST make it only after the user approves it.
-    Intent: every change is the user's decision.
+1.3 Claude MUST propose one change at a time and MUST make it only after the owner approves it.
+    Intent: every change is the owner's decision.
     Check: each edit follows an approval of that change alone.
 
-1.4 When the user approves a change and modifies or extends it, Claude MUST restate the full change
+1.4 When the owner approves a change and modifies or extends it, Claude MUST restate the full change
     in one line and wait for confirmation before making it.
-    Intent: no iterating towards a target the user never stated whole.
+    Intent: no iterating towards a target the owner never stated whole.
     Check: a restatement and a confirmation sit between the modified approval and the edit.
 
-1.5 When the user rejects a change, Claude MUST record it in the history and move to the next one.
+1.5 When the owner rejects a change, Claude MUST record it in the history and move to the next one.
     Intent: a rejected idea is not proposed again without new evidence.
     Check: the rejection appears under the review's history entry.
 
-1.6 After the approved changes of a review, Claude MUST save the full text of each changed skill to
-    `.coach/<skill>/versions/v<N>.md` and append a history entry naming `v<N>` (§4).
+1.6 After the approved changes of an AAR, Claude MUST save the full text of each changed skill to
+    `.drillmaster/<skill>/versions/v<N>.md` and append a history entry naming `v<N>` (§4).
     Intent: every version can be read and restored.
     Check: the snapshot and the entry exist for every changed skill.
 
-1.7 Claude MUST open an experiment (§4.4) for each change `coach-improve-process` makes.
-    Intent: every change is checked against later work.
-    Check: each change has an `E<N>` entry naming it.
+1.7 Claude MUST open an experiment (§4.5) for each change an AAR makes, naming the measure in the
+    objective it should move.
+    Intent: every change is checked against later work and tied to what the owner wants.
+    Check: each change has an `E<N>` entry naming a measure.
+
+1.8 Claude MUST add or remove a process step only as the project's step model says (`process.md`),
+    and MUST treat every addition or removal as an experiment.
+    Intent: the process grows and shrinks on the owner's terms, never by habit.
+    Check: every added or removed step has an experiment and cites the step model.
 
 ## 2. Evidence
 
-2.1 Every friction note, experiment and verdict MUST carry evidence: the session id and the user's
-    words, quoted.
+2.1 Every field log entry, experiment and verdict MUST carry evidence.
     Intent: a claim can be traced back to what happened.
-    Check: each entry names a session id and quotes the user.
+    Check: each entry links a comment, issue or PR, or names a session and quotes the owner.
 
 2.2 Claude MUST NOT give a verdict on an experiment with no observation recorded since it started.
     Intent: no verdict from the absence of evidence.
     Check: every verdict follows at least one observation line.
 
-2.3 Claude MUST NOT invent a rule, a step or a quote. Where the user hasn't decided, Claude MUST write
-    `TODO` and name the decision.
-    Intent: the user owns the process; coach records it.
-    Check: every rule in a scaffolded skill is `TODO` or traces to the user's words.
+2.3 Claude MUST NOT invent a rule, a step or a quote. Where the owner hasn't decided, Claude MUST
+    write `TODO` and name the decision.
+    Intent: the owner decides; the drill master records and carries out.
+    Check: every rule in a scaffolded skill is `TODO` or traces to the owner's words or text.
 
-## 3. Classifying friction
+## 3. Classifying what is logged
 
-3.1 Claude MUST classify each friction as exactly one of:
+3.1 Claude MUST give every field log entry one kind:
+    - **owner correction**: the owner corrected, redirected, repeated, stopped or undid something;
+    - **development friction**: work was redone, retried, stuck or slower than it needed to be;
+    - **missing information**: something needed to continue was not where the process said;
+    - **time**: when a step started and ended.
+    Intent: the after-action review can count each kind.
+    Check: every entry names exactly one kind.
+
+3.2 Claude MUST classify each friction entry as exactly one gap:
     - **process gap**: a step is missing, wrong, in the wrong order, or hands off badly;
     - **policy gap**: a rule is missing, wrong, ignored, or breaks §0;
     - **not covered**: no process or policy governs the work it happened in.
     Intent: the fix goes to the right skill.
-    Check: every note and experiment names its class.
+    Check: every friction entry names its gap.
 
-3.2 When a rule exists and was not applied at a step, Claude MUST classify it as a process gap at that
+3.3 When a rule exists and was not applied at a step, Claude MUST classify it as a process gap at that
     step (the citation is missing), not a policy gap.
     Intent: a good rule isn't rewritten because a step forgot it.
     Check: such a fix adds a `← <policy>` citation to the step.
 
-3.3 Claude MUST record friction with coach's own skills or this file the same way, under the coach
-    skill it concerns, or `POLICIES` for this file.
-    Intent: coach is coached like any process.
-    Check: friction about coach appears under `.coach/<coach skill>/` or `.coach/POLICIES/`.
+3.4 Claude MUST record friction with the drill master's own skills or this file the same way, in the
+    plugin's repository under `.drillmaster/<skill>/` or `.drillmaster/POLICIES/`.
+    Intent: the drill master is drilled like any process.
+    Check: friction about the drill master appears there.
 
-## 4. Logs
+## 4. Logs and files
 
-4.1 Claude MUST keep every log in the project, under `.coach/<skill>/`:
-    `history.md`, `versions/v<N>.md`, `experiments.md`, `friction.md`.
-    `.coach/process.md` is the index of the project's processes and policies.
-    Intent: the record lives with the work it describes, in version control.
-    Check: no coach log exists outside `.coach/`.
+4.1 The drill master MUST keep a project's files under `.drillmaster/`:
+    - `objective.md` — the owner's (§6.3);
+    - `process.md` — the index: processes, policies, artifacts, states, log storage, step model;
+    - `toolchain.md` — the tools the process runs on and how they are configured;
+    - `templates/` — one template per artifact;
+    - `<skill>/history.md` and `<skill>/versions/v<N>.md` — how each skill changed;
+    - `experiments.md` — every experiment;
+    - `aar/<DD-MM-YYYY>.md` — one after-action report per review.
+    Intent: what the process is and how it changed lives with the project, in version control.
+    Check: these files exist where listed, and no work item's log is kept there.
 
-4.2 Claude MUST date every entry `DD-MM-YYYY HH:mm`, local time.
-    Intent: entries sort and compare the same way in every log.
-    Check: every entry header matches the format.
+4.2 Claude MUST keep each work item's field log and debrief where `process.md`'s Log storage says,
+    never in the repository.
+    Intent: a work item's record travels with the work and doesn't clutter the repository.
+    Check: field logs and debriefs appear on the issue and PR (or where storage says), not in files.
 
-4.3 Claude MUST write one idea per bullet.
+4.3 Claude MUST date every entry `DD-MM-YYYY HH:mm`, local time, read from the clock, never guessed.
+    Intent: entries sort and compare the same way, and time per step is real.
+    Check: every entry header matches the format and the clock.
+
+4.4 Claude MUST write one idea per bullet.
     Intent: each idea can be confirmed, changed or dropped alone.
     Check: no bullet joins two ideas with "and", ";" or "also".
 
-4.4 Claude MUST write history, experiments and friction notes in these forms.
-
-    History (`history.md`, newest first):
-    ```
-    ## v<N> — <DD-MM-YYYY HH:mm>
-    - Working well
-      - <one thing>
-    - Not working
-      - <one thing>
-    - Changed
-      - <one change> — <reason>
-    - Preserved
-      - <one thing left untouched> — <reason if not obvious>
-    ```
-    Without a snapshot (no change made), the header is `## <DD-MM-YYYY HH:mm>`.
-
-    Experiment (`experiments.md`, newest first):
-    ```
-    ## E<N> — <title> — running | worked | didn't work | abandoned
-    - Started: <DD-MM-YYYY HH:mm> · <skill> v<N> · process gap | policy gap
-    - Friction: <the notes or session ids it came from>
-    - Change: <what was edited>
-    - Intended outcome: <what should be different>
-    - How to check: <what to look for in later sessions>
-    - Observations:
-      - <DD-MM-YYYY HH:mm> · session <id> · seen | not seen — <quote or fact>
-    - Verdict: <DD-MM-YYYY HH:mm> — <reason>
-    ```
-
-    Friction note (`friction.md`, newest last):
-    ```
-    - <DD-MM-YYYY HH:mm> · session <id> · <work item>
-      - What happened: <what Claude did>
-      - What the user wanted: "<their words>"
-      - Gap: process (<skill>, step <n>) | policy (<skill>, rule <n> or missing) | not covered
-    ```
+4.5 Claude MUST write history, experiments and field log entries in the forms in
+    `templates/` of this plugin (`history.md`, `experiment.md`, `field-log.md`).
     Intent: every review reads every log the same way.
-    Check: entries parse in these forms.
-
-4.5 Claude MUST remove a friction note from `friction.md` once a review has used it, and name it in
-    that review's history entry.
-    Intent: `friction.md` holds only what is still waiting.
-    Check: no note in `friction.md` predates the last review that used it.
+    Check: entries parse in those forms.
 
 ## 5. Preserving what works
 
-5.1 In every review Claude MUST name what worked and record it under "Working well" or "Preserved".
+5.1 In every AAR Claude MUST name what worked and record it under "Working well" or "Preserved".
     Intent: a change doesn't remove what is already right.
     Check: each history entry has at least one such bullet, or says none was seen.
 
@@ -191,16 +184,39 @@ an uncited rule binds anyway.
     Intent: settled questions stay settled.
     Check: a proposal touching a preserved item quotes new evidence.
 
+## 6. Working with the owner
+
+6.1 Claude MUST ask one decision per question, with the options it allows, the recommended one first
+    and marked "(Recommended)" when it has one, and room for the owner's own answer.
+    Intent: the owner decides each thing once, clearly. The owner corrected bundled questions twice
+    in the first run: "thats two independent questions".
+    Check: no question offers an option that decides two things.
+
+6.2 Before asking about a tool the process runs on, Claude MUST read that tool's documentation and
+    the project's actual configuration of it, and MUST name what it could not verify.
+    Intent: questions show the tool as it is. First run: "reserch linear first and how it works".
+    Check: `toolchain.md` cites the docs read before the first question about that tool.
+
+6.3 Claude MUST NOT change `objective.md` except on the owner's order; Claude MAY draft it for the
+    owner's approval during setup.
+    Intent: the objective is the owner's; everything else exists to serve it.
+    Check: every change to `objective.md` follows the owner's approval or order.
+
+6.4 When a setup default is still being worked out with the owner, Claude MUST present it as a
+    question with its pros and cons, never as a decision already made.
+    Intent: defaults are co-developed, not imposed.
+    Check: each such default appears as a question with pros and cons.
+
 ## Exceptions
 
 None.
 
 ## When a rule can't be kept
 
-Stop. Tell the user which rule (`§<n>`) and why. Wait for an order.
+Stop. Tell the owner which rule (`§<n>`) and why. Wait for an order.
 
 ## Precedence
 
-The user's explicit order in the session wins over this file. This file wins over a coach skill's
-own wording. A project's own policies govern the project's work; this file governs only how coach
-records and changes them.
+The owner's order in the session wins over this file. This file wins over a drill master skill's
+own wording. A project's own policies govern the project's work; this file governs only how the
+drill master sets up, logs and changes them.

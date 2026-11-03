@@ -1,54 +1,49 @@
 ---
-name: coach-note-friction
-description: Record friction for coach's next process review, without changing any skill. Note mode, when the user corrects, redirects, repeats, stops or undoes something Claude did (coach's prompt hook cues it). Wrap-up mode, when a work item is done (coach's done hook asks). Only in a project with .coach/process.md.
+name: field-log
+description: Keep a work item's field log and write its debrief - the logging step every process begins and ends with, recording the owner's corrections, development friction, missing information and time, where the project's log storage says (by default on the issue, then the PR). Never changes a skill. Use at the start and end of every process step, when the owner corrects or redirects Claude (the prompt hook cues it), when work gets stuck or information is missing, and when a PR is marked ready (debrief). Only in a project with .drillmaster/process.md.
 ---
 
-# Note friction
+# Field log
 
-This skill writes notes. It never changes a skill: changes are made in a review, once the work
-item is done and the evidence is in ← `POLICIES.md` §1.1. `POLICIES.md` is at the plugin root,
-two folders up from this skill's base directory; read it if you haven't this session.
+The field log is a work item's running record; the debrief is its summary on the PR. Both are
+artifacts of the work, kept where `.drillmaster/process.md`'s **Log storage** says, never in the
+repository ← `POLICIES.md` §4.2. This skill never changes a skill ← §1.1.
 
-Read `.coach/process.md` first: it says which skills are the project's processes and policies.
+`POLICIES.md` and `templates/` are at the plugin root, two folders up from this skill's base
+directory. Read `.drillmaster/process.md` first: it names the processes, the log storage and the
+templates.
 
-**Arguments:** $ARGUMENTS: `note` or `wrap-up`. With none, pick from the situation: `wrap-up` when
-a work item has just been done, else `note`.
+**Arguments:** $ARGUMENTS: `start`, `entry`, `end` or `debrief`. With none, pick from the situation.
 
-## Note mode
+## Entries
 
-1. **Decide whether it is friction.** Friction is the user correcting, redirecting, repeating,
-   stopping or undoing what you did, or work being redone (definition in `POLICIES.md`). A new
-   request is not friction. If it isn't friction, do nothing and say nothing.
-2. **Classify it** as one of ← §3:
-   - **process gap** (`<process>`, step `<n>`): a step missing, wrong, out of order, or a bad handoff;
-     also a rule that exists but the step didn't cite ← §3.2;
-   - **policy gap** (`<policy>`, rule `<n>` or missing): a rule missing, wrong, or ignored;
-   - **not covered**: no process or policy governs this work.
-3. **Append one note** to `.coach/<skill>/friction.md` for the skill it concerns, or to
-   `.coach/coach-improve-process/friction.md` when not covered ← §4.4, §2.1:
+Every entry follows `templates/field-log.md`: time (read from the clock ← §4.3), stage and step,
+**kind**, what happened, the gap for friction, and evidence ← §2.1, §3.
 
-   ```
-   - <DD-MM-YYYY HH:mm> · session <id> · <work item>
-     - What happened: <what you did>
-     - What the user wanted: "<their words>"
-     - Gap: process (<skill>, step <n>) | policy (<skill>, rule <n> or missing) | not covered
-   ```
+- **start** — at the beginning of a process step: `time · started`.
+- **entry** — whenever one of these happens during a step:
+  - **owner correction**: the owner corrects, redirects, repeats, stops or undoes something (the
+    prompt hook cues this; decide whether it really is one — a new request is not);
+  - **development friction**: work redone, retried, stuck, or slower than it needed to be;
+  - **missing information**: something needed to continue was not where the process said.
+  Classify each by gap: process, policy or not covered ← §3.2, §3.3.
+- **end** — at the end of a process step: `time · ended`, plus anything not yet logged.
 
-   The session id is the name of the newest `.jsonl` in this project's transcript folder; coach's
-   `transcripts.mjs --latest` prints it. The work item is the issue id, branch or PR.
-4. **Tell the user in one line:** "Noted for the retro: <the gap, a few words>." Then do what they asked.
+Where it goes: the place Log storage names for this stage. By default that is one running comment
+titled `Field log — <item>` on the issue during capture and refinement; when the PR opens, the log
+is copied into one running comment on the PR and appended there from then on. Update the running
+comment rather than posting a new one.
 
-## Wrap-up mode
+After writing, one line to the owner, only for an owner correction: "Logged: <the gap, a few words>."
 
-1. **Decide whether the work item is done**, against the `Done when` of the process it ran under. If
-   it isn't, say so in one line and carry on with the work.
-2. **Finish its notes:** reread the session for friction you didn't note at the time, and note it as
-   in note mode. Record what went well too: one line per thing, in the same `friction.md`, as
-   `- <date> · session <id> · <work item> · worked: <what>` ← §5.1.
-3. **Add an observation** to every running experiment on a skill this work item used
-   (`.coach/<skill>/experiments.md`, status `running`), under its `Observations:` ← §2.1:
-   `- <DD-MM-YYYY HH:mm> · session <id> · seen | not seen — <quote or fact>`, judged against its
-   "How to check".
-4. **Nudge, don't review.** Suggest `/coach:coach-improve-process` in one line when any skill has 5 or
-   more notes in its `friction.md`, or a running experiment has 3 or more observations. Otherwise say
-   only: "Wrap-up noted."
+## Debrief
+
+When the PR is marked ready for the owner's review (the done hook asks):
+
+1. Read the item's field log, and cross-check time per stage against the tracker's state times.
+2. Write the debrief from `templates/debrief.md` as its own PR comment, or where Log storage says.
+3. Add an observation to each running experiment in `.drillmaster/experiments.md` that this item
+   bears on: `seen | not seen — <link>` ← §2.1.
+4. After the merge, update the debrief with the owner's review: rework rounds, comments, merge time.
+5. Suggest `/devops-drillmaster:after-action-review` in one line when a running experiment has 3 or
+   more observations, or the owner's chosen AAR rhythm says it is due. Otherwise say nothing more.

@@ -1,3 +1,13 @@
+## v1 — 03-11-2026 22:42
+- Changed
+  - Moved into devops-drillmaster; coach's commands keep their own rules — A2
+  - §6 added: one decision per question; research a tool before asking about it; the objective is the owner's; co-developed defaults asked with pros and cons
+  - §3 classifies what is logged by kind (owner correction, development friction, missing information, time) and by gap
+  - §4 rewritten for .drillmaster/ and for field logs and debriefs living on issues and PRs
+  - §1.7–§1.8: experiments name a measure; steps are added or removed only by the project's step model
+- Preserved
+  - §0 (how a policy is written) and §5 (preserving what works) unchanged
+
 ## 01-11-2026 04:09
 - Created
   - Purpose: coach's own policies, made explicit; coach's skills and commands are its processes

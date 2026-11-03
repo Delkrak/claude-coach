@@ -1,3 +1,27 @@
+## v1 — 03-11-2026 22:42
+- Working well
+  - Drafting policies from the owner's own text, accepted rule by rule
+  - Checking each existing principle against the code with a read-only agent before proposing it
+  - Three independent read-only reviewers found 12 problems the setup had missed
+- Not working
+  - No question for the outcome — "One thing we forgot to define is the outcome this process is suposed to facilitate!"
+  - The tracker was not researched before mapping onto it — "reserch linear first and how it works"
+  - Two decisions bundled in one option — "thats two independent questions"
+  - A brief was set up as a process and a policy — "brief is not a process or policy, or am i wrong?"
+  - The vendor's designed workflow (cloud build, review, auto-fix) was found only after go-live
+- Changed
+  - Renamed from coach-setup-process; moved into the devops-drillmaster plugin — the owner's rename to a DevOps-specific suite
+  - Objective first, written to objective.md, owned by the owner — stages A3b, B1
+  - Toolchain researched into toolchain.md before any question; vendor workflow proposed as the default after thorough research — B2, B3
+  - Experience level and weight (Light / Standard / Full, full DevOps loop) asked up front — C1, C4
+  - Processes, policies and artifacts told apart; artifacts get templates — C2
+  - Who moves each tracker state asked per state — C3
+  - Log storage offered from a default table; step model chosen by the owner — A3a, C5, C6
+  - Co-developed defaults asked with pros and cons, not baked in — E
+  - Stress test with three reviewers before going live — D2
+- Preserved
+  - Nothing is written before the owner approves the whole setup
+
 ## 01-11-2026 04:09
 - Created
   - Purpose: create a set of basic, empty policies and processes depending on the project, adopting the skills it already has

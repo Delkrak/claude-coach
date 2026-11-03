@@ -11,21 +11,21 @@ import { doneHintsIn, matchedHint } from '../scripts/doneCheck.mjs'
 
 const scripts = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'scripts')
 
-const project = ({ coach = true, processText = '# Processes\n' } = {}) => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'coach-project-'))
-  if (coach) {
-    fs.mkdirSync(path.join(dir, '.coach'))
-    fs.writeFileSync(path.join(dir, '.coach', 'process.md'), processText)
+const project = ({ drillmaster = true, processText = '# Processes\n' } = {}) => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'drillmaster-project-'))
+  if (drillmaster) {
+    fs.mkdirSync(path.join(dir, '.drillmaster'))
+    fs.writeFileSync(path.join(dir, '.drillmaster', 'process.md'), processText)
   }
   return dir
 }
 
-const markers = fs.mkdtempSync(path.join(os.tmpdir(), 'coach-markers-'))
+const markers = fs.mkdtempSync(path.join(os.tmpdir(), 'drillmaster-markers-'))
 
 const run = (script, args, dir, event) => {
   const result = spawnSync(process.execPath, [path.join(scripts, script), ...args], {
     input: JSON.stringify(event),
-    env: { ...process.env, CLAUDE_PROJECT_DIR: dir, COACH_MARKER_DIR: markers },
+    env: { ...process.env, CLAUDE_PROJECT_DIR: dir, DRILLMASTER_MARKER_DIR: markers },
     encoding: 'utf8',
   })
   assert.equal(result.status, 0, result.stderr)
@@ -43,14 +43,14 @@ test('correction cues match corrections and leave ordinary requests alone', () =
     'wait',
   ])
     assert.ok(isCorrectionCue(prompt), prompt)
-  for (const prompt of ['Add a login page', 'Looks good, commit it', 'Is there another option?', '/coach:coach-improve-process no'])
+  for (const prompt of ['Add a login page', 'Looks good, commit it', 'Is there another option?', '/devops-drillmaster:after-action-review no'])
     assert.ok(!isCorrectionCue(prompt), prompt)
 })
 
 test('the prompt hook adds the note cue as context on a correction', () => {
   const output = run('frictionCue.mjs', [], project(), { prompt: 'No, I said tokens' })
   assert.equal(output.hookSpecificOutput.hookEventName, 'UserPromptSubmit')
-  assert.match(output.hookSpecificOutput.additionalContext, /coach-note-friction/)
+  assert.match(output.hookSpecificOutput.additionalContext, /field-log/)
   assert.equal(run('frictionCue.mjs', [], project(), { prompt: 'Add a page' }), undefined)
 })
 
@@ -61,6 +61,7 @@ test('done hints are read from process.md', () => {
 
 test('a call that may end a work item is recognised, others are not', () => {
   assert.equal(matchedHint({ tool_name: 'Bash', tool_input: { command: 'gh pr create --draft' } }), 'gh pr create')
+  assert.equal(matchedHint({ tool_name: 'Bash', tool_input: { command: 'gh pr ready 12' } }), 'gh pr ready')
   assert.equal(matchedHint({ tool_name: 'mcp__tracker__save_issue' }), 'mcp__tracker__save_issue')
   assert.equal(matchedHint({ tool_name: 'Bash', tool_input: { command: './deploy.sh prod' } }, ['deploy.sh']), 'deploy.sh')
   assert.equal(matchedHint({ tool_name: 'Bash', tool_input: { command: 'git status' } }), undefined)
@@ -74,7 +75,8 @@ test('after a candidate call, the next stop is blocked once with the question, t
   const first = run('doneCheck.mjs', ['stop'], dir, { ...session, stop_hook_active: false })
   assert.equal(first.decision, 'block')
   assert.match(first.reason, /gh pr create/)
-  assert.match(first.reason, /wrap-up/)
+  assert.match(first.reason, /field-log/)
+  assert.match(first.reason, /debrief/)
   assert.equal(run('doneCheck.mjs', ['stop'], dir, { ...session, stop_hook_active: false }), undefined)
 })
 
@@ -85,8 +87,8 @@ test('a stop already continued by a stop hook is never blocked', () => {
   assert.equal(run('doneCheck.mjs', ['stop'], dir, { ...session, stop_hook_active: true }), undefined)
 })
 
-test('every hook is silent in a project without .coach/process.md', () => {
-  const dir = project({ coach: false })
+test('every hook is silent in a project without .drillmaster/process.md', () => {
+  const dir = project({ drillmaster: false })
   const session = { session_id: 'session-3' }
   assert.equal(run('frictionCue.mjs', [], dir, { prompt: 'No, wrong' }), undefined)
   run('doneCheck.mjs', ['candidate'], dir, { ...session, tool_name: 'Bash', tool_input: { command: 'gh pr create' } })
@@ -96,7 +98,7 @@ test('every hook is silent in a project without .coach/process.md', () => {
 test('a broken event never fails the hook', () => {
   const result = spawnSync(process.execPath, [path.join(scripts, 'doneCheck.mjs'), 'stop'], {
     input: 'not json',
-    env: { ...process.env, CLAUDE_PROJECT_DIR: project(), COACH_MARKER_DIR: markers },
+    env: { ...process.env, CLAUDE_PROJECT_DIR: project(), DRILLMASTER_MARKER_DIR: markers },
     encoding: 'utf8',
   })
   assert.equal(result.status, 0)
