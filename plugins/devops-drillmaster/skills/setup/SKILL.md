@@ -63,8 +63,10 @@ Ask with `AskUserQuestion`, one decision per question ← §6.1. Nothing else is
 
     ```
     # <Project>'s process
-    Log storage: comments — every work item is traced with /devops-drillmaster:trace in one running
-    comment on the issue, then on the PR.
+    Log storage: <comments | attachment | items> — every work item is traced with
+    /devops-drillmaster:trace <in one running comment on the issue, then on the PR | in
+    `<key>-trace.json`, written by scripts/trace.mjs and attached to the issue | in
+    .drillmaster/items/>. Comments unless the owner chooses another (POLICIES §4.2).
     # Work processes, in order
     ## <n>. <Stage> — `/<skill>`
     - Skill: .claude/skills/<skill>/SKILL.md

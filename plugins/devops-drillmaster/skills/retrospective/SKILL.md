@@ -24,7 +24,9 @@ Every step has an id, cited as `/devops-drillmaster:retrospective <id>` ← §0.
 ## 2. What happened
 
 2.1 **Traces**: for each work item in scope, read its trace (with its process summaries and
-    observations) and its item summary where Log storage says (issue and PR comments by default).
+    observations) and its item summary where Log storage says (issue and PR comments by default). A
+    JSON trace is run through `scripts/trace.mjs verify` first; one that fails is itself an
+    impediment, and its entries are evidence only as far as the chain holds.
     This is what the retrospective works from ← §2.5. Add each observation to its experiment in
     `experiments.md`.
 
@@ -76,7 +78,8 @@ Every step has an id, cited as `/devops-drillmaster:retrospective <id>` ← §0.
 4.4 Write a short report to `.drillmaster/retrospectives/<DD-MM-YYYY>.md`: the scope, the measures
     over it, the top causes with their step ids, what was kept, and each change decided or
     rejected, one line each. Copy the traces of merged work items in scope to
-    `.drillmaster/traces/<id>.md`, and delete the ones this retrospective has used ← §4.1.
+    `.drillmaster/traces/<id>.md` (a JSON trace keeps its file: `traces/<key>-trace.json`), and
+    delete the ones this retrospective has used ← §4.1.
 
 4.5 Rebuild the process overview with `/devops-drillmaster:process-overview`, and report to the
     owner ← §6.5, e.g.

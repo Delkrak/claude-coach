@@ -182,18 +182,23 @@ an uncited rule binds anyway.
     - `skills/<skill>/history.md` and `skills/<skill>/versions/v<N>.md` — how each skill changed;
     - `experiments.md` — every experiment;
     - `retrospectives/<DD-MM-YYYY>.md` — one short report per retrospective;
-    - `traces/<work item id>.md` — merged work items' traces, copied by a retrospective and deleted
-      once it has used them;
+    - `traces/<work item id>.md`, or `traces/<key>-trace.json` with **attachment** storage — merged
+      work items' traces, copied by a retrospective and deleted once it has used them;
     - `items/<work item id>/` — a work item's trace and item summary, only when the owner chose
       **items** as log storage.
     Intent: what the process is and how it changed lives with the project, in version control.
     Check: these files exist where listed, and work item records appear only under `items/`.
 
 4.2 Claude MUST keep each work item's trace and item summary where `process.md`'s Log storage says:
+    **attachment** (`<key>-trace.json` attached to the issue, the item summary a PR comment),
     **comments** (one running comment on the issue, then on the PR) or **items**
-    (`.drillmaster/items/<work item id>/`), and nowhere else.
-    Intent: a work item's record is in one known place, chosen by the owner.
-    Check: traces and summaries appear only where Log storage says.
+    (`.drillmaster/items/<work item id>/`), and nowhere else. The project chooses its log storage
+    in `process.md`. With **attachment**, every trace entry MUST be written by the trace tool
+    (`scripts/trace.mjs`).
+    Intent: a work item's record is in one known place, chosen by the owner; with attachment, every
+    entry went through the tool that stamps its time and chains its checksum.
+    Check: traces and summaries appear only where Log storage says; an attachment trace passes
+    `trace.mjs verify`.
 
 4.3 Claude MUST date every entry `DD-MM-YYYY HH:mm`, local time, read from the clock, never guessed.
     Intent: entries sort and compare the same way, and time is real.

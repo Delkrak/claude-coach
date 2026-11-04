@@ -1,3 +1,12 @@
+## v2 — 04-11-2026 21:28
+- Changed
+  - 3.3's process.md form names the three log storages — the owner: "make it up to the project how it does this"
+  - Comments stay the default — no other default was decided
+- Preserved
+  - Every step id — POLICIES §0.8
+  - No question about log storage — not decided
+  - The owner chooses the storage in process.md — the owner: "make it up to the project how it does this"
+
 ## 04-11-2026 20:14
 - Changed
   - Rewritten as light as possible: asks the goal and which work processes, reads the toolchain, copies from the library unchanged, writes, builds the process overview, one PR — "Setup asks the basic things, and should ask what steps should be included (copy only from library), and then retrospective is going to adopt them over time."

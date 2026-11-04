@@ -44,6 +44,11 @@ test('process.md names the work processes and work policies, with their skills',
   assert.deepEqual(indexEntries(PROCESS, 'Work policies').map((e) => e.skill), ['pr-policy'])
 })
 
+test('the overview names no tracker or state of its own: every project brings its own', () => {
+  const html = buildProcessOverview(project())
+  assert.doesNotMatch(html, /Linear|AI Review/)
+})
+
 test('the process overview is one page of the project, read from its process.md', () => {
   const html = buildProcessOverview(project())
   assert.match(html, /<title>Acme's process<\/title>/)
@@ -55,4 +60,18 @@ test('the process overview is one page of the project, read from its process.md'
   assert.equal(data.policies[0].rules[0].check, 'the title.')
   assert.equal(data.entry.name, 'how-we-work')
   assert.equal(data.measures[0].by, 'the traces.')
+})
+
+test('a state line with an alternative, and a citation mid-step, keep their parts apart', () => {
+  const dir = project()
+  write(dir, '.drillmaster/process.md', PROCESS.replace(
+    '- States: Ready → In Progress, moved by `/build-process`',
+    '- States: Review → Done (after the owner merges), or → Pre-Review (feedback), moved by `/build-process`',
+  ))
+  write(dir, '.claude/skills/build-process/SKILL.md', '---\nname: build-process\ndescription: Build it.\n---\n\n# 1. Build\n\n## Steps\n\n1.1 Update the issue   ← /pr-policy §2.1; put the PR back to draft and\n    rerun the review   ← /pr-policy §2.1\n')
+  const html = buildProcessOverview(dir)
+  const data = JSON.parse(html.match(/<script id="data" type="application\/json">([\s\S]*?)<\/script>/)[1])
+  assert.deepEqual(data.processes[0].states, ['Review', 'Done', 'Pre-Review'])
+  assert.match(data.processes[0].steps[0].text, /put the PR back to draft and\s+rerun the review/)
+  assert.deepEqual(data.processes[0].steps[0].cites, ['/pr-policy §2.1', '/pr-policy §2.1'])
 })

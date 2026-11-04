@@ -73,7 +73,7 @@ const numbered = (text) => {
     const check = text.match(/\nCheck:\s*([\s\S]*)$/)?.[1].replace(/\s+/g, ' ').trim()
     let main = text.replace(/\nIntent:[\s\S]*$/, '')
     const cites = []
-    main = main.replace(/\s*←\s*((?:[^\n]|\n(?=\/?[a-z-]+-policy|§))*)/g, (_, cite) => {
+    main = main.replace(/\s*←\s*((?:[^\n;]|\n(?=\/?[a-z-]+-policy|§))*)/g, (_, cite) => {
       cites.push(...cite.replace(/\n/g, ' ').split(/,\s*(?=\/?[a-z-]+-policy|§)/).map((c) => c.trim().replace(/,$/, '')).filter(Boolean))
       return ''
     })
@@ -94,7 +94,11 @@ const processes = indexEntries(index, 'Work processes').map(({ stage, skill: nam
   return {
     name,
     stage,
-    states: states.split(/,\s*moved by/)[0].split(/\s*→\s*/).map((x) => x.replace(/\(.*?\)/g, '').trim()).filter(Boolean),
+    states: states
+      .split(/,\s*moved by/)[0]
+      .split(/\s*→\s*/)
+      .map((x) => x.replace(/\(.*?\)/g, '').replace(/\s*,?\s*or$/, '').trim())
+      .filter(Boolean),
     number: i + 1,
     title: s.title,
     description: s.description,
@@ -302,7 +306,7 @@ const overview = () => {
     '<h2>The flow</h2><div class="flow">' + flow + '</div>' +
     '<div class="loops"><div>↺ Feedback on a ready PR sends it back to the pre-PR review, in the same session.</div>' +
     '<div>⏸ Stuck at any stage: <span class="chip state">Needs input</span> with the question on the issue and in the session, then back to the state it left.</div>' +
-    '<div>⚙ Linear\\'s GitHub automation moves AI Review, Review and Done; the work processes move the rest.</div></div>' +
+    '<div>⚙ Each state is moved by the work process the flow names for it.</div></div>' +
     '<h2>Which work policy each work process meets</h2>' + matrix
   )
 }

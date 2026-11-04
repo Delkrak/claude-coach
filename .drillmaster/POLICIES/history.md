@@ -1,3 +1,12 @@
+## v2 — 04-11-2026 21:28
+- Changed
+  - §4.2: log storage **attachment** added — Keeper retrospective 04-11-2026, C1
+  - §4.2: the project chooses its log storage — the owner: "make it up to the project how it does this"
+  - §4.2: with attachment, every entry is written by the trace tool — the owner: "We definitely need a tool to create the trace as json"
+  - §4.1: a JSON trace is copied as `traces/<key>-trace.json` — follows §4.2's attachment storage
+- Preserved
+  - §4.3: time read from the clock, never guessed — the tool now enforces it for attachment
+
 ## 04-11-2026 20:14
 - Changed
   - §4.5: the history and experiment forms are written in the rule; the plugin keeps only the trace and summary templates — "The usage of templates should be drastically reduced"
