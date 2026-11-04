@@ -302,7 +302,7 @@ const overview = () => {
     '<h2>The flow</h2><div class="flow">' + flow + '</div>' +
     '<div class="loops"><div>↺ Feedback on a ready PR sends it back to the pre-PR review, in the same session.</div>' +
     '<div>⏸ Stuck at any stage: <span class="chip state">Needs input</span> with the question on the issue and in the session, then back to the state it left.</div>' +
-    '<div>⚙ Linear\\'s GitHub automation moves AI Review, Review and Done; the work processes move the rest.</div></div>' +
+    '<div>⚙ Each state is moved by the work process the flow names for it.</div></div>' +
     '<h2>Which work policy each work process meets</h2>' + matrix
   )
 }

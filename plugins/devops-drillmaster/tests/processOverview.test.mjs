@@ -44,6 +44,11 @@ test('process.md names the work processes and work policies, with their skills',
   assert.deepEqual(indexEntries(PROCESS, 'Work policies').map((e) => e.skill), ['pr-policy'])
 })
 
+test('the overview names no tracker or state of its own: every project brings its own', () => {
+  const html = buildProcessOverview(project())
+  assert.doesNotMatch(html, /Linear|AI Review/)
+})
+
 test('the process overview is one page of the project, read from its process.md', () => {
   const html = buildProcessOverview(project())
   assert.match(html, /<title>Acme's process<\/title>/)
