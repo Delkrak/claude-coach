@@ -1,6 +1,6 @@
 {
   "name": "devops-drillmaster",
   "description": "A drill sergeant for your agile setup with Claude: sets up work processes and work policies around your objective and toolchain, traces every work item step by step, and runs retrospectives whose changes are deliberate and each independently measurable.",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": { "name": "delkrak" }
 }
