@@ -1,0 +1,88 @@
+- 01-11-2026 21:10 · session 0efe8979-c693-48f4-a81f-01012649ac3f · first setup (Keeper)
+  - What happened: the setup went from areas to approval without asking what the process is for
+  - What the user wanted: "One thing we forgot to define is the outcome this process is suposed to facilitate!"
+  - Gap: process (coach-setup-process, step 2: no question for the outcome; step 4 has nowhere to write it)
+- 01-11-2026 21:10 · session 0efe8979-c693-48f4-a81f-01012649ac3f · first setup (Keeper)
+  - What happened: mapped stages to the tracker's states and asked what an issue kind meant, without reading the tracker's docs or the team's labels, templates and automations
+  - What the user wanted: "reserch linear first and how it works. its clear from your questions you have no idea what it is."
+  - Gap: process (coach-setup-process, step 1: takes stock of skills and CLAUDE.md only, not the tools the process runs on)
+- 01-11-2026 21:10 · session 0efe8979-c693-48f4-a81f-01012649ac3f · first setup (Keeper)
+  - What happened: one question offered "Linear Reviews + automations" as a single option, joining where review happens with who moves states
+  - What the user wanted: "thats two independent questions"
+  - Gap: process (coach-setup-process, step 2: "one question at a time" says nothing about one decision per question)
+- 01-11-2026 21:10 · session 0efe8979-c693-48f4-a81f-01012649ac3f · first setup (Keeper)
+  - What happened: the overview the user asked for ("a skill that details the total process and policy") and the mapping of stages to tracker states were not part of the setup
+  - What the user wanted: "this is the process entry point"; "each stage should be mapped to an issue state"
+  - Gap: process (coach-setup-process, steps 2–4: no overview skill, no tracker-state mapping in process.md)
+- 04-11-2026 03:48 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper) · THE OWNER'S VERDICT ON THE WHOLE RUN
+  - What happened: setup took the owner through every step: about 40 questions, rule-by-rule policy review, two stress-test rounds with ~30 findings decided one by one
+  - What the user wanted: "feedback to the setup is to make is stupid simple next time and just dump in dummy things. this was PAINFUL!"
+  - Gap: process (setup as a whole: write a working default setup at once from the process and policy lists, with placeholders where the project's specifics are missing; ask only what can't be defaulted; let the retrospectives refine it from real work instead of front-loading every decision)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup, adopting the old process (Keeper)
+  - What happened: setup had no way to adopt an existing process; every step asked from scratch
+  - What the user wanted: "please adopt the old to the new"; "ask again for each if i still agree, but suggest based on what is allready where for each step"
+  - Gap: process (setup: no adopt mode; each step should suggest from what exists and ask to keep it)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: answers mixed statements, suggestions and questions in prose; the owner couldn't tell what was asked
+  - What the user wanted: "i have no idea what you are actually stating and what you are asking about"; "i can't tell the difference between what is text, suggestion and question"
+  - Gap: policy (POLICIES §6.1: ask every decision with AskUserQuestion, the suggestion as a preview, nothing else in the message; this worked from then on)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: setup 3.2 offered Light / Standard / Full
+  - What the user wanted: "standard makes no sense for what is being said" — the choice is which work processes to keep
+  - Gap: process (setup 3.2: show the work processes and ask which to keep; drop the level labels)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: the toolchain research raised the cloud plugin question in the middle of setup and asked the owner to test it
+  - What the user wanted: "why are we talking about this now, lets do that later"
+  - Gap: process (setup 2: record open toolchain questions as unverified and raise them at go-live, not mid-setup)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: toolchain.md took "Linear's automation moves AI Review, Review and Done" from the old way-of-working, unverified; every skill relied on it
+  - What the user wanted: "right now no linear automation exists, so not a problem"
+  - Gap: process (setup 2.2: verify every automation the process relies on in the tool itself; never inherit a claim from old docs)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: setup proposed skipping 4.3, the rule check against the code, because the rules were checked three days earlier
+  - What the user wanted: "check again" — it found rules broken in today's code
+  - Gap: process (setup 4.3: always run it; never offer to skip)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: the adopted policies had about 55 rules, most with "Claude" as subject (§0.1); asking rule by rule was too heavy
+  - What the user wanted: only the flagged rules; subject rewrites accepted per policy in one question
+  - Gap: process (setup 5.3: one question per policy for mechanical subject rewrites, one per rule only for broken, uncheckable or changed rules)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: architecture-policy marked rules MAJOR or MINOR, with an exception for MINOR rules
+  - What the user wanted: "idea of minor/major don't make sense for architecture.."; "it should follow the standard way policies are written, which handles this."
+  - Gap: policy (POLICIES §0: say that a work policy has no severity levels; exceptions are written out under §3)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: history entries named code files and Backlog issue numbers for broken rules
+  - What the user wanted: "please remove the code references for the violations. thats not relevant."; "same with backlog issue number.."
+  - Gap: policy (POLICIES §4: history says what changed and why, never file paths or issue ids)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: skill histories were written to .drillmaster/<skill>/, as POLICIES §4.1 says
+  - What the user wanted: "please put into .drillmaster/skills/<x>"; and in the plugin's own repo: "you put the skills wrongly there too, it might be a setting"
+  - Gap: policy (POLICIES §4.1: default `.drillmaster/skills/<skill>/history.md` and `versions/`, and possibly a project setting in process.md naming where skill histories live)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: the owner chose a log storage the plugin doesn't offer (issue description, then a repo file); the stress test found it had no home before the branch, lost entries after the merge and sat in every PR's diff
+  - What the user wanted: a running comment on the issue, then the PR — "stays in repo until retrospective deletes it"
+  - Gap: process (setup 5.6 and impediment-and-metric-capture 1.5: offer comments with a copy kept in `.drillmaster/capture/` by the retrospective, which deletes it once used; refuse storage the capture skill can't do)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: plugins the repo enables in .claude/settings.json don't load in cloud sessions; enabling the plugin in claude.ai Customize does
+  - What the user wanted: the drill master in cloud sessions — "i added it to my cloud customize available plugins. is that enough?" (it was, for skills)
+  - Gap: process (setup 7: tell the owner to enable the plugin in claude.ai Customize; hooks in the cloud still unverified)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: the stress test found holes the process list's suggestions carry into every project: the review loop never reaches its cap and has no way on after the owner answers; no resume for refine; no state moves when the tracker has no automation; no spec update on rework; no rebase for a stacked PR whose blocker merged; refactors can't meet user-facing rules; input-check misses not counted
+  - What the user wanted: each fixed in Keeper's skills, decided one by one
+  - Gap: process (process-list/ and policy-list/: carry these fixes into the suggestions)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: the owner asked for an HTML overview of the process; the first version rendered each skill as one long block
+  - What the user wanted: "Thats just one long document without any structure.." — a sidebar, the flow, input → output, steps as a timeline, rules as cards
+  - Gap: not covered (setup could generate the overview page from process.md and the skills)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · second setup (Keeper)
+  - What happened: setup committed and pushed small changes as they were made
+  - What the user wanted: "stop with this stupid make a tiny change and make a commit."; "We are just spitballing, why do you want that to be on a PERMANENT log?"
+  - Gap: process (setup 9.1: edit in the working copy throughout; one commit when the setup is settled)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · building the plugin
+  - What happened: the capture skill was named `capture`, the same as the capture work process; its arguments were a syntax
+  - What the user wanted: "capture is a bad skill name"; "this is too complex for humans, is it required for ai?"
+  - Gap: process (skill names distinct from work process names; arguments are free text)
+- 04-11-2026 03:35 · session 0efe8979-c693-48f4-a81f-01012649ac3f · building the plugin
+  - What happened: the plugin's version stayed 0.1.0 through every change, so installs keep the cached copy
+  - What the user wanted: "please check, is it the right version?"
+  - Gap: not covered (raise the version in plugin.json and marketplace.json with every release)
