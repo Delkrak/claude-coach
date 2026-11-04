@@ -1,3 +1,17 @@
+## 04-11-2026 01:30
+- Changed
+  - §0.1: a rule's subject is an input or output, never instructions — "a policy can say what must preceed, but not the specific order/instruction"
+  - §1.1: changes only through process-change, from a retrospective; setup creates once
+  - §1.3: deliberate and independently measurable, replacing one change at a time
+  - §1.7, §2.4: experiments carry a baseline; keep only when the impediment is gone and the measure holds
+  - §1.8 removed (step model); id not reused
+  - §2.5 added: the retrospective works from the capture; transcripts for extended analysis
+  - §3.1: impediment is any friction; metrics as each work process's specification names
+  - §4.6: a toolchain mismatch is recorded as an impediment, not fixed in place
+  - Terms: work process, work policy, capture, citation "issue work policy 2.3"
+- Preserved
+  - §5 and §6 unchanged but for the voice example in §6.5
+
 ## 03-11-2026 23:40
 - Changed
   - §6.5 added: speak and write as a drill sergeant hired for an agile team, with agile terms — the owner's framing

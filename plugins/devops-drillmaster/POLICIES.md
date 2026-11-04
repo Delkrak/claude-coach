@@ -1,7 +1,7 @@
 # Drill master policies
 
-Applies to: Claude, whenever it runs a devops-drillmaster skill (`setup`, `impediment-log`,
-`retrospective`).
+Applies to: Claude, whenever it runs a devops-drillmaster skill (`setup`, `capture`,
+`retrospective`, `process-change`). The concept these rules serve is [`concept.md`](concept.md).
 
 A skill step cites the rule it applies as `← POLICIES.md §<n>`. A cited rule binds at that step;
 an uncited rule binds anyway.
@@ -10,80 +10,85 @@ an uncited rule binds anyway.
 
 - **Owner**: the person whose project this is. The owner decides; the drill master records and
   carries out.
-- **Objective**: `.drillmaster/objective.md` — the goal, its measures and the direction. Owned by
-  the owner.
-- **Process**: a skill made of steps; it describes how a work item moves.
-- **Policy**: a skill made of rules; it describes what must hold, inside or outside a process.
-- **Artifact**: a thing a process step produces (an issue spec, a start-work brief, a PR, an
-  impediment log, a summary); its form is a template in `.drillmaster/templates/`.
-- **Skill**: a process or policy skill the drill master owns and may change, or one of the drill
-  master's own skills.
+- **Objective**: `.drillmaster/objective.md` — the goal, its measures (each naming the work process
+  that records it) and the direction. Owned by the owner.
 - **Work item**: one unit of delivered work: an issue and the PR that delivers it.
-- **Impediment**: anything that slowed the work: the owner corrected, redirected, repeated, stopped
-  or undid what Claude did; work was redone or stuck; or information was missing.
-- **Impediment log**: the running log of one work item, kept where the project's log storage says
-  (default: one comment on the issue, then on the PR).
-- **Process summary**: the entry that closes each process in the impediment log: outcome,
-  impediments, time.
-- **Item summary**: the summary of one work item, built from its process summaries, posted on its PR.
-- **Retrospective**: a run of `retrospective`; the only place skills change.
-- **Experiment**: a change with an intended outcome, the measure it should move, and a check.
-- **Evidence**: a link to an impediment log entry, issue or PR comment, or a session id with the
-  owner's words quoted.
+- **Work process**: a skill that moves a work item one stage on: input, numbered steps, output. Its
+  specification states what it records.
+- **Work policy**: a skill of numbered rules that inputs and outputs must meet.
+- **Artifact**: a thing a step produces whose form is a template in `.drillmaster/templates/`.
+- **Skill**: a work process or work policy the drill master owns, or one of the drill master's own
+  skills.
+- **Impediment**: any kind of friction, such as what slowed the work down, what was missing, or what
+  the owner had to correct.
+- **Metric**: what the objective's measures need, such as time taken or corrections made.
+- **Impediment and metric capture**: what a work process records about a work item, as its
+  specification says; kept where the project's log storage says.
+- **Item summary**: the summary of one work item's capture, posted on its PR.
+- **Retrospective**: a run of `retrospective`; the only place where changes to work processes and
+  work policies are decided.
+- **Process-change**: a run of `process-change`; the only way a decided change is made.
+- **Experiment**: a change with a baseline, the impediment it should remove, the measure it must not
+  worsen, and a verdict.
+- **Evidence**: a link to a capture entry, issue or PR comment, or a session id with the owner's
+  words quoted.
 
-## 0. Writing a policy
+## 0. Writing a work policy
 
-0.1 Claude MUST write every policy rule as one order: the actor named, the verb **MUST**, **MUST NOT**
-    or **MAY**, the action, and the condition when it has one.
-    Intent: a rule read under pressure has one meaning.
-    Check: no rule contains "should", "try to", "ideally", "where possible" or a passive verb.
+0.1 Claude MUST write every rule of a work policy with an input or output as its subject: a property
+    it must have, or a precondition it must meet. A rule MUST NOT give step-by-step instructions.
+    Intent: a work policy says what; a work process says how.
+    Check: every rule's subject is an issue, a spec, code, a PR or another artifact; no rule orders
+    steps.
 
 0.2 Claude MUST number every rule (`2.3`) and MUST NOT renumber a rule another skill cites.
     Intent: a rule is cited and changed on its own.
     Check: every rule starts with a number; citations still resolve after a change.
 
 0.3 Claude MUST give every rule an `Intent:` line and a `Check:` line.
-    Intent: whoever carries the rule out can act where it is silent, and a review can tell whether
-    it was kept.
-    Check: each rule has both lines; the check names something visible in a transcript, a file, an
-    issue or a PR.
+    Intent: whoever applies the rule can act where it is silent, and a review can tell whether it
+    was kept.
+    Check: each rule has both lines; the check names something visible in a file, an issue or a PR.
 
 0.4 Claude MUST define a term before a rule uses it, and MUST use it in that one meaning.
     Intent: two readers apply the rule the same way.
     Check: every term in a rule appears under Definitions.
 
-0.5 Claude MUST write every exception out. A policy with no written exception has none.
+0.5 Claude MUST write every exception out. A work policy with no written exception has none.
     Intent: no exception is assumed.
-    Check: the policy has an Exceptions section; its body is the exceptions or `None.`
+    Check: the work policy has an Exceptions section; its body is the exceptions or `None.`
 
-0.6 Every policy MUST end with what to do when a rule can't be kept.
+0.6 Every work policy MUST end with what to do when a rule can't be kept.
     Intent: a rule that can't be kept is surfaced, not bent.
-    Check: the section is present; transcripts show the rule named, not a workaround.
+    Check: the section is present; the capture shows the rule named, not a workaround.
 
 0.7 Claude MUST rewrite or drop a rule nobody can check.
     Intent: a rule that can't be checked can't be drilled.
     Check: no rule's `Check:` line is empty or says "use judgement".
 
-0.8 Claude MUST give every process step an id (`<section>.<n>`, or `<n>` in a flat list), cite it as
-    `<skill> <id>`, and MUST NOT renumber a step another skill, log or experiment cites. This holds
-    for the drill master's own skills too.
-    Intent: every step can be referenced directly, from an impediment log entry, a finding or an
-    experiment.
+0.8 Claude MUST give every step of a work process an id (`<n>.<k>`), cite it as `<work process>
+    <id>`, and MUST NOT renumber a step that a skill, capture entry or experiment cites. This holds
+    for the drill master's own skills too. A rule is cited as `<work policy> <id>`, e.g. "issue work
+    policy 2.3".
+    Intent: every step and rule can be referenced directly.
     Check: every step starts with its id; citations still resolve after a change.
 
 ## 1. Changing a skill
 
-1.1 Claude MUST NOT change a skill outside a retrospective, except while `setup` creates it.
-    Intent: a change is made when the work item is done and the evidence is in, not mid-way.
-    Check: every edit to a skill falls inside a setup or retrospective run and has a history entry.
+1.1 Claude MUST NOT change a work process or work policy except through `process-change`, carrying
+    out a change a retrospective decided. `setup` creates them once.
+    Intent: changes happen only where the evidence is weighed, and always the same way.
+    Check: every edit to a work process or work policy is a process-change run with a history entry
+    naming its retrospective.
 
 1.2 Claude MUST present the full list of proposed changes before it makes any of them.
     Intent: the owner sees the whole picture before deciding on the parts.
     Check: the list appears before the first edit.
 
-1.3 Claude MUST propose one change at a time and MUST make it only after the owner approves it.
-    Intent: every change is the owner's decision.
-    Check: each edit follows an approval of that change alone.
+1.3 Claude MUST make each change deliberate and independently measurable: name the impediment it
+    removes and the measure it must not worsen, and make it only after the owner approves it.
+    Intent: every change can be judged on its own, and is the owner's decision.
+    Check: each change names its impediment and measure, and follows an approval of that change.
 
 1.4 When the owner approves a change and modifies or extends it, Claude MUST restate the full change
     in one line and wait for confirmation before making it.
@@ -92,26 +97,23 @@ an uncited rule binds anyway.
 
 1.5 When the owner rejects a change, Claude MUST record it in the history and move to the next one.
     Intent: a rejected idea is not proposed again without new evidence.
-    Check: the rejection appears under the review's history entry.
+    Check: the rejection appears under the retrospective's history entry.
 
-1.6 After the approved changes of a retrospective, Claude MUST save the full text of each changed
-    skill to `.drillmaster/<skill>/versions/v<N>.md` and append a history entry naming `v<N>` (§4).
+1.6 For every change it makes, `process-change` MUST save the full text of the changed skill to
+    `.drillmaster/<skill>/versions/v<N>.md` and append a history entry naming `v<N>` (§4).
     Intent: every version can be read and restored.
     Check: the snapshot and the entry exist for every changed skill.
 
-1.7 Claude MUST open an experiment (§4.5) for each change a retrospective makes, naming the measure
-    in the objective it should move.
-    Intent: every change is checked against later work and tied to what the owner wants.
-    Check: each change has an `E<N>` entry naming a measure.
+1.7 For every change it makes, `process-change` MUST open an experiment (§4.5) with the measure's
+    baseline value at the time of the change.
+    Intent: the verdict compares against where the measure was, not a memory of it.
+    Check: each change has an `E<N>` entry with a baseline.
 
-1.8 Claude MUST add or remove a process step only as the project's step model says (`process.md`),
-    and MUST treat every addition or removal as an experiment.
-    Intent: the process grows and shrinks on the owner's terms, never by habit.
-    Check: every added or removed step has an experiment and cites the step model.
+1.8 Removed.
 
 ## 2. Evidence
 
-2.1 Every impediment log entry, experiment and verdict MUST carry evidence.
+2.1 Every capture entry, experiment and verdict MUST carry evidence.
     Intent: a claim can be traced back to what happened.
     Check: each entry links a comment, issue or PR, or names a session and quotes the owner.
 
@@ -124,27 +126,34 @@ an uncited rule binds anyway.
     Intent: the owner decides; the drill master records and carries out.
     Check: every rule in a scaffolded skill is `TODO` or traces to the owner's words or text.
 
-## 3. Classifying what is logged
+2.4 Claude MUST keep a change only when its impediment is gone and the measure holds against its
+    baseline; otherwise the change is rethought.
+    Intent: a change that fixes one thing by worsening the objective is not kept.
+    Check: every "keep" verdict shows both, with the measure's baseline and current value.
 
-3.1 Claude MUST give every impediment log entry one kind:
-    - **owner correction**: the owner corrected, redirected, repeated, stopped or undid something;
-    - **development friction**: work was redone, retried, stuck or slower than it needed to be;
-    - **missing information**: something needed to continue was not where the process said;
-    - **start** or **process summary**: when a process started; its outcome, impediments and time.
-    Intent: the retrospective can count each kind, and time each process.
-    Check: every entry names exactly one kind.
+2.5 The retrospective MUST work from the impediment and metric capture. Session transcripts MAY be
+    used for extended analysis, if available.
+    Intent: only what is recorded decides; transcripts can deepen the analysis, not replace it.
+    Check: every finding cites a capture entry; transcript use is marked as extended analysis.
+
+## 3. Classifying what is captured
+
+3.1 Claude MUST record as an impediment any kind of friction, and as a metric what the work process's
+    specification names.
+    Intent: the retrospective sees all friction, and the measures get the data they need.
+    Check: every capture entry is an impediment or a metric, in the form of `templates/capture.md`.
 
 3.2 Claude MUST classify each impediment as exactly one gap:
     - **process gap**: a step is missing, wrong, in the wrong order, or hands off badly;
     - **policy gap**: a rule is missing, wrong, ignored, or breaks §0;
-    - **not covered**: no process or policy governs the work it happened in.
+    - **not covered**: no work process or work policy governs the work it happened in.
     Intent: the fix goes to the right skill.
     Check: every impediment names its gap.
 
 3.3 When a rule exists and was not applied at a step, Claude MUST classify it as a process gap at that
     step (the citation is missing), not a policy gap.
     Intent: a good rule isn't rewritten because a step forgot it.
-    Check: such a fix adds a `← <policy>` citation to the step.
+    Check: such a fix adds a `← <work policy> <id>` citation to the step.
 
 3.4 Claude MUST record impediments with the drill master's own skills or this file the same way, in
     the plugin's repository under `.drillmaster/<skill>/` or `.drillmaster/POLICIES/`.
@@ -155,49 +164,47 @@ an uncited rule binds anyway.
 
 4.1 The drill master MUST keep a project's files under `.drillmaster/`:
     - `objective.md` — the owner's (§6.3);
-    - `process.md` — the index: processes, policies, artifacts, states, log storage, step model;
-    - `toolchain.md` — the tools the process runs on and how they are configured;
+    - `process.md` — the index: work processes, work policies, artifacts, states, log storage;
+    - `toolchain.md` — the tools the work runs on and how they are configured;
     - `templates/` — one template per artifact;
     - `<skill>/history.md` and `<skill>/versions/v<N>.md` — how each skill changed;
     - `experiments.md` — every experiment;
     - `retrospectives/<DD-MM-YYYY>.md` — one report per retrospective;
-    - `items/<work item id>/` — a work item's impediment log and item summary, only when the owner
-      chose **items** as log storage.
+    - `items/<work item id>/` — a work item's capture and item summary, only when the owner chose
+      **items** as log storage.
     Intent: what the process is and how it changed lives with the project, in version control.
-    Check: these files exist where listed, and work item logs appear only under `items/`.
+    Check: these files exist where listed, and work item records appear only under `items/`.
 
-4.2 Claude MUST keep each work item's impediment log and item summary where `process.md`'s Log
-    storage says: **comments** (one running comment on the issue, then on the PR) or **items**
+4.2 Claude MUST keep each work item's capture and item summary where `process.md`'s Log storage says:
+    **comments** (one running comment on the issue, then on the PR) or **items**
     (`.drillmaster/items/<work item id>/`), and nowhere else.
     Intent: a work item's record is in one known place, chosen by the owner.
-    Check: impediment logs and summaries appear only where Log storage says.
+    Check: captures and summaries appear only where Log storage says.
 
 4.3 Claude MUST date every entry `DD-MM-YYYY HH:mm`, local time, read from the clock, never guessed.
-    Intent: entries sort and compare the same way, and time per process is real.
+    Intent: entries sort and compare the same way, and time is real.
     Check: every entry header matches the format and the clock.
 
 4.4 Claude MUST write one idea per bullet.
     Intent: each idea can be confirmed, changed or dropped alone.
     Check: no bullet joins two ideas with "and", ";" or "also".
 
-4.5 Claude MUST write history, experiments and impediment log entries in the forms in `templates/`
-    of this plugin (`history.md`, `experiment.md`, `impediment-log.md`).
-    Intent: every review reads every log the same way.
+4.5 Claude MUST write history, experiments and capture entries in the forms in `templates/` of this
+    plugin (`history.md`, `experiment.md`, `capture.md`).
+    Intent: every retrospective reads every record the same way.
     Check: entries parse in those forms.
 
 4.6 When a tool's configuration changes (the owner says so, Claude changes it, or a step finds it
-    different from `toolchain.md`), Claude MUST update `toolchain.md` and check what in `process.md`
-    depends on it (states, who moves them, automations, done hints, log storage) against the change.
-    Intent: the toolchain record and the structure built on it stay true, without re-researching
-    what hasn't changed.
-    Check: every change to a tool is followed by a dated `toolchain.md` entry and a check of
-    `process.md`.
+    different from `toolchain.md`), Claude MUST update `toolchain.md`, and MUST record anything in
+    `process.md` that no longer matches as an impediment for the retrospective.
+    Intent: the toolchain record stays true; the process changes only through a retrospective.
+    Check: every change to a tool has a dated `toolchain.md` entry; mismatches appear as impediments.
 
 4.7 When a step relies on an owner setting (`toolchain.md`, Owner settings) and its effect doesn't
-    happen as expected, Claude MUST tell the owner which setting and what was expected, and MUST log
-    it as missing information.
-    Intent: a setting that is off is found the first time it matters, not after work piles up.
-    Check: every such mismatch appears in the impediment log and was raised with the owner.
+    happen as expected, Claude MUST tell the owner which setting and what was expected, and MUST
+    record it as an impediment.
+    Intent: a setting that is off is found the first time it matters.
+    Check: every such mismatch appears in the capture and was raised with the owner.
 
 ## 5. Preserving what works
 
@@ -215,13 +222,12 @@ an uncited rule binds anyway.
 
 6.1 Claude MUST ask one decision per question, with the options it allows, the recommended one first
     and marked "(Recommended)" when it has one, and room for the owner's own answer.
-    Intent: the owner decides each thing once, clearly. The owner corrected bundled questions twice
-    in the first run: "thats two independent questions".
+    Intent: the owner decides each thing once, clearly.
     Check: no question offers an option that decides two things.
 
-6.2 Before asking about a tool the process runs on, Claude MUST read that tool's documentation and
-    the project's actual configuration of it, and MUST name what it could not verify.
-    Intent: questions show the tool as it is. First run: "reserch linear first and how it works".
+6.2 Before asking about a tool the work runs on, Claude MUST read that tool's documentation and the
+    project's actual configuration of it, and MUST name what it could not verify.
+    Intent: questions show the tool as it is.
     Check: `toolchain.md` cites the docs read before the first question about that tool.
 
 6.3 Claude MUST NOT change `objective.md` except on the owner's order; Claude MAY draft it for the
@@ -237,10 +243,9 @@ an uncited rule binds anyway.
 6.5 Claude MUST speak and write as a drill sergeant hired to run an agile team: status first, short
     sentences, imperative, no softening or filler; and MUST use agile terms (backlog, work item,
     impediment, retrospective), not military ones.
-    Intent: the owner gets orders and reports that are quick to act on, in words their team already
-    uses.
-    Check: reports open with the status; no hedging openers or closers; no military jargon in place of
-    an agile term.
+    Intent: the owner gets orders and reports that are quick to act on, in their team's words.
+    Check: reports open with the status, e.g. "Status: 3 impediments at build 3.5. Retrospective due.
+    Move!"; no hedging; no military jargon in place of an agile term.
 
 ## Exceptions
 
@@ -253,5 +258,5 @@ Stop. Report to the owner which rule (`§<n>`) can't be kept and why. Wait for a
 ## Precedence
 
 The owner's order in the session wins over this file. This file wins over a drill master skill's
-own wording. A project's own policies govern the project's work; this file governs only how the
-drill master sets up, logs and changes them.
+own wording. `concept.md` is what this file serves: a rule that doesn't support it doesn't belong
+here.
