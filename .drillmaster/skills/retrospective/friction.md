@@ -1,0 +1,16 @@
+- 04-11-2026 21:16 · session job 065f1029 · first Keeper retrospective (Keeper PR #52)
+  - What happened: the retrospective wasn't traced as it ran, so the owner's answers and orders were recorded nowhere but the session
+  - What the user wanted: "You not tracing did not record this.."
+  - Gap: process (/devops-drillmaster:retrospective has no trace step; the run record was rebuilt afterwards, in `.drillmaster/retrospectives/04-11-2026.md`)
+- 04-11-2026 21:16 · session job 065f1029 · first Keeper retrospective (Keeper PR #52)
+  - What happened: the report's impediment counts were first written without counting them: 15 where the traces hold 14
+  - What the user wanted: counts taken from the traces (POLICIES §2.5)
+  - Gap: process (/devops-drillmaster:retrospective 2.4 says to compute them, not how; nothing checks the sum)
+- 04-11-2026 22:31 · session 0efe8979 · second Keeper retrospective (Keeper PR #55)
+  - What happened: the rename of the state to Pre-Review was proposed again; the first retrospective of the day had made it, but its PR (#52) was still open, and 1.1 reads only the reports on the default branch
+  - What the user wanted: "this is allready been done, you did not listen. i said you need to use the latest retrospective. (i might be wrong if it was not merged..)"
+  - Gap: process (/devops-drillmaster:retrospective 1.1: read open retrospective PRs too, and stack a new retrospective on an open one)
+- 04-11-2026 23:05 · session 0efe8979 · Keeper retrospectives (Keeper PRs #52, #53, #55)
+  - What happened: the first retrospective's PR was opened as a draft (preview), so the owner couldn't merge it; its branch was then rewritten, and the stacked PR had to be replaced (#53 → #55) and merged with master by hand
+  - What the user wanted: "52 is what i can't merge.."; "i meant preview"
+  - Gap: process (/devops-drillmaster:retrospective 4.4: say how its PR is opened — ready, not a draft, since every change in it is already the owner's; and how a stacked retrospective follows when the one below is squash-merged)
