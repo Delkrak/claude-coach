@@ -1,3 +1,10 @@
+## v2 — 04-11-2026 21:28
+- Changed
+  - §4.2: log storage **attachment** added; every trace entry is written by the trace tool, and a JSON trace passes `trace.mjs verify` — Keeper retrospective 04-11-2026, C1
+  - §4.1: a JSON trace is copied as `traces/<key>-trace.json`
+- Preserved
+  - §4.3: time read from the clock, never guessed — now enforced by the tool
+
 ## 04-11-2026 20:14
 - Changed
   - §4.5: the history and experiment forms are written in the rule; the plugin keeps only the trace and summary templates — "The usage of templates should be drastically reduced"

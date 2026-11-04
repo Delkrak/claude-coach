@@ -87,8 +87,13 @@ process-overview.html   # the process overview
 
 The plugin's only templates are the trace and the item summary.
 
-Traces and summaries live on issues and PRs by default ("comments"), or under `items/` if you
-choose.
+Traces and summaries live on issues and PRs by default ("comments"), as a `<key>-trace.json`
+attached to the issue ("attachment"), or under `items/` if you choose.
+
+Every trace entry is written by `scripts/trace.mjs`, never by hand. It stamps the time from the
+clock, checks the entry's form, and chains an XOR checksum, so a trace edited by hand fails
+`trace.mjs verify`. The checksum catches edits made outside the tool; it is not a signature,
+since anyone who runs the tool can write entries.
 
 ## Process list and policy list
 

@@ -1,3 +1,14 @@
+## v2 — 04-11-2026 21:28
+- Not working
+  - Hand-written traces in Keeper: estimated times shown as read, traces written after the fact, UTC beside local time, wrong skill versions, step ids without their slash — Keeper retrospective 04-11-2026 (Delkrak/Keeper PR #52); the owner: "so you are effectively cooking the books."
+- Changed
+  - Every entry is written by `scripts/trace.mjs`: clock-stamped, form-checked, chained with an XOR checksum; `verify` finds a hand edit — the owner: "We definitely need a tool to create the trace as json, it should have a simple xor based tamper protection."
+  - The tool counts end and summary (time, impediments, questions, corrections), so no summary is counted by hand
+  - New log storage **attachment**: `<key>-trace.json` attached to the issue, uploaded by the agent through the tracker's connector; new step 1.11 — the owner: "as a attachement to linear issue", "No, JSON only", "Agent via connector"
+  - The template is the JSON entry form
+- Preserved
+  - The kinds of entry, the gap classes, comments and items storage, the item summary
+
 ## 04-11-2026 20:00
 - Changed
   - Renamed impediment-and-metric-capture to trace; it traces every step, not only friction and metrics — "We need to gather enough information to trace the entire process, not only friction and metrics, but also other relevant information"

@@ -1,6 +1,6 @@
 ---
 name: trace
-description: Trace a work item - every step's start and end, what went in and came out (linked), decisions, questions and answers, state moves and every impediment - so what happened can be rebuilt and the objective's measures computed from it; close every work process with its process summary and write the item summary on the PR. Where the project's log storage says (by default a running comment on the issue, then the PR). Never changes a skill. Use at every step of every work process, whenever friction happens (the owner corrects or redirects Claude, work is redone or stuck, information is missing - the prompt hook cues corrections), and when a PR is marked ready. Only in a project with .drillmaster/process.md.
+description: Trace a work item - every step's start and end, what went in and came out (linked), decisions, questions and answers, state moves and every impediment - so what happened can be rebuilt and the objective's measures computed from it; close every work process with its process summary and write the item summary on the PR. Every entry is written by the trace tool (scripts/trace.mjs), which stamps the clock and chains an XOR checksum. Where the project's log storage says: a `<key>-trace.json` attached to the issue, a running comment on the issue then the PR, or the repo. Never changes a skill. Use at every step of every work process, whenever friction happens (the owner corrects or redirects Claude, work is redone or stuck, information is missing - the prompt hook cues corrections), and when a PR is marked ready. Only in a project with .drillmaster/process.md.
 ---
 
 # Trace
@@ -22,10 +22,21 @@ Every step has an id, cited as `/devops-drillmaster:trace <id>` ← §0.8.
 
 ## 1. Entries
 
-Every entry is one line in the form of `templates/trace.md`: time (read from the clock ← §4.3), the
-work process step by id (e.g. `/build-process 3.5`), the kind, and a link as evidence ← §2.1. Link
-what the tracker, the git host and the session already hold (an issue, a commit, a PR, a comment,
-a session id); never copy it.
+Every entry is written by the trace tool, `scripts/trace.mjs` at the plugin root, at the moment it
+happens; never by hand, and never later from memory. The tool stamps the time from the clock ←
+§4.3, checks the entry's form (`templates/trace.md`), and chains it with an XOR checksum, so a
+trace edited by hand no longer verifies:
+
+```
+node "<plugin root>/scripts/trace.mjs" add --file <folder> --key <work item id> \
+  --process /<work process> --step <id> --kind <kind> --text "<what>" [the kind's fields]
+node "<plugin root>/scripts/trace.mjs" verify --file <folder>/<key>-trace.json
+```
+
+Each entry names the work process step by id (e.g. `/build-process 3.5`), its kind, and a link as
+evidence ← §2.1. Link what the tracker, the git host and the session already hold (an issue, a
+commit, a PR, a comment, a session id); never copy it. A refusal from the tool is fixed by adding
+what it asks for, never by writing the file another way.
 
 1.1 **start** and **end** — when a step starts and ends; the start of a work process names the skill
     and its version, and the session.
@@ -50,10 +61,13 @@ a session id); never copy it.
     `.drillmaster/experiments.md`: whether its impediment was seen, and the measure's value. The
     retrospective reads it from the trace; never write to `experiments.md` on a work item's branch.
 
-1.8 **summary** — at the end of a work process: its **process summary**: outcome, time taken,
-    impediments, questions and corrections counted from the trace.
+1.8 **summary** — at the end of a work process: its **process summary**. Give the outcome; the tool
+    counts the time taken, impediments, questions and corrections (an impediment the owner caused
+    by correcting Claude carries `--correction`). **end** is counted the same way.
 
 1.9 Write it where Log storage says ← §4.2:
+    - **attachment**: `<key>-trace.json`, written by the tool in the session's scratch folder and
+      attached to the issue (1.11), for the work item's whole life. Nothing else holds the trace.
     - **comments**: one running comment titled `Trace — <item>` on the issue until the PR opens;
       then copied into one running comment on the PR and appended there, after the merge too.
       Update the running comment rather than posting a new one. Before the issue exists, keep the
@@ -63,6 +77,14 @@ a session id); never copy it.
 1.10 For an owner correction only, report to the owner in one line, e.g. "Traced: build 3.5,
      process gap. Carry on."
 
+1.11 **attachment** storage, at every entry:
+     - Before the first entry of a session, download the issue's current `<key>-trace.json` (the
+       tracker's attachment) into the scratch folder and run `verify`. A trace that fails is not
+       written to: report it to the owner as an impediment.
+     - After `add`, upload the file with the tracker's connector, as one file, the bytes unchanged
+       (the tool prints its filename, size and content type), then link the new upload and unlink
+       the attachment it replaces. The stored old uploads stay; they are the trace's history.
+
 ## 2. Item summary
 
 When the PR is marked ready for the owner's review (the work process that marks it ready has this as
@@ -70,7 +92,8 @@ a step):
 
 2.1 Read the item's trace.
 
-2.2 Write the item summary from `templates/summary.md`: its own PR comment (**comments**), or
+2.2 Write the item summary from `templates/summary.md`: its own PR comment (**comments** and
+    **attachment**), or
     `.drillmaster/items/<work item id>/summary.md` (**items**). On a rework pass, update it.
 
 2.3 Removed: observations are trace entries (1.7).

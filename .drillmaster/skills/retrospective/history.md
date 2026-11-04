@@ -1,3 +1,12 @@
+## v2 — 04-11-2026 21:28
+- Changed
+  - 2.1 verifies a JSON trace before reading it; 4.4 keeps a JSON trace's file name — follows the trace tool (trace v2)
+- Not working
+  - The retrospective itself is not traced: the owner's answers and orders in Keeper's retrospective 04-11-2026 lived only in the session until rebuilt by hand — the owner: "You not tracing did not record this.." Not changed here: no retrospective has decided it
+  - 2.4 lets the counts be written without counting them: the Keeper report first said 15 impediments; the traces held 14
+- Preserved
+  - Every step and id
+
 ## 04-11-2026 20:14
 - Changed
   - 4.4 writes a short report inline (no template) and keeps merged traces in .drillmaster/traces/ until used
