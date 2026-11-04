@@ -1,19 +1,14 @@
 ## Item summary — <work item id>: <title>
 
-Built from the process summaries in the impediment log. Posted when the PR is marked ready, before
-the owner's review; updated after merge.
+Built from the process summaries in the capture. Posted when the PR is marked ready, before the
+owner's review; updated after merge.
 
 **Outcome:** <what the work item delivered, one or two sentences>
 
-**Time per process:** <process> <h:mm> · <process> <h:mm> · … (cross-checked against tracker state
-times)
+**Metrics:** <work process>: <metric> <value> · … (as each work process's specification names)
 
-**Impediments**
-- Owner corrections: <n> — <one line each, linked>
-- Development friction: <n> — <one line each, linked>
-- Missing information: <n> — <one line each, linked>
-
-**AI review:** <rounds>, <findings fixed / answered>
+**Impediments:** <n>
+- <work process> <step id> — <one line, linked>
 
 **Noticed, not done:** <issues filed, linked>
 

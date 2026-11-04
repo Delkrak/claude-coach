@@ -4,23 +4,23 @@ The drill master's index. The objective is `.drillmaster/objective.md`; the stor
 skill (if the owner chose one).
 
 Priority: <Light / Standard / Full>, owner experience: <…>
-Step model: <evidence + experiment / measure-driven ladder / owner decides>, N = <items>
 Log storage: <comments (issue, then PR) | items (`.drillmaster/items/<id>/`)>
 
-# Processes, in order
+# Work processes, in order
 
-## <n>. <process> — <adopted | scaffolded>
+## <n>. <work process> — <adopted | scaffolded>
 - Skill: .claude/skills/<name>/SKILL.md
 - Serves: <measure in objective.md>
-- Input: <what> ← <policy> §<n>
-- Output: <what> ← <policy> §<n>
-- States: <from → to>, moved by <process | tool automation>
-- Hands off to: <next process>
+- Input: <what> ← <work policy> <rule ids>
+- Output: <what> ← <work policy> <rule ids>
+- Records: <impediments at every step; metrics: …>
+- States: <from → to>, moved by <work process | tool automation>
+- Hands off to: <next work process>
 - Done hints: <tool calls that often end it>
 
-# Policies
+# Work policies
 
-## <policy> — <adopted | scaffolded>
+## <work policy> — <adopted | scaffolded>
 - Skill: .claude/skills/<name>/SKILL.md
 - Governs: <which outputs (and the inputs they become)>
-- Cited by: <process> input | output
+- Cited by: <work process> input | output

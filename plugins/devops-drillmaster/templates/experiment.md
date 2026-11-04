@@ -1,10 +1,12 @@
-## E<N> — <title> — running | worked | didn't work | abandoned
-- Started: <DD-MM-YYYY HH:mm> · <skill> v<N> · process gap | policy gap | step added | step removed
-- Measure: <the objective's measure it should move>
-- Impediments: <impediment log entries it came from, linked>
+## E<N> — <title> — running | kept | rethink | abandoned
+- Started: <DD-MM-YYYY HH:mm> · <skill> v<N> · process gap | policy gap | not covered
+- Retrospective: <link to .drillmaster/retrospectives/<date>.md>
+- Impediment: <what it should remove, with the capture entries it came from, linked>
+- Measure: <the objective's measure it must not worsen>
+- Baseline: <the measure's value at the time of the change, and from where>
 - Change: <what was edited>
-- Intended outcome: <what should be different>
-- How to check: <what to look for in later impediment logs, summaries or tracker data>
 - Observations:
-  - <DD-MM-YYYY HH:mm> · <work item> · seen | not seen — <link or quote>
-- Verdict: <DD-MM-YYYY HH:mm> — <reason>
+  - <DD-MM-YYYY HH:mm> · <work item> · impediment seen | not seen · measure <value> — <link>
+- Impediment gone: yes / no
+- Measure holds: <baseline> → <now>
+- Verdict: <DD-MM-YYYY HH:mm> — keep (both yes) · rethink — <reason>

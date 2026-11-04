@@ -10,7 +10,8 @@ owner's order (POLICIES.md §6.3).
 ## Measures
 
 - **<Measure name>.** <What has to be true.>
-  Check: <how it is counted, and from where (tracker states, PRs, impediment logs)>.
+  Recorded by: <work process>, as <metric>.
+  Check: <how it is counted from the capture>.
 
 ## Direction and constraints
 
