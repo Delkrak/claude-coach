@@ -15,8 +15,9 @@ storage** says ← §4.2. This skill never changes a skill ← §1.1.
 directory. Read `.drillmaster/process.md` first: it names the work processes, the log storage and
 the templates.
 
-**Arguments:** $ARGUMENTS: `start`, `entry`, `summary` or `item-summary`. With none, pick from the
-situation.
+**Arguments:** $ARGUMENTS, optional: what happened, in the owner's own words (e.g. "the review was
+slow"). Work out the work process, the step and whether it is a start, impediment, metric, summary
+or item summary from the situation.
 
 Every step has an id, cited as `impediment-and-metric-capture <id>` ← §0.8.
 
