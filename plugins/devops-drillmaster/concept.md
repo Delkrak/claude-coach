@@ -27,7 +27,8 @@ exists to support it. Anything that doesn't support it should not exist.
 ### Owner's objective
 
 What the owner wants the work to achieve, with one or more measures. Every work process serves a
-measure; every change is judged by one.
+measure; every change is judged by one. Drillmaster also learns how to serve the owner: their
+experience, their preferences, and how their tools are meant to be used.
 
 > *Example:* the objective "ship features without the owner stepping in" might be measured by how
 > many items reach review without a correction.
