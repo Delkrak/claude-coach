@@ -90,11 +90,15 @@ export const newTrace = (key) => {
   return { ...trace, head: headOf(trace) }
 }
 
+const TOP_LEVEL = ['key', 'version', 'head', 'entries']
+
 /** Why the trace doesn't verify, or null when it does. */
 export const brokenReasonOf = (trace) => {
   if (!trace || typeof trace.key !== 'string' || !Array.isArray(trace.entries)) {
     return 'it is not a trace file: it has no key or no entries.'
   }
+  const extra = Object.keys(trace).filter((name) => !TOP_LEVEL.includes(name))
+  if (extra.length) return `it holds ${extra.join(', ')}, which the tool never writes.`
   let previous = seedOf(trace)
   for (const [index, entry] of trace.entries.entries()) {
     if (entry?.checksum !== checksumOf(previous, entry ?? {})) {
@@ -130,17 +134,19 @@ const stepStartOf = (trace, process) =>
 
 const since = (trace, index, now) => durationOf(now.getTime() - Date.parse(trace.entries[index].iso))
 
-/** When the run begins at the trace's first entry, what happened before it isn't counted. */
+const saysNothing = (before) => /^nothing\.?$/i.test(before.trim())
+
+/** When a run begins at the trace's first entry, what happened before it isn't counted. */
 const partialOf = (trace, startIndex) => {
   const before = trace.entries[0]?.before
-  return startIndex === 0 && before && before !== 'nothing' ? { uncounted: before } : {}
+  return startIndex === 0 && before && !saysNothing(before) ? { uncounted: before } : {}
 }
 
-/** An `end`'s count: the step, from the work process's last start. */
+/** An `end`'s count: the step, from the work process's last start. A step is never partial. */
 const endCount = (trace, process, now) => {
   const startIndex = stepStartOf(trace, process)
   if (startIndex < 0) throw new TraceError(`${process} has no start entry to count from.`)
-  return { stepTime: since(trace, startIndex, now), ...partialOf(trace, startIndex) }
+  return { stepTime: since(trace, startIndex, now) }
 }
 
 /** A `summary`'s count: the work process's whole run. */
@@ -243,15 +249,31 @@ export const parseArgs = (argv) => {
   return fields
 }
 
+/** The file exactly as the tool writes it. */
+const textOf = (trace) => `${JSON.stringify(trace, null, 2)}\n`
+
+/**
+ * The trace in `file`, which must read back exactly as the tool wrote it: a duplicate key or any
+ * other change to the text that parsing would hide is found. A BOM and CRLF line ends are allowed.
+ */
 const read = (file) => {
+  let text
+  let trace
   try {
-    return JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, ''))
+    text = fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '').replace(/\r\n/g, '\n')
+    trace = JSON.parse(text)
   } catch (error) {
     throw new TraceError(`Can't read ${file} as a trace: ${error.message}`)
   }
+  if (typeof trace?.key === 'string' && Array.isArray(trace.entries) && text !== textOf(trace)) {
+    throw new TraceError(
+      `The trace was changed outside the trace tool: ${path.basename(file)} isn't as the tool wrote it (a duplicate key, or text edited by hand).`,
+    )
+  }
+  return trace
 }
 
-const write = (file, trace) => fs.writeFileSync(file, `${JSON.stringify(trace, null, 2)}\n`)
+const write = (file, trace) => fs.writeFileSync(file, textOf(trace))
 
 /** `--file` names a `.json` file (its folder made if missing), or a folder for `<key>-trace.json`. */
 const fileFor = (where, key) => {
