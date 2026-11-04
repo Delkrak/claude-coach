@@ -17,7 +17,7 @@
     {
       "name": "devops-drillmaster",
       "source": "./plugins/devops-drillmaster",
-      "description": "A drill sergeant for your agile setup with Claude: sets up processes and policies around your objective and toolchain, keeps an impediment log on every work item, and runs retrospectives that change the process one experiment at a time.",
+      "description": "A drill sergeant for your agile setup with Claude: sets up work processes and work policies around your objective and toolchain, captures impediments and metrics on every work item, and runs retrospectives whose changes are deliberate and each independently measurable.",
       "version": "0.1.0",
       "author": {
         "name": "delkrak"

@@ -5,7 +5,7 @@ Coaching for Claude Code, as two plugins in one marketplace:
 | Plugin | For | Read |
 |---|---|---|
 | `coach` | Improving a single command from the corrections in a session | [plugins/coach](plugins/coach/README.md) |
-| `devops-drillmaster` | A drill sergeant for your agile setup: objective, processes, policies, impediment logs, retrospectives | [plugins/devops-drillmaster](plugins/devops-drillmaster/README.md) |
+| `devops-drillmaster` | A drill sergeant for your agile setup: objective, work processes, work policies, impediment and metric capture, retrospectives | [plugins/devops-drillmaster](plugins/devops-drillmaster/README.md) |
 
 ## Installation
 
