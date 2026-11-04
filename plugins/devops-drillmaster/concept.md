@@ -60,7 +60,7 @@ Every work process records impediments and metrics, as its specification says. I
 kind of friction, such as what slowed it down, what was missing, or what the owner had to correct.
 Metrics: what the objective's measures need, such as time taken or corrections made. The
 retrospective corrects the specification when it records the wrong thing or too little. Only what
-is recorded is used by the retrospective.
+is recorded is used by the retrospective; session transcripts may support it.
 
 > *Example:* Build's specification says it records time taken and corrections made. At step 3.5 the
 > owner says *"no, reuse the existing component"*: Build records the impediment and the gap behind
