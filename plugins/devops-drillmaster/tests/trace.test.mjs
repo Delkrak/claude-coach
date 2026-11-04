@@ -147,11 +147,39 @@ test('end counts its step; summary counts the whole run, per process', () => {
   assert.throws(() => addEntry(trace, { process: '/build-process', step: '3.9', kind: 'end', link: 'l' }, at(59)), /no start entry/)
 })
 
-test('a run that began before the trace says what it leaves uncounted', () => {
-  const capture = { process: '/capture-process', step: '1.7', kind: 'start', version: 'v1', session: 'abc', before: 'capture 1.1–1.6, before the issue existed' }
-  let trace = addEntry(newTrace('KEE-46'), capture, at(45))
-  trace = addEntry(trace, { process: '/capture-process', step: '1.8', kind: 'summary', text: 'saved', link: 'KEE-46' }, at(45))
-  assert.equal(trace.entries.at(-1).uncounted, 'capture 1.1–1.6, before the issue existed')
+const captureFrom = (before) =>
+  addEntry(newTrace('KEE-46'), { process: '/capture-process', step: '1.7', kind: 'start', version: 'v1', session: 'abc', before }, at(45))
+
+const capture = (trace, kind, extra = {}) =>
+  addEntry(trace, { process: '/capture-process', step: '1.8', kind, link: 'KEE-46', ...extra }, at(46))
+
+test("a summary whose run began before the trace says what it leaves uncounted; an end's step never does", () => {
+  const trace = captureFrom('capture 1.1–1.6, before the issue existed')
+  assert.equal(capture(trace, 'summary', { text: 'saved' }).entries.at(-1).uncounted, 'capture 1.1–1.6, before the issue existed')
+  assert.equal(capture(trace, 'end').entries.at(-1).uncounted, undefined)
+})
+
+test('nothing before the trace, however it is written, leaves nothing uncounted', () => {
+  for (const before of ['nothing', 'Nothing', 'nothing.', ' NOTHING ']) {
+    assert.equal(capture(captureFrom(before), 'summary', { text: 'saved' }).entries.at(-1).uncounted, undefined, before)
+  }
+})
+
+test("a run that doesn't begin at the trace's first entry is never uncounted", () => {
+  let trace = captureFrom('capture 1.1–1.6, before the issue existed')
+  trace = addEntry(trace, { process: '/refine-process', step: '2.1', kind: 'start', version: 'v3', session: 'abc' }, at(46))
+  trace = addEntry(trace, { process: '/refine-process', step: '2.12', kind: 'summary', text: 'Ready', link: 'l' }, at(50))
+  assert.equal(trace.entries.at(-1).uncounted, undefined)
+})
+
+test('a blank or missing step is refused', () => {
+  const trace = opened()
+  assert.throws(() => addEntry(trace, { process: '/refine-process', step: ' ', kind: 'out', text: 'x', link: 'l' }, at(46)), /names its step/)
+  assert.throws(() => addEntry(trace, { process: '/refine-process', kind: 'out', text: 'x', link: 'l' }, at(46)), /names its step/)
+})
+
+test('a field added by hand at the top of the file is found', () => {
+  assert.match(broken(opened(), (t) => (t.count = 99)), /holds count/)
 })
 
 test('a key is a work item id', () => {
@@ -223,6 +251,19 @@ test('a .json file in a missing folder is written there, whatever the case of it
   const upper = path.join(tempDir(), 'KEE-16-trace.JSON')
   assert.match(failure(['add', '--file', upper, ...START_ARGS]).message, /must be named KEE-16-trace.json/)
   assert.equal(fs.existsSync(upper), false)
+})
+
+test('a duplicate key, or text the tool never wrote, is found in the file', () => {
+  const dir = tempDir()
+  run(['add', '--file', dir, ...START_ARGS])
+  const file = path.join(dir, 'KEE-16-trace.json')
+  const text = fs.readFileSync(file, 'utf8')
+  fs.writeFileSync(file, text.replace('"session": "abc",', '"session": "FORGED",\n      "session": "abc",'))
+  assert.match(failure(['verify', '--file', file]).message, /isn't as the tool wrote it/)
+  fs.writeFileSync(file, text.replace('"key": "KEE-16",', '"key": "KEE-16",\n  "note": "forged",'))
+  assert.match(failure(['verify', '--file', file]).message, /changed outside the trace tool/)
+  fs.writeFileSync(file, text.replace(/\n/g, '\r\n'))
+  assert.equal(run(['verify', '--file', file]).verified, true)
 })
 
 test('a downloaded trace saved with a BOM still reads and verifies', () => {
