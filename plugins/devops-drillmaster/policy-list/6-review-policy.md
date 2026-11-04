@@ -14,7 +14,7 @@ Applies to: reviews, the output of AI review (4), and the input of user review (
 
 ## 2. Rules
 
-2.1 Each round's request MUST name the project's code work policies, `pr-policy` and the issue's
+2.1 Each round's request MUST name the project's code work policies, `/pr-policy` and the issue's
     acceptance criteria.
     Intent: the review checks the project's own rules, not a general taste.
     Check: each request names them; each finding names the rule or criterion.

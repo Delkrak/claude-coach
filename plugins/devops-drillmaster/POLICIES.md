@@ -1,7 +1,8 @@
 # Drill master policies
 
-Applies to: Claude, whenever it runs a devops-drillmaster skill (`setup`,
-`impediment-and-metric-capture`, `retrospective`, `process-change`). The concept these rules serve is [`concept.md`](concept.md).
+Applies to: Claude, whenever it runs a devops-drillmaster skill (`/devops-drillmaster:setup`,
+`/devops-drillmaster:trace`, `/devops-drillmaster:retrospective`,
+`/devops-drillmaster:process-change`). The concept these rules serve is [`concept.md`](concept.md).
 
 A skill step cites the rule it applies as `← POLICIES.md §<n>`. A cited rule binds at that step;
 an uncited rule binds anyway.
@@ -10,27 +11,29 @@ an uncited rule binds anyway.
 
 - **Owner**: the person whose project this is. The owner decides; the drill master records and
   carries out.
-- **Objective**: `.drillmaster/objective.md` — the goal, its measures (each naming the work process
-  that records it) and the direction. Owned by the owner.
+- **Objective**: `.drillmaster/objective.md` — the goal, its measures (each naming the work processes
+  whose traces it is counted from) and the direction. Owned by the owner.
 - **Work item**: one unit of delivered work: an issue and the PR that delivers it.
-- **Work process**: a skill that moves a work item one stage on: input, numbered steps, output. Its
-  specification states what it records.
+- **Work process**: a skill that moves a work item one stage on: input, numbered steps, output.
+  Every step is traced.
 - **Work policy**: a skill of numbered rules that inputs and outputs must meet.
 - **Artifact**: a thing a step produces whose form is a template in `.drillmaster/templates/`.
 - **Skill**: a work process or work policy the drill master owns, or one of the drill master's own
   skills.
 - **Impediment**: any kind of friction, such as what slowed the work down, what was missing, or what
   the owner had to correct.
-- **Metric**: what the objective's measures need, such as time taken or corrections made.
-- **Impediment and metric capture**: what a work process records about a work item, as its
-  specification says; kept where the project's log storage says.
-- **Item summary**: the summary of one work item's capture, posted on its PR.
-- **Retrospective**: a run of `retrospective`; the only place where changes to work processes and
+- **Metric**: what the objective's measures need, such as time taken or corrections made; counted
+  from the trace.
+- **Trace**: a work item's running record, enough to rebuild what happened at every step: start and
+  end, in and out (linked), state moves, decisions, questions and answers, impediments; kept where
+  the project's log storage says.
+- **Item summary**: the summary of one work item's trace, posted on its PR.
+- **Retrospective**: a run of `/devops-drillmaster:retrospective`; the only place where changes to work processes and
   work policies are decided.
-- **Process-change**: a run of `process-change`; the only way a decided change is made.
+- **Process-change**: a run of `/devops-drillmaster:process-change`; the only way a decided change is made.
 - **Experiment**: a change with a baseline, the impediment it should remove, the measure it must not
   worsen, and a verdict.
-- **Evidence**: a link to a capture entry, issue or PR comment, or a session id with the owner's
+- **Evidence**: a link to a trace entry, issue or PR comment, or a session id with the owner's
   words quoted.
 
 ## 0. Writing a work policy
@@ -60,23 +63,30 @@ an uncited rule binds anyway.
 
 0.6 Every work policy MUST end with what to do when a rule can't be kept.
     Intent: a rule that can't be kept is surfaced, not bent.
-    Check: the section is present; the capture shows the rule named, not a workaround.
+    Check: the section is present; the trace shows the rule named, not a workaround.
 
 0.7 Claude MUST rewrite or drop a rule nobody can check.
     Intent: a rule that can't be checked can't be drilled.
     Check: no rule's `Check:` line is empty or says "use judgement".
 
 0.8 Claude MUST give every step of a work process an id (`<n>.<k>`), cite it as `<work process>
-    <id>`, and MUST NOT renumber a step that a skill, capture entry or experiment cites. This holds
+    <id>`, and MUST NOT renumber a step that a skill, trace entry or experiment cites. This holds
     for the drill master's own skills too. A rule is cited as `<work policy> <id>`, e.g. "issue work
     policy 2.3".
     Intent: every step and rule can be referenced directly.
     Check: every step starts with its id; citations still resolve after a change.
 
+0.9 Claude MUST reference a skill as the command that runs it: `/<plugin>:<skill>` for a plugin's
+    skill (`/devops-drillmaster:trace`), `/<skill>` for a project's skill (`/build-work-item-process`,
+    `/issue-policy`), in every skill, artifact, report and step citation.
+    Intent: a reader sees at once that it is a skill, and can type it as it stands.
+    Check: no skill is named without its slash, and every plugin skill carries its plugin's name.
+
 ## 1. Changing a skill
 
-1.1 Claude MUST NOT change a work process or work policy except through `process-change`, carrying
-    out a change a retrospective decided. `setup` creates them once.
+1.1 Claude MUST NOT change a work process or work policy except through
+    `/devops-drillmaster:process-change`, carrying out a change a retrospective decided.
+    `/devops-drillmaster:setup` creates them once.
     Intent: changes happen only where the evidence is weighed, and always the same way.
     Check: every edit to a work process or work policy is a process-change run with a history entry
     naming its retrospective.
@@ -99,12 +109,12 @@ an uncited rule binds anyway.
     Intent: a rejected idea is not proposed again without new evidence.
     Check: the rejection appears under the retrospective's history entry.
 
-1.6 For every change it makes, `process-change` MUST save the full text of the changed skill to
+1.6 For every change it makes, `/devops-drillmaster:process-change` MUST save the full text of the changed skill to
     `.drillmaster/<skill>/versions/v<N>.md` and append a history entry naming `v<N>` (§4).
     Intent: every version can be read and restored.
     Check: the snapshot and the entry exist for every changed skill.
 
-1.7 For every change it makes, `process-change` MUST open an experiment (§4.5) with the measure's
+1.7 For every change it makes, `/devops-drillmaster:process-change` MUST open an experiment (§4.5) with the measure's
     baseline value at the time of the change.
     Intent: the verdict compares against where the measure was, not a memory of it.
     Check: each change has an `E<N>` entry with a baseline.
@@ -113,7 +123,7 @@ an uncited rule binds anyway.
 
 ## 2. Evidence
 
-2.1 Every capture entry, experiment and verdict MUST carry evidence.
+2.1 Every trace entry, experiment and verdict MUST carry evidence.
     Intent: a claim can be traced back to what happened.
     Check: each entry links a comment, issue or PR, or names a session and quotes the owner.
 
@@ -131,17 +141,18 @@ an uncited rule binds anyway.
     Intent: a change that fixes one thing by worsening the objective is not kept.
     Check: every "keep" verdict shows both, with the measure's baseline and current value.
 
-2.5 The retrospective MUST work from the impediment and metric capture. Session transcripts MAY be
-    used for extended analysis, if available.
-    Intent: only what is recorded decides; transcripts can deepen the analysis, not replace it.
-    Check: every finding cites a capture entry; transcript use is marked as extended analysis.
+2.5 The retrospective MUST work from the traces. Session transcripts MAY be used for extended
+    analysis, if available.
+    Intent: only what is traced decides; transcripts can deepen the analysis, not replace it.
+    Check: every finding cites a trace entry; transcript use is marked as extended analysis.
 
-## 3. Classifying what is captured
+## 3. Classifying what is traced
 
-3.1 Claude MUST record as an impediment any kind of friction, and as a metric what the work process's
-    specification names.
-    Intent: the retrospective sees all friction, and the measures get the data they need.
-    Check: every capture entry is an impediment or a metric, in the form of `templates/capture.md`.
+3.1 Claude MUST trace every step of a work item — start and end, in and out, state moves, decisions,
+    questions and answers — and record as an impediment any kind of friction.
+    Intent: what happened can be rebuilt, the retrospective sees all friction, and the measures are
+    counted from the trace.
+    Check: every step has a start and an end entry, in the form of `templates/trace.md`.
 
 3.2 Claude MUST classify each impediment as exactly one gap:
     - **process gap**: a step is missing, wrong, in the wrong order, or hands off badly;
@@ -170,16 +181,16 @@ an uncited rule binds anyway.
     - `<skill>/history.md` and `<skill>/versions/v<N>.md` — how each skill changed;
     - `experiments.md` — every experiment;
     - `retrospectives/<DD-MM-YYYY>.md` — one report per retrospective;
-    - `items/<work item id>/` — a work item's capture and item summary, only when the owner chose
+    - `items/<work item id>/` — a work item's trace and item summary, only when the owner chose
       **items** as log storage.
     Intent: what the process is and how it changed lives with the project, in version control.
     Check: these files exist where listed, and work item records appear only under `items/`.
 
-4.2 Claude MUST keep each work item's capture and item summary where `process.md`'s Log storage says:
+4.2 Claude MUST keep each work item's trace and item summary where `process.md`'s Log storage says:
     **comments** (one running comment on the issue, then on the PR) or **items**
     (`.drillmaster/items/<work item id>/`), and nowhere else.
     Intent: a work item's record is in one known place, chosen by the owner.
-    Check: captures and summaries appear only where Log storage says.
+    Check: traces and summaries appear only where Log storage says.
 
 4.3 Claude MUST date every entry `DD-MM-YYYY HH:mm`, local time, read from the clock, never guessed.
     Intent: entries sort and compare the same way, and time is real.
@@ -189,8 +200,8 @@ an uncited rule binds anyway.
     Intent: each idea can be confirmed, changed or dropped alone.
     Check: no bullet joins two ideas with "and", ";" or "also".
 
-4.5 Claude MUST write history, experiments and capture entries in the forms in `templates/` of this
-    plugin (`history.md`, `experiment.md`, `capture.md`).
+4.5 Claude MUST write history, experiments and trace entries in the forms in `templates/` of this
+    plugin (`history.md`, `experiment.md`, `trace.md`).
     Intent: every retrospective reads every record the same way.
     Check: entries parse in those forms.
 
@@ -204,7 +215,7 @@ an uncited rule binds anyway.
     happen as expected, Claude MUST tell the owner which setting and what was expected, and MUST
     record it as an impediment.
     Intent: a setting that is off is found the first time it matters.
-    Check: every such mismatch appears in the capture and was raised with the owner.
+    Check: every such mismatch appears in the trace and was raised with the owner.
 
 ## 5. Preserving what works
 

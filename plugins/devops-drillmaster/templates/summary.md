@@ -1,6 +1,6 @@
 ## Item summary — <work item id>: <title>
 
-Built from the process summaries in the capture. Posted when the PR is marked ready, before the
+Built from the work item's trace. Posted when the PR is marked ready, before the
 owner's review; updated after merge.
 
 **Outcome:** <what the work item delivered, one or two sentences>

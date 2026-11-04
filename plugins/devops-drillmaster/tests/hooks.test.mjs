@@ -48,7 +48,7 @@ test('correction cues match corrections and leave ordinary requests alone', () =
 test('the prompt hook adds the note cue as context on a correction', () => {
   const output = run('frictionCue.mjs', [], project(), { prompt: 'No, I said tokens' })
   assert.equal(output.hookSpecificOutput.hookEventName, 'UserPromptSubmit')
-  assert.match(output.hookSpecificOutput.additionalContext, /impediment-and-metric-capture skill/)
+  assert.match(output.hookSpecificOutput.additionalContext, /\/devops-drillmaster:trace/)
   assert.equal(run('frictionCue.mjs', [], project(), { prompt: 'Add a page' }), undefined)
 })
 
@@ -82,13 +82,13 @@ test('the work processes are read from process.md, work policies left out', () =
   ])
 })
 
-test('the session hook briefs which work process skill to load, and the capture skill', () => {
+test('the session hook briefs which work process skill to load, and the trace skill', () => {
   const output = run('sessionBrief.mjs', [], project({ processText: PROCESS }), { source: 'compact' })
   assert.equal(output.hookSpecificOutput.hookEventName, 'SessionStart')
   const brief = output.hookSpecificOutput.additionalContext
-  assert.match(brief, /build-process.*Ready → In Progress/)
+  assert.match(brief, /\/build-process.*Ready → In Progress/)
   assert.match(brief, /load the work process skill/i)
-  assert.match(brief, /impediment-and-metric-capture/)
+  assert.match(brief, /\/devops-drillmaster:trace/)
   assert.doesNotMatch(brief, /issue-policy/)
 })
 

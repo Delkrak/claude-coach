@@ -1,6 +1,6 @@
 ---
 name: retrospective
-description: The drill master's retrospective - what was supposed to happen, what happened, why, what to keep and what to improve - from the impediment and metric capture on issues and PRs, with session transcripts for extended analysis if available. Judges running experiments, then decides deliberate, independently measurable changes to work processes and work policies with the owner, and hands each approved one to process-change. Use when the owner asks for a retro or review, wants to know why something keeps going wrong, or when the capture says one is due.
+description: The drill master's retrospective - what was supposed to happen, what happened, why, what to keep and what to improve - from the work items' traces on issues and PRs, with session transcripts for extended analysis if available. Judges running experiments, then decides deliberate, independently measurable changes to work processes and work policies with the owner, and hands each approved one to process-change. Use when the owner asks for a retro or review, wants to know why something keeps going wrong, or when the trace says one is due.
 ---
 
 # Retrospective
@@ -14,7 +14,7 @@ directory. Read `POLICIES.md` first; each step names the rule it applies.
 **Arguments:** $ARGUMENTS: a scope (`recent`, the default: since the last retrospective; a list of
 work items; `all`), then an optional focus in free text ("only review", "why do builds stall").
 
-Every step has an id, cited as `retrospective <id>` ← §0.8.
+Every step has an id, cited as `/devops-drillmaster:retrospective <id>` ← §0.8.
 
 ## 1. What was supposed to happen
 
@@ -24,16 +24,17 @@ Every step has an id, cited as `retrospective <id>` ← §0.8.
 
 ## 2. What happened
 
-2.1 **Capture**: for each work item in scope, read its capture (with its process summaries) and its
-    item summary where Log storage says (issue and PR comments by default). This is what the
-    retrospective works from ← §2.5.
+2.1 **Traces**: for each work item in scope, read its trace (with its process summaries and
+    observations) and its item summary where Log storage says (issue and PR comments by default).
+    This is what the retrospective works from ← §2.5. Add each observation to its experiment in
+    `experiments.md`.
 
 2.2 Removed.
 
 2.3 **Extended analysis**, if session transcripts are available: `transcripts.mjs` in this skill's
     base directory (Node, no dependencies) gives each session's prompts and interrupts, worktree
-    sessions included. Use it to deepen what the capture shows, and to find what the capture
-    specification missed; mark every such finding as extended analysis ← §2.5:
+    sessions included. Use it to deepen what the traces show, and to find what they left
+    out; mark every such finding as extended analysis ← §2.5:
 
     ```
     node "<base dir>/transcripts.mjs" --project "<project dir>" [--since <ISO date>] [--session <id>] [--grep <text>]
@@ -42,8 +43,8 @@ Every step has an id, cited as `retrospective <id>` ← §0.8.
     With more than 5 sessions in scope, give them to read-only subagents in batches of 5 and keep
     only their findings (session id, quote, step).
 
-2.4 Compute each measure in the objective over the scope from the recorded metrics, and impediment
-    counts per gap and per step id ← §3.
+2.4 Compute each measure in the objective over the scope from the traces, time per work process and
+    per step, and impediment counts per gap and per step id ← §3.
 
 ## 3. Why
 
@@ -55,8 +56,8 @@ Every step has an id, cited as `retrospective <id>` ← §0.8.
 3.2 Group the impediments by cause, each cause tied to evidence and to the step id it happened at.
     Note what worked ← §5.1.
 
-3.3 Check each work process's capture specification: does it record what the objective's measures
-    need, and did impediments go unrecorded? Either is a process gap at that work process.
+3.3 Check each work process's traces: can what happened be rebuilt from them, can every measure be
+    counted, and did impediments go untraced? Any of these is a process gap at that work process.
 
 ## 4. Keep and improve
 

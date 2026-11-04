@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Set up a project's DevOps way of working with the drill master - the owner's objective first, then the toolchain researched (tracker, git host, CI, Claude plan), then the owner's experience and priority, then the work processes, work policies, artifacts, state ownership, capture and log storage decided with the owner one question at a time, then a stress test before it goes live. Creates the setup once; later changes go through a retrospective. Use when the owner wants a process for building software with Claude, or when a retrospective hands over work no work process covers.
+description: Set up a project's DevOps way of working with the drill master - the owner's objective first, then the toolchain researched (tracker, git host, CI, Claude plan), then the owner's experience and priority, then the work processes, work policies, artifacts, state ownership, tracing and log storage decided with the owner one question at a time, then a stress test before it goes live. Creates the setup once; later changes go through a retrospective. Use when the owner wants a process for building software with Claude, or when a retrospective hands over work no work process covers.
 ---
 
 # Set up the process
@@ -13,7 +13,7 @@ researches, proposes, records and carries out.
 Read `POLICIES.md` at the plugin root (two folders up from this skill's base directory) before step
 1.1, and the templates in `templates/` beside it. Every step names the rule it applies.
 
-Every step has an id, cited as `setup <id>` (e.g. `setup 2.3`) ← §0.8.
+Every step has an id, cited as `/devops-drillmaster:setup <id>` (e.g. `/devops-drillmaster:setup 2.3`) ← §0.8.
 
 **Arguments:** $ARGUMENTS, optional: what to set up (e.g. "only review", or the work process a
 retrospective handed over). With none, all.
@@ -29,7 +29,7 @@ goes to `/devops-drillmaster:retrospective`.
     should run where, what to avoid).
 
 1.2 Draft `.drillmaster/objective.md` from `templates/objective.md`, quoting the owner. Show it and
-    write it only on approval ← §6.3. Each measure's **Recorded by** is filled in at 6.1.
+    write it only on approval ← §6.3. Each measure's **Counted from** is filled in at 6.1.
 
 ## 2. Research the toolchain
 
@@ -110,21 +110,22 @@ work processes the priority kept and the work policies they cite.
     verified it is configured, else a work process step, as the list suggests — then ask one
     question per state the owner wants to change.
 
-5.6 **Log storage**: where captures and summaries live: **comments** (one running comment on the
+5.6 **Log storage**: where traces and summaries live: **comments** (one running comment on the
     issue, copied to the PR when it opens) or **items** (`.drillmaster/items/<work item id>/`).
     Change single work processes on the owner's word.
 
 5.7 Removed.
 
-5.8 **Capture specification**: show, per kept work process, what it records — impediments at every
-    step, and the metrics the objective's measures need (from the list, e.g. time taken,
-    corrections made) — and confirm each.
+5.8 **Measures from the trace**: every step is traced; show, per kept work process, which of the
+    objective's measures are counted from its trace (from the list, e.g. time taken, corrections
+    made) — and confirm each.
 
 ## 6. Show the whole setup
 
 6.1 Show `.drillmaster/process.md` as it would be written (from `templates/process-index.md`) and the
-    list of files. Fill in each measure's **Recorded by** in `objective.md`. Refuse a measure no work
-    process records: ask the owner to add the metric to a work process or change the measure. Write
+    list of files. Fill in each measure's **Counted from** in `objective.md`. Refuse a measure no work
+    process's trace can count: ask the owner to change the measure, or add what is missing to a
+    work process's trace. Write
     nothing until approved ← §1.2. A modified approval is restated whole and confirmed ← §1.4.
 
 ## 7. Write
@@ -135,8 +136,8 @@ work processes the priority kept and the work policies they cite.
 
 7.2 Scaffold each new work process as a skill from its file in the plugin's `process-list/` (or
     `0-template.md` for one the list lacks): input and output with the work policy rules they must
-    meet, the input check, the output check, what it records, steps with ids beginning with a
-    capture start and ending with the process summary ← §0.8, and the objective's measure it serves.
+    meet, the input check, the output check, what is counted from its trace, steps with ids
+    beginning with a trace start and ending with the process summary ← §0.8, and the objective's measure it serves.
     Scaffold each new work policy as a skill from the plugin's `policy-list/` the same way, its rules
     as 5.3 decided and accepted by the owner rule by rule ← §0, §2.3.
 
@@ -164,9 +165,9 @@ work processes the priority kept and the work policies they cite.
 ## 9. Go live
 
 9.1 Deliver the change as a PR. No separate trial is needed: the first work items run through the
-    new process, and their capture shows what to improve.
+    new process, and their traces show what to improve.
 
 9.3 Report to the owner ← §6.5, e.g. "Status: 5 work processes, 6 work policies live. 2 adopted, 9
-    scaffolded. Work as usual. Every impediment gets recorded. Move!" Then the next step: every work
-    process records its capture and closes with its summary, every PR gets an item summary, and
+    scaffolded. Work as usual. Every step gets traced. Move!" Then the next step: every work
+    process traces each step and closes with its summary, every PR gets an item summary, and
     `/devops-drillmaster:retrospective` turns them into improvements.

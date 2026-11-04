@@ -10,8 +10,8 @@ owner's order (POLICIES.md §6.3).
 ## Measures
 
 - **<Measure name>.** <What has to be true.>
-  Recorded by: <work process>, as <metric>.
-  Check: <how it is counted from the capture>.
+  Counted from: the traces of <work process>, as <metric>.
+  Check: <how it is counted from the traces>.
 
 ## Direction and constraints
 

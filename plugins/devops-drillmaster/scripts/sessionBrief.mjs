@@ -28,9 +28,8 @@ export const briefFor = (processes) =>
   [
     "This project runs the drill master's work processes (.drillmaster/process.md). Before working " +
       'on a work item, load the work process skill for its stage:',
-    ...processes.map(({ name, skill, states }) => `- ${name}: skill \`${skill}\`${states ? ` — ${states}` : ''}`),
-    'At every step, record impediments and metrics with the devops-drillmaster ' +
-      'impediment-and-metric-capture skill, as the work process says.',
+    ...processes.map(({ name, skill, states }) => `- ${name}: \`/${skill}\`${states ? ` — ${states}` : ''}`),
+    'Trace every step with /devops-drillmaster:trace, as the work process says.',
   ].join('\n')
 
 export const brief = (_event, dir) => {

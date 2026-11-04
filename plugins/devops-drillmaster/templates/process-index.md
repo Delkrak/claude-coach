@@ -11,9 +11,9 @@ Log storage: <comments (issue, then PR) | items (`.drillmaster/items/<id>/`)>
 ## <n>. <work process> — <adopted | scaffolded>
 - Skill: .claude/skills/<name>/SKILL.md
 - Serves: <measure in objective.md>
-- Input: <what> ← <work policy> <rule ids>
-- Output: <what> ← <work policy> <rule ids>
-- Records: <impediments at every step; metrics: …>
+- Input: <what> ← /<work policy> <rule ids>
+- Output: <what> ← /<work policy> <rule ids>
+- Counted from its trace: <the objective's measures this work process feeds>
 - States: <from → to>, moved by <work process | tool automation>
 - Hands off to: <next work process>
 

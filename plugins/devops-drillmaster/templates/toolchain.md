@@ -1,6 +1,6 @@
 # Toolchain
 
-The tools the process runs on, as configured in this project. Written by `setup`; updated whenever
+The tools the process runs on, as configured in this project. Written by `/devops-drillmaster:setup`; updated whenever
 a tool's configuration changes; anything in `process.md` it no longer matches is recorded as an
 impediment for the retrospective (POLICIES.md §4.6).
 Every claim cites the doc it was read from or says "unverified".

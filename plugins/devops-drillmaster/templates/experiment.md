@@ -1,7 +1,7 @@
 ## E<N> — <title> — running | kept | rethink | abandoned
 - Started: <DD-MM-YYYY HH:mm> · <skill> v<N> · process gap | policy gap | not covered
 - Retrospective: <link to .drillmaster/retrospectives/<date>.md>
-- Impediment: <what it should remove, with the capture entries it came from, linked>
+- Impediment: <what it should remove, with the trace entries it came from, linked>
 - Measure: <the objective's measure it must not worsen>
 - Baseline: <the measure's value at the time of the change, and from where>
 - Change: <what was edited>

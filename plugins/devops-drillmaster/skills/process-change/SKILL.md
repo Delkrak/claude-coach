@@ -15,7 +15,7 @@ directory. Read `POLICIES.md` first; each step names the rule it applies.
 measure it must not worsen and that measure's baseline. A change ordered by the owner outside a
 retrospective names its impediment and measure the same way.
 
-Every step has an id, cited as `process-change <id>` ← §0.8.
+Every step has an id, cited as `/devops-drillmaster:process-change <id>` ← §0.8.
 
 ## 1. Check the change
 

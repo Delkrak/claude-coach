@@ -1,3 +1,8 @@
+## 04-11-2026 20:00
+- Changed
+  - Tracing replaces impediment and metric capture: definitions, §2.5, §3, §4 — the owner's concept change
+  - §0.9 added: a skill is referenced as the command that runs it — "make this a drillmaster policy as well"
+
 ## 04-11-2026 01:30
 - Changed
   - §0.1: a rule's subject is an input or output, never instructions — "a policy can say what must preceed, but not the specific order/instruction"
