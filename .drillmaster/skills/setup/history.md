@@ -1,3 +1,11 @@
+## 04-11-2026 20:14
+- Changed
+  - Rewritten as light as possible: asks the goal and which work processes, reads the toolchain, copies from the library unchanged, writes, builds the process overview, one PR — "Setup asks the basic things, and should ask what steps should be included (copy only from library), and then retrospective is going to adopt them over time."
+  - No research questions, no rule-by-rule review, no co-developed defaults, no stress test; adapting is the retrospective's job
+  - Formats of objective.md, process.md and toolchain.md written inline; step ids start again at 1.1
+- Not working
+  - The Keeper setup asked ~70 decisions one by one — "this was PAINFUL!"
+
 ## 04-11-2026 01:30
 - Changed
   - Creates only; update mode removed — later changes go through retrospective and process-change

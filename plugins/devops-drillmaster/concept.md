@@ -1,7 +1,7 @@
 # Drillmaster
 
 Drillmaster is a Claude Code plugin that gives a project's agents work processes, work policies,
-impediment capture and a retrospective, and keeps them improving.
+a trace of every work item and a retrospective, and keeps them improving.
 
 **Note:** this document is the concept the rest of drillmaster is built on. Everything in the plugin
 exists to support it. Anything that doesn't support it should not exist.
@@ -55,27 +55,28 @@ it can be referenced, and says how to verify it.
 > is proven*, verified by reading each criterion. Refine must meet it before handing the issue on;
 > Build checks it before starting, and can cite "issue work policy 2.3" when it stops.
 
-### Impediment and metric capture
+### Tracing
 
-Every work process records impediments and metrics, as its specification says. Impediments: any
-kind of friction, such as what slowed it down, what was missing, or what the owner had to correct.
-Metrics: what the objective's measures need, such as time taken or corrections made. The
-retrospective corrects the specification when it records the wrong thing or too little. Only what
-is recorded is used by the retrospective. Session transcripts may be used for extended analysis, if
-available.
+Every work process traces the work item: enough to rebuild what happened at every step. Each step
+records when it started and ended, what went in and came out (linked, never copied), the decisions
+made and by whom, the questions and their answers, and every impediment: any kind of friction, such
+as what slowed it down, what was missing, or what the owner had to correct. The objective's measures
+are computed from the trace, so a new measure works on old work items too. The retrospective
+corrects a work process when its trace leaves something out. Only what is traced is used by the
+retrospective. Session transcripts may be used for extended analysis, if available.
 
-> *Example:* Build's specification says it records time taken and corrections made. At step 3.5 the
-> owner says *"no, reuse the existing component"*: Build records the impediment and the gap behind
-> it (the spec never named what to reuse), plus 40 minutes and one correction.
+> *Example:* At step 3.5 the owner says *"no, reuse the existing component"*. Build's trace shows
+> the step's start, the owner's words, the impediment and the gap behind it (the spec never named
+> what to reuse), and the step's end 40 minutes later. Time taken and corrections made are counted
+> from it.
 
 ### Retrospective
 
-The only place work processes and work policies change. From the impediment and metric capture it
-asks what should have happened, what happened, why, what to keep and what to improve. Changes are
+The only place work processes and work policies change. From the traces it asks what should have happened, what happened, why, what to keep and what to improve. Changes are
 deliberate, and each one is independently measurable: kept when its impediment is gone and the
 objective's measure holds.
 
-> *Example:* five items in a row captured *"the spec never named what to reuse"*. The retrospective
+> *Example:* five items in a row traced *"the spec never named what to reuse"*. The retrospective
 > adds one rule to the issue work policy (*the spec names the parts it reuses*), then watches the
 > next items. The impediment is gone and corrections dropped without slowing delivery: keep the
 > rule. Otherwise: rethink it.
@@ -89,7 +90,7 @@ flowchart LR
     input["Input"]
     proc["Work process<br/>steps"]
     output["Output"]
-    cap[("Impediment and<br/>metric capture")]
+    cap[("Trace")]
     retro{{"Retrospective"}}
 
     input -->|checked| proc -->|checked| output

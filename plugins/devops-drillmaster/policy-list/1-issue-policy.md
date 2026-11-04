@@ -51,8 +51,9 @@ build (3).
     Check: no work-ready issue spans more than one PR; split work has sub-issues with blocked-by
     links.
 
-3.6 An issue MUST become work-ready only on the owner's approval, and MUST then hold a start-work
-    brief (`templates/start-work-brief.md`).
+3.6 An issue MUST become work-ready only on the owner's approval, and MUST then end with a
+    start-work brief: a paste-ready kickoff line naming the build work process, the issue it is
+    blocked by or none, and the branch and PR it delivers.
     Intent: ready is the owner's approval; a build starts from the issue alone.
     Check: the approval is on the issue; the brief is its last section.
 

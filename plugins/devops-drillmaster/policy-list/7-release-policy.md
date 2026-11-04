@@ -16,7 +16,7 @@ Applies to: releases, the output of release (6) and the input of operate (7).
 2.1 Every change in a release MUST be verified in the deployed environment before the release
     counts as shipped.
     Intent: released means working where users are, not merged.
-    Check: the capture records each verification.
+    Check: the trace records each verification.
 
 2.2 Each release MUST have notes listing its issues, in the users' words.
     Intent: users and the owner know what changed.

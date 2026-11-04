@@ -1,3 +1,12 @@
+## 04-11-2026 20:00
+- Changed
+  - Renamed impediment-and-metric-capture to trace; it traces every step, not only friction and metrics — "We need to gather enough information to trace the entire process, not only friction and metrics, but also other relevant information"
+  - Entries: start and end, in and out (linked, never copied), state, decision, question and answer, impediment, observation, summary
+  - Measures are counted from the trace instead of named up front per work process
+  - Experiment observations are trace entries; the retrospective moves them into experiments.md (no write to experiments.md on a work item's branch)
+- Preserved
+  - Log storage modes, item summary, gap classes
+
 ## 04-11-2026 01:30
 - Changed
   - Renamed impediment-log to impediment-and-metric-capture — concept.md's term; "capture is a bad skill name", it collided with the capture work process

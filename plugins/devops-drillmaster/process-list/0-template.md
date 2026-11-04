@@ -13,21 +13,22 @@ Each step is cited as `<work process> <n>.<k>`; a cited id never changes (drill 
 
 - <what it needs: the previous work process's output, quoted>   ← must meet: <work policy> <rule ids>
 - Checked: at <n>.2, by <who>
-- Documented: the capture
+- Documented: the trace
 
-## Records
+## Trace
 
-- Impediments: at every step, through `impediment-and-metric-capture`.
-- Metrics: <metric> at <step id>, … — what the objective's measures need.
+- Every step, through `/devops-drillmaster:trace`: start and end, in and out, state moves, decisions, questions and
+  answers, impediments.
+- Counted from it: <metric> at <step id>, … — what the objective's measures need.
 
 ## Steps
 
-<n>.1 **impediment-and-metric-capture** — start.
+<n>.1 **/devops-drillmaster:trace** — start.
 <n>.2 Check the input against each rule its work policies set. On a miss: stop, and report the work
       policy and rule it fails ("issue work policy 2.3").
 <n>.3 <the work, one bounded step per id>
 <n>.k Check the output against each rule its work policies set.
-<n>.k+1 **impediment-and-metric-capture** — process summary: outcome, impediments, the metrics above; end.
+<n>.k+1 **/devops-drillmaster:trace** — process summary: outcome, impediments, the metrics above; end.
 
 ## Output
 
