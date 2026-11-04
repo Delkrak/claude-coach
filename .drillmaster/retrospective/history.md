@@ -1,3 +1,13 @@
+## 04-11-2026 01:30
+- Changed
+  - Works from the capture only; transcripts for extended analysis — "session transcript may be used for extended analysis if available."
+  - Tracker times removed (2.2 kept unused)
+  - Verdict: impediment gone and measure holds against its baseline — "single change is a myth. it should just be deliberate changes that can be independently measureable."
+  - Step model removed; capture specifications checked (3.3)
+  - Approved changes handed to process-change — "only thought a process-change skill so its structured"
+- Preserved
+  - The retrospective's questions; experiments judged first
+
 ## 03-11-2026 23:40
 - Changed
   - Renamed after-action-review to retrospective — "so AAR should be retrospective"

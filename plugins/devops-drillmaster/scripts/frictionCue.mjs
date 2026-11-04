@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// UserPromptSubmit: when the owner's message reads like a correction, remind Claude to log it in
-// the impediment log. Claude decides whether it really is one.
+// UserPromptSubmit: when the owner's message reads like a correction, remind Claude to record it
+// as an impediment in the capture. Claude decides whether it really is one.
 
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -23,8 +23,8 @@ const CORRECTION_CUES = [
 ]
 
 export const NOTE_CUE =
-  'This message may correct or redirect you. If it does, log it as an owner correction with the ' +
-  'devops-drillmaster impediment-log skill, then carry on with what the owner asked.'
+  'This message may correct or redirect you. If it does, record it as an impediment with the ' +
+  'devops-drillmaster capture skill, then carry on with what the owner asked.'
 
 export const isCorrectionCue = (prompt = '') =>
   !prompt.trimStart().startsWith('/') && CORRECTION_CUES.some((cue) => cue.test(prompt))

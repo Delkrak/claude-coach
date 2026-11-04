@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Asks Claude, once, whether a process is done after a tool call that often ends one, so the
-// process gets its summary in the impediment log and a PR marked ready gets its item summary.
+// Asks Claude, once, whether a work process is done after a tool call that often ends one, so it
+// gets its process summary in the capture and a PR marked ready gets its item summary.
 //   candidate (PostToolUse): a call like `gh pr ready` leaves a marker for this session.
 //   stop (Stop): with a marker pending, block the stop once and ask; Claude decides.
 
@@ -43,8 +43,8 @@ const markerFile = (sessionId) =>
   path.join(markerDir(), `${String(sessionId).replace(/[^A-Za-z0-9-]/g, '_')}.json`)
 
 export const askReason = (hint) =>
-  `You may have finished a process (\`${hint}\`). If it is done, write its process summary with ` +
-  'the devops-drillmaster impediment-log skill; if a PR was just marked ready, write its item ' +
+  `You may have finished a work process (\`${hint}\`). If it is done, write its process summary ` +
+  'with the devops-drillmaster capture skill; if a PR was just marked ready, write its item ' +
   'summary. If it is not done, carry on.'
 
 export const candidate = (event, dir) => {

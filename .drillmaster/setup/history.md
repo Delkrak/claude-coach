@@ -1,3 +1,13 @@
+## 04-11-2026 01:30
+- Changed
+  - Creates only; update mode removed — later changes go through retrospective and process-change
+  - Step model removed (5.7 kept unused); 5.8 is now each work process's capture specification
+  - Every measure names the work process that records it; setup refuses a measure nothing records
+  - Work policy rules have an input or output as subject (§0.1)
+  - Report in the drill-sergeant voice, with an example (9.3)
+- Preserved
+  - 2.3 vendor workflow, 3.1 owner's experience, 5.2 co-developed defaults — "the previous two serve to tell drillmaster how to serve Owner"
+
 ## v1 — 03-11-2026 22:42
 - Working well
   - Drafting policies from the owner's own text, accepted rule by rule

@@ -1,3 +1,13 @@
+## 04-11-2026 01:30
+- Changed
+  - Renamed impediment-log to capture — concept.md's "impediment and metric capture"
+  - Impediments are any friction; no closed list of kinds — "impediment also includes any kind of friction"
+  - Metrics recorded as each work process's specification names — "The metrics are defined on a process level and corrected on retrospective"
+  - Item summary folded in from the removed summary process; no tracker-time cross-check — "No need to mention tracker timings"
+  - Report lines in the drill-sergeant voice, with an example
+- Preserved
+  - Log storage: comments on issue then PR, or items/
+
 ## 03-11-2026 23:40
 - Changed
   - Renamed field-log to impediment-log — the owner's framing: "a drill sargent gets hired for an agile setup, so the communication style is military, but the terms are agile"
