@@ -1,3 +1,8 @@
+## 04-11-2026 20:14
+- Changed
+  - §4.5: the history and experiment forms are written in the rule; the plugin keeps only the trace and summary templates — "The usage of templates should be drastically reduced"
+  - §4.1: skill histories under .drillmaster/skills/<skill>/ — "please put into .drillmaster/skills/<x>"; templates/ only for an artifact the project designs; traces/ until a retrospective has used them
+
 ## 04-11-2026 20:00
 - Changed
   - Tracing replaces impediment and metric capture: definitions, §2.5, §3, §4 — the owner's concept change

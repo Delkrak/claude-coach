@@ -18,20 +18,14 @@ process, work policy, tracing and retrospective fit together.
 
 ### `/devops-drillmaster:setup`
 
-1. **Objective first.** Your goal, its measures and your constraints, written to
-   `.drillmaster/objective.md` for your approval. It is yours; the drill master never changes it
-   without your order. Every measure is counted from the work items' traces.
-2. **Research before asking.** Your tracker, git host, CI and Claude plan are inventoried and their
-   docs read, into `.drillmaster/toolchain.md`. A vendor's designed workflow is proposed as the
-   default, after thorough research.
-3. **You and the priority.** Your experience level, and how much process to start with, each work
-   process rated for relevance from the research: Light, Standard or Full.
-4. **Design with you,** one decision per question: work processes, work policies for every output,
-   artifacts, who moves each tracker state, what each work process records, and where it is kept.
-5. **Stress test.** Three independent read-only reviewers walk real and invented scenarios through
-   the process before it goes live; you decide each finding.
-
-Setup creates once. Every later change goes through a retrospective.
+As light as possible:
+1. **Two questions.** Your goal (and how you'd know it works), and which work processes to start
+   with, picked from the library.
+2. **Read, not asked.** Your tracker, git host, CI and Claude setup, into `.drillmaster/toolchain.md`.
+3. **Copied from the library.** The chosen work processes and the work policies they cite, unchanged
+   but for the facts it read; everything else stays a placeholder.
+4. **One PR,** with the report page. No stress test: the first work items' traces show what to fix,
+   and the retrospectives fit the process to you over time.
 
 ### `/devops-drillmaster:trace`
 
@@ -53,6 +47,12 @@ impediment it removes and the measure it must not worsen.
 Makes one change the retrospective decided and you approved: edits the skill, snapshots it, appends
 its history and opens an experiment with the measure's baseline. The only way a work process or work
 policy changes.
+
+### `/devops-drillmaster:report`
+
+One HTML page of your process: the objective, the flow, each work process's input → steps → output
+and each work policy's rules, built from `process.md` and the skills it names. Setup and every
+retrospective rebuild it.
 
 ## Rules
 
@@ -76,15 +76,16 @@ They run only in a project with `.drillmaster/process.md`.
 ```
 .drillmaster/
   objective.md          # yours: goal, measures (each counted from the traces), direction
-  process.md            # the index: work processes, work policies, artifacts, states, log storage
-  toolchain.md          # your tools, as configured, with the docs read and your settings
-  templates/            # one template per artifact
-  <skill>/history.md    # how each skill changed
-  <skill>/versions/     # each skill at each change
+  process.md            # the index: work processes, work policies, states, log storage
+  toolchain.md          # your tools, as configured, and your settings
+  skills/<skill>/       # how each skill changed: history.md, versions/
   experiments.md        # changes being checked: impediment, measure, baseline, verdict
-  retrospectives/       # one report per retrospective
-  items/<item id>/      # trace and item summary, only if you choose "items" storage
+  retrospectives/       # one short report per retrospective
+  traces/<item id>.md   # merged work items' traces, until a retrospective has used them
+process-overview.html   # the report page
 ```
+
+The plugin's only templates are the trace and the item summary.
 
 Traces and summaries live on issues and PRs by default ("comments"), or under `items/` if you
 choose.

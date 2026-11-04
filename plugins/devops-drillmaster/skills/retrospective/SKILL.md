@@ -8,8 +8,7 @@ description: The drill master's retrospective - what was supposed to happen, wha
 The only place changes to work processes and work policies are decided ← `POLICIES.md` §1.1. The
 owner decides every change; `/devops-drillmaster:process-change` makes it.
 
-`POLICIES.md` and `templates/` are at the plugin root, two folders up from this skill's base
-directory. Read `POLICIES.md` first; each step names the rule it applies.
+`POLICIES.md` is at the plugin root, two folders up from this skill's base directory. Read `POLICIES.md` first; each step names the rule it applies.
 
 **Arguments:** $ARGUMENTS: a scope (`recent`, the default: since the last retrospective; a list of
 work items; `all`), then an optional focus in free text ("only review", "why do builds stall").
@@ -66,17 +65,21 @@ Every step has an id, cited as `/devops-drillmaster:retrospective <id>` ← §0.
     impediment it removes and the measure it must not worsen ← §1.3; what to keep.
 
 4.2 Decide each change with the owner, one decision per question ← §1.3–§1.5, §6.1:
-    - policy gap → change the rule (written per §0); process gap → change the step, its capture
-      specification, or add the missing `← <work policy> <rule id>` citation ← §3.3; not covered →
+    - policy gap → change the rule (written per §0); process gap → change the step, what its trace
+      leaves out, or add the missing `← <work policy> <rule id>` citation ← §3.3; not covered →
       propose a new work process or work policy and hand it to `/devops-drillmaster:setup`;
     - a new step gets a new id; a removed one's id is never reused ← §0.8.
 
 4.3 Hand each approved change to `/devops-drillmaster:process-change`, with the retrospective's
     report, the impediment, the measure and its baseline ← §1.1, §1.6, §1.7.
 
-4.4 Write the report to `.drillmaster/retrospectives/<DD-MM-YYYY>.md` from
-    `templates/retrospective-report.md`, and report to the owner ← §6.5, e.g. "Status: 2 changes
-    made, E3 kept, E4 rethink. Watch build 3.5. Dismissed!"
+4.4 Write a short report to `.drillmaster/retrospectives/<DD-MM-YYYY>.md`: the scope, the measures
+    over it, the top causes with their step ids, what was kept, and each change decided or
+    rejected, one line each. Copy the traces of merged work items in scope to
+    `.drillmaster/traces/<id>.md`, and delete the ones this retrospective has used ← §4.1.
+
+4.5 Rebuild the report page with `/devops-drillmaster:report`, and report to the owner ← §6.5, e.g.
+    "Status: 2 changes made, E3 kept, E4 rethink. Watch build 3.5. Dismissed!"
 
 Impediments with the drill master itself are reviewed the same way, in the plugin's repository ←
 §3.4.

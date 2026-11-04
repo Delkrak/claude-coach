@@ -17,7 +17,8 @@ an uncited rule binds anyway.
 - **Work process**: a skill that moves a work item one stage on: input, numbered steps, output.
   Every step is traced.
 - **Work policy**: a skill of numbered rules that inputs and outputs must meet.
-- **Artifact**: a thing a step produces whose form is a template in `.drillmaster/templates/`.
+- **Artifact**: a thing a step produces in a fixed form: a trace, an item summary, or one the
+  project designs in `.drillmaster/templates/`.
 - **Skill**: a work process or work policy the drill master owns, or one of the drill master's own
   skills.
 - **Impediment**: any kind of friction, such as what slowed the work down, what was missing, or what
@@ -110,7 +111,7 @@ an uncited rule binds anyway.
     Check: the rejection appears under the retrospective's history entry.
 
 1.6 For every change it makes, `/devops-drillmaster:process-change` MUST save the full text of the changed skill to
-    `.drillmaster/<skill>/versions/v<N>.md` and append a history entry naming `v<N>` (§4).
+    `.drillmaster/skills/<skill>/versions/v<N>.md` and append a history entry naming `v<N>` (§4).
     Intent: every version can be read and restored.
     Check: the snapshot and the entry exist for every changed skill.
 
@@ -167,7 +168,7 @@ an uncited rule binds anyway.
     Check: such a fix adds a `← <work policy> <id>` citation to the step.
 
 3.4 Claude MUST record impediments with the drill master's own skills or this file the same way, in
-    the plugin's repository under `.drillmaster/<skill>/` or `.drillmaster/POLICIES/`.
+    the plugin's repository under `.drillmaster/skills/<skill>/` or `.drillmaster/POLICIES/`.
     Intent: the drill master is drilled like any process.
     Check: impediments about the drill master appear there.
 
@@ -175,12 +176,14 @@ an uncited rule binds anyway.
 
 4.1 The drill master MUST keep a project's files under `.drillmaster/`:
     - `objective.md` — the owner's (§6.3);
-    - `process.md` — the index: work processes, work policies, artifacts, states, log storage;
+    - `process.md` — the index: work processes, work policies, states, log storage;
     - `toolchain.md` — the tools the work runs on and how they are configured;
-    - `templates/` — one template per artifact;
-    - `<skill>/history.md` and `<skill>/versions/v<N>.md` — how each skill changed;
+    - `templates/` — only when a work process needs an artifact the project designs;
+    - `skills/<skill>/history.md` and `skills/<skill>/versions/v<N>.md` — how each skill changed;
     - `experiments.md` — every experiment;
-    - `retrospectives/<DD-MM-YYYY>.md` — one report per retrospective;
+    - `retrospectives/<DD-MM-YYYY>.md` — one short report per retrospective;
+    - `traces/<work item id>.md` — merged work items' traces, copied by a retrospective and deleted
+      once it has used them;
     - `items/<work item id>/` — a work item's trace and item summary, only when the owner chose
       **items** as log storage.
     Intent: what the process is and how it changed lives with the project, in version control.
@@ -200,9 +203,16 @@ an uncited rule binds anyway.
     Intent: each idea can be confirmed, changed or dropped alone.
     Check: no bullet joins two ideas with "and", ";" or "also".
 
-4.5 Claude MUST write history, experiments and trace entries in the forms in `templates/` of this
-    plugin (`history.md`, `experiment.md`, `trace.md`).
-    Intent: every retrospective reads every record the same way.
+4.5 Claude MUST write each record in its one form:
+    - a trace entry in the form of this plugin's `templates/trace.md`, an item summary in
+      `templates/summary.md`;
+    - a history entry as `## <DD-MM-YYYY HH:mm>` (or `## v<N> — <DD-MM-YYYY HH:mm>` with a snapshot),
+      then `- Created`, `- Changed` or `- Preserved`, one bullet per idea, each with its reason or the
+      owner's words;
+    - an experiment as `## E<N> — <title> — running | kept | rethink`, then one line each for
+      Started (time, skill, version), Impediment, Measure, Baseline, Change, Observations, and
+      Verdict (impediment gone yes / no; measure baseline → now; keep or rethink).
+    Intent: every retrospective reads every record the same way, without a template per record.
     Check: entries parse in those forms.
 
 4.6 When a tool's configuration changes (the owner says so, Claude changes it, or a step finds it
