@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 
-import { buildReport, indexEntries } from '../scripts/report.mjs'
+import { buildProcessOverview, indexEntries } from '../scripts/processOverview.mjs'
 
 const PROCESS = `# Acme's process
 
@@ -28,7 +28,7 @@ const write = (dir, file, text) => {
 }
 
 const project = () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'drillmaster-report-'))
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'drillmaster-overview-'))
   write(dir, '.drillmaster/process.md', PROCESS)
   write(dir, '.drillmaster/objective.md', '# Objective\n\n## Goal\n\n"Ship it."\n\n## Measures\n\n- **Speed.** Fast.\n  Counted from: the traces.\n  Check: time.\n\n## Direction and constraints\n\n- none\n')
   write(dir, '.claude/skills/build-process/SKILL.md', '---\nname: build-process\ndescription: Build it.\n---\n\n# 1. Build\n\nServes **Speed**.\n\n## Steps\n\n1.1 Start   ← /pr-policy §2.1\n')
@@ -44,8 +44,8 @@ test('process.md names the work processes and work policies, with their skills',
   assert.deepEqual(indexEntries(PROCESS, 'Work policies').map((e) => e.skill), ['pr-policy'])
 })
 
-test('the report is one page of the project, read from its process.md', () => {
-  const html = buildReport(project())
+test('the process overview is one page of the project, read from its process.md', () => {
+  const html = buildProcessOverview(project())
   assert.match(html, /<title>Acme's process<\/title>/)
   const data = JSON.parse(html.match(/<script id="data" type="application\/json">([\s\S]*?)<\/script>/)[1])
   assert.equal(data.processes[0].name, 'build-process')

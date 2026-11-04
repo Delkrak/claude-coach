@@ -38,8 +38,8 @@ Every step has an id, cited as `/devops-drillmaster:process-change <id>` ← §0
     measure and the baseline ← §1.7.
 
 2.5 If the change makes `process.md` no longer match (an input, output, citation or what a work
-    process records), update `process.md` in the same change, and rebuild the report with
-    `/devops-drillmaster:report`.
+    process records), update `process.md` in the same change, and rebuild the process
+    overview with `/devops-drillmaster:process-overview`.
 
 ## 3. Report
 

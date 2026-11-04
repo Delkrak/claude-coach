@@ -1,7 +1,7 @@
 ## 04-11-2026 20:14
 - Changed
   - History and experiment written in POLICIES §4.5's forms, not templates — "The usage of templates should be drastically reduced"
-  - Histories under .drillmaster/skills/<skill>/; 2.5 rebuilds the report
+  - Histories under .drillmaster/skills/<skill>/; 2.5 rebuilds the process overview
 
 ## 04-11-2026 01:30
 - Created

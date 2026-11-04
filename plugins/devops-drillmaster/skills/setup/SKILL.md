@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Set up a project's DevOps way of working with the drill master, as light as possible - ask the owner's goal and which work processes to start with, read the toolchain, copy the chosen work processes and the work policies they cite from the drill master's library unchanged, write .drillmaster/, build the report, and deliver it as one PR. Retrospectives adapt it to the project over time. Use when the owner wants a process for building software with Claude, or when a retrospective hands over a work process the project doesn't have yet.
+description: Set up a project's DevOps way of working with the drill master, as light as possible - ask the owner's goal and which work processes to start with, read the toolchain, copy the chosen work processes and the work policies they cite from the drill master's library unchanged, write .drillmaster/, build the process overview, and deliver it as one PR. Retrospectives adapt it to the project over time. Use when the owner wants a process for building software with Claude, or when a retrospective hands over a work process the project doesn't have yet.
 ---
 
 # Set up the process
@@ -59,7 +59,7 @@ Ask with `AskUserQuestion`, one decision per question ← §6.1. Nothing else is
     ```
 
 3.3 Write `.drillmaster/process.md`, one section per work process and work policy, in this form
-    (the session hook and the report read it):
+    (the session hook and the process overview read it):
 
     ```
     # <Project>'s process
@@ -82,7 +82,7 @@ Ask with `AskUserQuestion`, one decision per question ← §6.1. Nothing else is
 3.5 Write `.drillmaster/experiments.md` (empty) and a creation entry in
     `.drillmaster/skills/<skill>/history.md` for every skill ← §4.1, §4.5.
 
-3.6 Build the report with `/devops-drillmaster:report`.
+3.6 Build the process overview with `/devops-drillmaster:process-overview`.
 
 ## 4. Deliver
 

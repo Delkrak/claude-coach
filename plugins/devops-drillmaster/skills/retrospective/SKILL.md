@@ -78,7 +78,8 @@ Every step has an id, cited as `/devops-drillmaster:retrospective <id>` ← §0.
     rejected, one line each. Copy the traces of merged work items in scope to
     `.drillmaster/traces/<id>.md`, and delete the ones this retrospective has used ← §4.1.
 
-4.5 Rebuild the report page with `/devops-drillmaster:report`, and report to the owner ← §6.5, e.g.
+4.5 Rebuild the process overview with `/devops-drillmaster:process-overview`, and report to the
+    owner ← §6.5, e.g.
     "Status: 2 changes made, E3 kept, E4 rethink. Watch build 3.5. Dismissed!"
 
 Impediments with the drill master itself are reviewed the same way, in the plugin's repository ←

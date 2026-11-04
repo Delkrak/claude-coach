@@ -24,7 +24,7 @@ As light as possible:
 2. **Read, not asked.** Your tracker, git host, CI and Claude setup, into `.drillmaster/toolchain.md`.
 3. **Copied from the library.** The chosen work processes and the work policies they cite, unchanged
    but for the facts it read; everything else stays a placeholder.
-4. **One PR,** with the report page. No stress test: the first work items' traces show what to fix,
+4. **One PR,** with the process overview. No stress test: the first work items' traces show what to fix,
    and the retrospectives fit the process to you over time.
 
 ### `/devops-drillmaster:trace`
@@ -48,7 +48,7 @@ Makes one change the retrospective decided and you approved: edits the skill, sn
 its history and opens an experiment with the measure's baseline. The only way a work process or work
 policy changes.
 
-### `/devops-drillmaster:report`
+### `/devops-drillmaster:process-overview`
 
 One HTML page of your process: the objective, the flow, each work process's input → steps → output
 and each work policy's rules, built from `process.md` and the skills it names. Setup and every
@@ -82,7 +82,7 @@ They run only in a project with `.drillmaster/process.md`.
   experiments.md        # changes being checked: impediment, measure, baseline, verdict
   retrospectives/       # one short report per retrospective
   traces/<item id>.md   # merged work items' traces, until a retrospective has used them
-process-overview.html   # the report page
+process-overview.html   # the process overview
 ```
 
 The plugin's only templates are the trace and the item summary.

@@ -1,7 +1,7 @@
 ## 04-11-2026 20:14
 - Changed
   - 4.4 writes a short report inline (no template) and keeps merged traces in .drillmaster/traces/ until used
-  - 4.5 rebuilds the report page with /devops-drillmaster:report — "The report generation should also be included with drillmaster"
+  - 4.5 rebuilds the process overview with /devops-drillmaster:process-overview — "The report generation should also be included with drillmaster"
 
 ## 04-11-2026 01:30
 - Changed

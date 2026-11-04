@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// The drill master's report: one HTML page of a project's process - the objective, the flow, each
-// work process's input → steps → output, each work policy's rules - built from .drillmaster/ and the
-// skills process.md names. Usage: node report.mjs [--project <dir>] [--out <file>]
+// The drill master's process overview: one HTML page of a project's process - the objective, the
+// flow, each work process's input → steps → output, each work policy's rules - built from
+// .drillmaster/ and the skills process.md names.
+// Usage: node processOverview.mjs [--project <dir>] [--out <file>]
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -27,7 +28,7 @@ export const indexEntries = (processText, part) => {
     .filter((entry) => entry.skill)
 }
 
-export const buildReport = (repo) => {
+export const buildProcessOverview = (repo) => {
 const read = (...parts) => fs.readFileSync(path.join(repo, ...parts), 'utf8').replace(/\r\n/g, '\n')
 const readIf = (...parts) => (fs.existsSync(path.join(repo, ...parts)) ? read(...parts) : '')
 const index = read('.drillmaster', 'process.md')
@@ -377,7 +378,7 @@ return html
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const repo = path.resolve(arg('--project', '.'))
   const out = path.resolve(repo, arg('--out', 'process-overview.html'))
-  const html = buildReport(repo)
+  const html = buildProcessOverview(repo)
   fs.writeFileSync(out, html)
   console.log('wrote', out, Math.round(html.length / 1024) + ' KB')
 }
