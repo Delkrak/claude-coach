@@ -68,8 +68,6 @@ They run only in a project with `.drillmaster/process.md`.
 | Event | What it does |
 |---|---|
 | `UserPromptSubmit` | A message that reads like a correction reminds Claude to record it with `impediment-and-metric-capture`. Claude decides whether it is one. |
-| `PostToolUse` (`Bash`, MCP tools) | A call that often ends a work process (`gh pr create`, `gh pr ready`, `gh pr merge`, a tracker's save tool, or a `Done hints:` entry in `process.md`) leaves a marker. |
-| `Stop` | With a marker pending, Claude is asked once whether the work process is done, to write its process summary, and the item summary if a PR was marked ready. |
 
 ## Files in a project
 

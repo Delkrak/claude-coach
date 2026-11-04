@@ -29,7 +29,8 @@ A work process. It serves the objective's measure **<measure>**.
 4.5 Repeat 4.3–4.4 until a round finds nothing, up to the project's cap; past it, go to the owner.
 4.6 Check the review against each rule of `review-policy`.
 4.7 Mark the PR ready.
-4.8 **impediment-and-metric-capture** — process summary: rounds, findings, impediments, time taken; end.
+4.8 **impediment-and-metric-capture** — process summary: rounds, findings, impediments, time taken;
+    then the item summary; end.
 
 ## Output
 
@@ -39,4 +40,4 @@ A work process. It serves the objective's measure **<measure>**.
 
 ## Hands off to
 
-User review (5), with the ready PR. Marking it ready triggers the item summary (`impediment-and-metric-capture` 2).
+User review (5), with the ready PR and its item summary.

@@ -32,7 +32,7 @@ A work process. It serves the objective's measure **<measure>**.
     `code-test-policy`, and run the project's checks.
 3.8 Open the PR as a draft and check it against each rule of `pr-policy` §2.
 3.9 **impediment-and-metric-capture** — process summary: what was built, impediments, corrections made, noticed items,
-    time taken; end.
+    time taken; when the project has no AI review, mark the PR ready and write the item summary; end.
 
 ## Output
 

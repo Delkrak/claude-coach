@@ -51,7 +51,8 @@ step it belongs to by id (e.g. `build-process 3.5`), and evidence ← §2.1.
 
 ## 2. Item summary
 
-When the PR is marked ready for the owner's review (the done hook asks):
+When the PR is marked ready for the owner's review (the work process that marks it ready has this as
+a step):
 
 2.1 Read the item's process summaries.
 

@@ -16,7 +16,6 @@ Log storage: <comments (issue, then PR) | items (`.drillmaster/items/<id>/`)>
 - Records: <impediments at every step; metrics: …>
 - States: <from → to>, moved by <work process | tool automation>
 - Hands off to: <next work process>
-- Done hints: <tool calls that often end it>
 
 # Work policies
 
