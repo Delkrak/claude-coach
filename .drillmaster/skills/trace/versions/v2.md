@@ -33,16 +33,19 @@ node "<plugin root>/scripts/trace.mjs" add --file <folder> --key <work item id> 
 node "<plugin root>/scripts/trace.mjs" verify --file <folder>/<key>-trace.json
 ```
 
-In Git Bash, run it with `MSYS_NO_PATHCONV=1`: otherwise `/build-process` reaches the tool as a
-Windows path, and the tool refuses it. A refusal from the tool is fixed by adding what it asks
-for, never by writing the file another way.
+In Git Bash, run it with `MSYS_NO_PATHCONV=1`; the tool refuses to run without it, since Git Bash
+would turn `/build-process` into a Windows path. With it set, give every path in Windows form
+(`C:/Users/...`), never `/c/...` or `/tmp/...`. A value that starts with `--` is given as
+`--words=<value>`. A refusal from the tool is fixed by adding what it asks for, never by writing
+the file another way.
 
 Each entry names the work process step by id (e.g. `/build-process 3.5`), its kind, and a link as
 evidence ← §2.1. Link what the tracker, the git host and the session already hold (an issue, a
 commit, a PR, a comment, a session id); never copy it.
 
 1.1 **start** and **end** — when a step starts and ends; the start of a work process names the skill
-    and its version, and the session.
+    and its version, and the session. An end's time is its step's; the work process's time is the
+    summary's (1.8).
 
 1.2 **in** and **out** — what a step took in and handed on, linked (the issue, the spec, a commit,
     the PR, a review round's comment).
@@ -82,15 +85,23 @@ commit, a PR, a comment, a session id); never copy it.
      process gap. Carry on."
 
 1.11 **attachment** storage, at every entry:
-     - The trace begins once the issue exists, since its key names the file. Its first entry is a
-       start whose `--before` says what happened before it: for a capture, "capture 1.1–1.5,
-       before the issue existed"; otherwise "nothing".
-     - Before the first entry of a session, download the issue's current `<key>-trace.json` (the
-       tracker's attachment) into the scratch folder and run `verify`. A trace that fails is not
-       written to: report it to the owner as an impediment.
-     - After `add`, upload the file with the tracker's connector, as one file, the bytes unchanged
-       (the tool prints its filename, size and content type), then link the new upload and unlink
-       the attachment it replaces. The stored old uploads stay; they are the trace's history.
+     - The trace begins once the issue exists, since its key names the file.
+     - Its first entry is a start whose `--before` says what happened before it: for a capture,
+       the steps before the issue was saved ("capture 1.1–1.6, before the issue existed").
+     - With no earlier steps, `--before` is "nothing".
+     - A summary whose run began before the trace carries `uncounted`, naming what it leaves out.
+     - Before every entry, download the issue's current `<key>-trace.json` into the scratch folder,
+       its bytes unchanged.
+     - Run `verify` on the download, so another session's entries are never overwritten.
+     - Add the entry to the download, never to an older local copy.
+     - After `add`, upload the file with the tracker's connector as one file, its bytes unchanged.
+     - The tool prints the filename, size and content type the upload needs.
+     - Link the new upload to the issue.
+     - Unlink the attachment it replaces.
+     - The stored old uploads stay: they are the trace's history.
+     - A download that fails `verify` is not written to.
+     - Instead, move the issue to Needs input with a comment naming the failure and the last upload
+       that verified, and wait for the owner's order.
 
 ## 2. Item summary
 

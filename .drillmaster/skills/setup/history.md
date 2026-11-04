@@ -1,9 +1,11 @@
 ## v2 — 04-11-2026 21:28
 - Changed
-  - 3.3's process.md form names the three log storages, comments by default — the owner: "make it up to the project how it does this"
+  - 3.3's process.md form names the three log storages — the owner: "make it up to the project how it does this"
+  - Comments stay the default — no other default was decided
 - Preserved
   - Every step id — POLICIES §0.8
-  - No question about log storage — not decided; the owner chooses it in process.md afterwards
+  - No question about log storage — not decided
+  - The owner chooses the storage in process.md — the owner: "make it up to the project how it does this"
 
 ## 04-11-2026 20:14
 - Changed

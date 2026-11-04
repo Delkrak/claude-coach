@@ -4,8 +4,10 @@
   - 4.4 copies a JSON trace as `traces/<key>-trace.json` — follows `/devops-drillmaster:trace` v2
 - Preserved
   - Every step id — POLICIES §0.8
-  - No trace step for the retrospective itself — no retrospective has decided one yet; the owner raised it in Keeper's retrospective 04-11-2026: "You not tracing did not record this.."
-  - 2.4's counting as written — the Keeper report first said 15 impediments where the traces held 14; recorded for the next retrospective
+  - No trace step for the retrospective itself — no retrospective has decided one yet
+  - Evidence for the next retrospective: the owner in Keeper's retrospective 04-11-2026, "You not tracing did not record this.."
+  - 2.4's counting as written — no retrospective has decided a change to it yet
+  - Evidence for the next retrospective: Keeper's report first said 15 impediments where the traces held 14
 
 ## 04-11-2026 20:14
 - Changed

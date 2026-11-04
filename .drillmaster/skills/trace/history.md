@@ -1,13 +1,17 @@
 ## v2 — 04-11-2026 21:28
 - Changed
-  - New log storage **attachment**: a `<key>-trace.json` attached to the issue — Keeper retrospective 04-11-2026 (Delkrak/Keeper#52), C1; the owner: "as a attachement to linear issue, the key.."
+  - New log storage **attachment**: a `<key>-trace.json` attached to the issue — Keeper retrospective 04-11-2026 (Delkrak/Keeper#52), C1, the owner: "as a attachement to linear issue, the key.."
   - With attachment, every entry is written by `scripts/trace.mjs` — the owner: "We definitely need a tool to create the trace as json, it should have a simple xor based tamper protection."
-  - The tool stamps each entry from the clock — Keeper traces held estimated times shown as read; the owner: "so you are effectively cooking the books."
+  - The tool stamps each entry from the clock — Keeper traces held estimated times shown as read, the owner: "so you are effectively cooking the books."
   - The tool chains an FNV-1a checksum — the owner: "FNV-1a (Recommended)", after the review found the plain XOR fold missed paired edits
-  - The tool counts end and summary over the work process's whole run — Keeper summaries were counted by hand, once wrongly
-  - Step 1.11 uploads the file through the tracker's connector and unlinks the old one — the owner: "Agent via connector (Recommended)"
+  - The file's head seals the chain with its length — the review found a hand truncation passed verify
+  - The tool counts a summary over the work process's whole run — Keeper summaries were counted by hand, once wrongly
+  - An end counts its own step's time — the line form and 1.1 already meant the step
+  - Step 1.11 has the agent upload each version through the tracker's connector — the owner: "Agent via connector (Recommended)"
+  - Step 1.11 downloads the attachment before every entry — another session's upload could otherwise be overwritten (local review, Delkrak/claude-coach#7)
   - The trace begins at the issue, its first entry saying what came before — the owner: "Start the trace at the issue, but it should naturally be in the log that its missing before."
-  - Git Bash needs `MSYS_NO_PATHCONV=1` — it rewrites `/build-process` into a Windows path (local review, Delkrak/claude-coach#7)
+  - A summary whose run began before the trace names what it leaves uncounted — follows from the trace beginning at the issue
+  - Git Bash needs `MSYS_NO_PATHCONV=1` — it rewrites `/build-process` into a Windows path (local review)
   - The template gives the JSON form beside the line form — comments and items still write lines
 - Preserved
   - The kinds of entry — the tool checks the same kinds

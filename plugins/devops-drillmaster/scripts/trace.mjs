@@ -1,36 +1,41 @@
 #!/usr/bin/env node
 // The drill master's trace tool: the only writer of a `<key>-trace.json` trace. Each entry is
 // stamped with the clock, checked against its kind's form, and chained with an FNV-1a checksum
-// (XOR then multiply), so a trace edited by hand no longer verifies.
+// (XOR then multiply). The file's `head` seals the chain and its length, so an entry edited,
+// inserted, moved or removed by hand no longer verifies.
 //
-// The checksum catches edits made outside the tool. It is not a signature: anyone who runs the
+// The checksum catches edits made outside the tool. It is not a signature: anyone who reruns the
 // algorithm can write a trace that verifies. What it guarantees is that a trace changed by hand,
 // without rerunning the tool, is found.
 //
 // Usage:
 //   node trace.mjs add --file <folder or <key>-trace.json> --key KEE-16 --process /build-process \
-//     --step 3.5 --kind <kind> --text "<what>" [the kind's fields]
+//     --step 3.5 --kind <kind> --text "<what>" --link <evidence> [the kind's fields]
 //   node trace.mjs verify --file <key>-trace.json
-// In Git Bash, set MSYS_NO_PATHCONV=1: otherwise "/build-process" arrives as a Windows path.
+// A value starting with "--" is given as --name=value. In Git Bash, run with MSYS_NO_PATHCONV=1 and
+// Windows-form paths (C:/...).
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 export const GAPS = ['process', 'policy', 'not covered']
 
-/** Each kind's own fields: required first, then optional. `text` and `link` are common. */
+/**
+ * Each kind's own fields: required, then optional. Every entry carries evidence (POLICIES §2.1):
+ * a `link`, or for a start its session, or for an impediment its `evidence`.
+ */
 const KIND_FIELDS = {
   start: { required: ['version', 'session'], optional: ['text', 'link', 'before'] },
-  end: { required: [], optional: ['text', 'link'] },
+  end: { required: ['link'], optional: ['text'] },
   in: { required: ['text', 'link'], optional: [] },
   out: { required: ['text', 'link'], optional: [] },
-  state: { required: ['from', 'to'], optional: ['text', 'link'] },
-  decision: { required: ['text', 'by'], optional: ['words', 'why', 'link'] },
+  state: { required: ['from', 'to', 'link'], optional: ['text'] },
+  decision: { required: ['text', 'by', 'link'], optional: ['words', 'why'] },
   question: { required: ['text', 'state', 'link'], optional: [] },
   answer: { required: ['words', 'link'], optional: ['text'] },
   impediment: { required: ['text', 'gap', 'evidence'], optional: ['where', 'correction', 'link'] },
-  observation: { required: ['experiment', 'seen', 'measure'], optional: ['text', 'link'] },
-  summary: { required: ['text'], optional: ['link'] },
+  observation: { required: ['experiment', 'seen', 'measure', 'link'], optional: ['text'] },
+  summary: { required: ['text', 'link'], optional: [] },
 }
 
 export const KINDS = Object.keys(KIND_FIELDS)
@@ -74,17 +79,18 @@ export const checksumOf = (previousChecksum, entry) =>
 /** Where a trace's chain starts: its key and format version, so neither can change by hand. */
 const seedOf = (trace) => hex(fnv1a(FNV_OFFSET, `${trace.key}\n${trace.version}`))
 
+/** The seal over the whole chain: its last checksum and its length, folded together. */
+const headOf = (trace) => hex(fnv1a(parseInt(trace.entries.at(-1)?.checksum ?? seedOf(trace), 16), `#${trace.entries.length}`))
+
 export const newTrace = (key) => {
   if (!/^[A-Za-z][A-Za-z0-9]*-\d+$/.test(key ?? '')) {
     throw new TraceError(`A key is a work item's id, like KEE-16; got "${key}".`)
   }
-  return { key, version: 1, count: 0, head: null, entries: [] }
+  const trace = { key, version: 1, head: '', entries: [] }
+  return { ...trace, head: headOf(trace) }
 }
 
-/**
- * Why the trace doesn't verify, or null when it does: every entry's checksum holds, and the count
- * and head match the last entry, so an entry removed from the end is found too.
- */
+/** Why the trace doesn't verify, or null when it does. */
 export const brokenReasonOf = (trace) => {
   if (!trace || typeof trace.key !== 'string' || !Array.isArray(trace.entries)) {
     return 'it is not a trace file: it has no key or no entries.'
@@ -96,8 +102,8 @@ export const brokenReasonOf = (trace) => {
     }
     previous = entry.checksum
   }
-  if (trace.count !== trace.entries.length || trace.head !== (trace.entries.at(-1)?.checksum ?? null)) {
-    return `it should hold ${trace.count} entries ending at ${trace.head}; it holds ${trace.entries.length}.`
+  if (trace.head !== headOf(trace)) {
+    return `its head doesn't seal its ${trace.entries.length} entries: an entry was removed, or the head was edited.`
   }
   return null
 }
@@ -108,69 +114,83 @@ const verified = (trace) => {
   return trace
 }
 
-/**
- * A work process's run: from its first start after its last summary. Every step has a start, so
- * the run begins at the first of them, not the last.
- */
+const indexed = (trace, process) =>
+  trace.entries.map((entry, index) => ({ entry, index })).filter(({ entry }) => entry.process === process)
+
+/** A work process's run: from its first start after its last summary. */
 const runStartOf = (trace, process) => {
-  const own = trace.entries.map((entry, index) => ({ entry, index })).filter(({ entry }) => entry.process === process)
+  const own = indexed(trace, process)
   const afterSummary = own.slice(own.findLastIndex(({ entry }) => entry.kind === 'summary') + 1)
   return afterSummary.find(({ entry }) => entry.kind === 'start')?.index ?? -1
 }
 
-/** What `end` and `summary` count: the work process's run, from its first start to now. */
-const counted = (trace, process, now) => {
+/** A step: from the work process's last start. */
+const stepStartOf = (trace, process) =>
+  indexed(trace, process).findLast(({ entry }) => entry.kind === 'start')?.index ?? -1
+
+const since = (trace, index, now) => durationOf(now.getTime() - Date.parse(trace.entries[index].iso))
+
+/** When the run begins at the trace's first entry, what happened before it isn't counted. */
+const partialOf = (trace, startIndex) => {
+  const before = trace.entries[0]?.before
+  return startIndex === 0 && before && before !== 'nothing' ? { uncounted: before } : {}
+}
+
+/** An `end`'s count: the step, from the work process's last start. */
+const endCount = (trace, process, now) => {
+  const startIndex = stepStartOf(trace, process)
+  if (startIndex < 0) throw new TraceError(`${process} has no start entry to count from.`)
+  return { stepTime: since(trace, startIndex, now), ...partialOf(trace, startIndex) }
+}
+
+/** A `summary`'s count: the work process's whole run. */
+const summaryCount = (trace, process, now) => {
   const startIndex = runStartOf(trace, process)
   if (startIndex < 0) throw new TraceError(`${process} has no start entry to count from.`)
   const run = trace.entries.slice(startIndex).filter((entry) => entry.process === process)
   const count = (test) => run.filter(test).length
   return {
-    time: durationOf(now.getTime() - Date.parse(trace.entries[startIndex].iso)),
+    time: since(trace, startIndex, now),
     impediments: count((entry) => entry.kind === 'impediment'),
     questions: count((entry) => entry.kind === 'question'),
     corrections: count((entry) => entry.kind === 'impediment' && entry.correction === true),
+    ...partialOf(trace, startIndex),
   }
 }
 
-/** A value Git Bash rewrote: "/build-process" arrives as "C:/Program Files/Git/build-process". */
-const MSYS_PATH = /^[A-Za-z]:[\\/](?:.*[\\/])?Git[\\/]/
+const blank = (value) => value === undefined || (typeof value === 'string' && value.trim() === '')
 
 const checked = (trace, fields) => {
   const { process, step, kind } = fields
-  for (const [name, value] of Object.entries(fields)) {
-    if (typeof value === 'string' && MSYS_PATH.test(value)) {
-      throw new TraceError(
-        `--${name} looks rewritten by Git Bash ("${value}"). Run with MSYS_NO_PATHCONV=1.`,
-      )
-    }
-  }
   if (!/^\/[a-z0-9:-]+$/.test(process ?? '')) {
     throw new TraceError(`A process is the command that runs it, like /build-process; got "${process}".`)
   }
-  if (!step) throw new TraceError('Every entry names its step, like 3.5.')
+  if (blank(step)) throw new TraceError('Every entry names its step, like 3.5.')
   if (!KINDS.includes(kind)) throw new TraceError(`A kind is one of ${KINDS.join(', ')}; got "${kind}".`)
   const { required, optional } = KIND_FIELDS[kind]
   const unknown = Object.keys(fields).filter((name) => ![...COMMON, ...required, ...optional].includes(name))
   if (unknown.length) {
     throw new TraceError(`A ${kind} entry doesn't take ${unknown.map((name) => `--${name}`).join(', ')}.`)
   }
-  const missing = required.filter((name) => fields[name] === undefined || fields[name] === '')
+  const missing = required.filter((name) => blank(fields[name]))
   if (missing.length) throw new TraceError(`A ${kind} entry needs ${missing.map((name) => `--${name}`).join(', ')}.`)
-  if (!trace.entries.length && (kind !== 'start' || !fields.before)) {
+  const empty = Object.keys(fields).filter((name) => blank(fields[name]))
+  if (empty.length) throw new TraceError(`${empty.map((name) => `--${name}`).join(', ')} is empty.`)
+  if (!trace.entries.length && (kind !== 'start' || blank(fields.before))) {
     throw new TraceError(
-      'A trace opens with a start entry whose --before says what happened before it began, e.g. "capture 1.1–1.5, before the issue existed", or "nothing".',
+      'A trace opens with a start entry whose --before says what happened before it began, e.g. "capture 1.1–1.6, before the issue existed", or "nothing".',
     )
   }
   if (kind === 'decision' && !['owner', 'agent'].includes(fields.by)) {
     throw new TraceError('A decision is by the owner or the agent.')
   }
-  if (kind === 'decision' && !(fields.by === 'owner' ? fields.words : fields.why)) {
-    throw new TraceError("A decision by the owner carries --words; one by the agent carries --why.")
+  if (kind === 'decision' && blank(fields.by === 'owner' ? fields.words : fields.why)) {
+    throw new TraceError('A decision by the owner carries --words; one by the agent carries --why.')
   }
   if (kind === 'impediment' && !GAPS.includes(fields.gap)) {
     throw new TraceError(`An impediment's gap is one of ${GAPS.join(', ')}.`)
   }
-  if (kind === 'impediment' && fields.gap !== 'not covered' && !fields.where) {
+  if (kind === 'impediment' && fields.gap !== 'not covered' && blank(fields.where)) {
     throw new TraceError('A process or policy gap names --where: the skill and its step or rule.')
   }
 }
@@ -181,27 +201,38 @@ export const addEntry = (trace, fields, now = new Date()) => {
   checked(trace, fields)
   const { process, step, kind, ...rest } = fields
   const entry = { at: localTimeOf(now), iso: now.toISOString(), process, step, kind, ...rest }
-  if (kind === 'end') entry.time = counted(trace, process, now).time
-  if (kind === 'summary') Object.assign(entry, counted(trace, process, now))
+  if (kind === 'end') Object.assign(entry, endCount(trace, process, now))
+  if (kind === 'summary') Object.assign(entry, summaryCount(trace, process, now))
   entry.checksum = checksumOf(trace.entries.at(-1)?.checksum ?? seedOf(trace), entry)
-  const entries = [...trace.entries, entry]
-  return { ...trace, count: entries.length, head: entry.checksum, entries }
+  const next = { ...trace, entries: [...trace.entries, entry] }
+  return { ...next, head: headOf(next) }
 }
 
 const FLAGS = ['correction']
 
-/** `--name value` pairs, `--seen yes|no` and the bare flag `--correction`; anything else is refused. */
+const NAME = /^[a-z][a-z0-9-]*$/
+
+/** `--name value`, `--name=value`, `--seen yes|no` and the bare flag `--correction`; nothing else. */
 export const parseArgs = (argv) => {
   const fields = {}
   for (let i = 0; i < argv.length; i++) {
     if (!argv[i].startsWith('--')) throw new TraceError(`"${argv[i]}" isn't a --name or its value.`)
-    const name = argv[i].slice(2)
+    const [name, inline] = argv[i].slice(2).split(/=(.*)/s)
+    if (!NAME.test(name)) throw new TraceError(`--${name} isn't a field name.`)
+    if (Object.hasOwn(fields, name)) throw new TraceError(`--${name} is given twice.`)
     if (FLAGS.includes(name)) {
+      if (inline !== undefined) throw new TraceError(`--${name} takes no value.`)
       fields[name] = true
       continue
     }
+    if (inline !== undefined) {
+      fields[name] = inline
+      continue
+    }
     const value = argv[i + 1]
-    if (value === undefined || value.startsWith('--')) throw new TraceError(`--${name} needs a value.`)
+    if (value === undefined || value.startsWith('--')) {
+      throw new TraceError(`--${name} needs a value (a value starting with "--" is given as --${name}=<value>).`)
+    }
     fields[name] = value
     i++
   }
@@ -214,7 +245,7 @@ export const parseArgs = (argv) => {
 
 const read = (file) => {
   try {
-    return JSON.parse(fs.readFileSync(file, 'utf8'))
+    return JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, ''))
   } catch (error) {
     throw new TraceError(`Can't read ${file} as a trace: ${error.message}`)
   }
@@ -222,9 +253,12 @@ const read = (file) => {
 
 const write = (file, trace) => fs.writeFileSync(file, `${JSON.stringify(trace, null, 2)}\n`)
 
-/** `--file` names a `.json` file, or a folder (made if missing) that holds `<key>-trace.json`. */
+/** `--file` names a `.json` file (its folder made if missing), or a folder for `<key>-trace.json`. */
 const fileFor = (where, key) => {
-  if (where.endsWith('.json')) return where
+  if (/\.json$/i.test(where)) {
+    fs.mkdirSync(path.dirname(where), { recursive: true })
+    return where
+  }
   if (!key) throw new TraceError('Name the trace by --key, or give its file.')
   fs.mkdirSync(where, { recursive: true })
   return path.join(where, fileNameOf(key))
@@ -236,15 +270,24 @@ const checkedName = (file, trace) => {
   }
 }
 
-export const main = (argv) => {
+/** Git Bash rewrites "/build-process" into a Windows path unless MSYS_NO_PATHCONV is set. */
+const checkedShell = (env) => {
+  if (env.MSYSTEM && !env.MSYS_NO_PATHCONV) {
+    throw new TraceError('In Git Bash, run with MSYS_NO_PATHCONV=1 (and Windows-form paths, C:/...): otherwise "/build-process" arrives as a Windows path.')
+  }
+}
+
+export const main = (argv, env = process.env) => {
+  checkedShell(env)
   const [command, ...rest] = argv
   if (!['add', 'verify'].includes(command)) throw new TraceError('The commands are add and verify.')
   const { file: where, key, ...fields } = parseArgs(rest)
   if (!where) throw new TraceError('Name the trace file, or its folder, with --file.')
   if (command === 'verify') {
+    if (key !== undefined || Object.keys(fields).length) throw new TraceError('verify takes only --file.')
     const trace = verified(read(where))
     checkedName(where, trace)
-    return { file: where, key: trace.key, entries: trace.entries.length, verified: true }
+    return { file: where, key: trace.key, entries: trace.entries.length, head: trace.head, verified: true }
   }
   const file = fileFor(where, key)
   const existing = fs.existsSync(file) ? read(file) : null
@@ -258,6 +301,7 @@ export const main = (argv) => {
     contentType: 'application/json',
     size: fs.statSync(file).size,
     entries: trace.entries.length,
+    head: trace.head,
     added: trace.entries.at(-1),
   }
 }
