@@ -92,10 +92,13 @@ commit, a PR, a comment, a session id); never copy it.
      - A summary whose run began before the trace carries `uncounted`, naming what it leaves out.
      - Before every entry, download the issue's current `<key>-trace.json` into the scratch folder,
        its bytes unchanged.
-     - Run `verify` on the download, so another session's entries are never overwritten.
+     - Run `verify` on the download: it proves no one edited it by hand, and gives its `head`.
      - Add the entry to the download, never to an older local copy.
      - After `add`, upload the file with the tracker's connector as one file, its bytes unchanged.
      - The tool prints the filename, size and content type the upload needs.
+     - Before linking it, check that the issue's current attachment still has the `head` you
+       downloaded: another session may have uploaded in between.
+     - If the head has moved, don't link: download again and add the entry to that.
      - Link the new upload to the issue.
      - Unlink the attachment it replaces.
      - The stored old uploads stay: they are the trace's history.

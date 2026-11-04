@@ -9,6 +9,8 @@
   - An end counts its own step's time — the line form and 1.1 already meant the step
   - Step 1.11 has the agent upload each version through the tracker's connector — the owner: "Agent via connector (Recommended)"
   - Step 1.11 downloads the attachment before every entry — another session's upload could otherwise be overwritten (local review, Delkrak/claude-coach#7)
+  - Step 1.11 checks the attachment's head before linking a new upload — two sessions downloading the same version could otherwise drop one's entry (local review, round 3)
+  - The tool reads a file only as it wrote it — a duplicate key or a field added by hand passed verify (local review, round 3)
   - The trace begins at the issue, its first entry saying what came before — the owner: "Start the trace at the issue, but it should naturally be in the log that its missing before."
   - A summary whose run began before the trace names what it leaves uncounted — follows from the trace beginning at the issue
   - Git Bash needs `MSYS_NO_PATHCONV=1` — it rewrites `/build-process` into a Windows path (local review)
