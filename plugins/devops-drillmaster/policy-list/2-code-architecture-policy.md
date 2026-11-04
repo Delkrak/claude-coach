@@ -1,11 +1,11 @@
 ---
 name: code-architecture-policy
-description: Code architecture policy - how code is structured - where a piece lives, how modules depend on each other, the structural invariants. Use whenever code is placed, structured or named, and at every process step that cites it.
+description: Code architecture work policy - how code is structured - where a piece lives, how modules depend on each other, the structural invariants. Use whenever code is placed, structured or named, and at every work process step that cites it.
 ---
 
-# Code architecture policy — Light
+# Code architecture work policy — Light
 
-Applies to: code, the output of build (3), and what AI review (4) checks.
+Applies to: code, the output of build (3), and the input of AI review (4).
 
 Its rules are the project's own: setup drafts them from the project's architecture notes and
 CLAUDE.md files, each principle checked against the code first (live? enforced? structural?), and
@@ -18,7 +18,7 @@ mutation; what may depend on what; where configuration is read; naming of files 
 
 ## 2. Rules
 
-2.1 TODO: <Actor> MUST <structural rule>.
+2.1 TODO: Code MUST <structural property>.
     Intent: <why the structure is this way>.
     Check: <what in the diff shows it kept; where the result is documented>.
 
@@ -28,7 +28,8 @@ None.
 
 ## 4. When a rule can't be kept
 
-Tell the owner which rule (§<n>) and why, the way the project asks the owner questions, and wait.
+Tell the owner which rule (`code-architecture-policy <rule id>`) and why, the way the project asks
+the owner questions, and wait.
 
 ## Cited by
 

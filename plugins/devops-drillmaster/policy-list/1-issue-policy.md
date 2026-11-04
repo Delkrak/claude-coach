@@ -1,9 +1,9 @@
 ---
 name: issue-policy
-description: Issue policy - what an issue must hold at each stage it passes (captured, work-ready). Use whenever an issue is written, changed or moved, and at every process step that cites it.
+description: Issue work policy - what an issue must hold at each stage it passes (captured, work-ready). Use whenever an issue is written, changed or moved, and at every work process step that cites it.
 ---
 
-# Issue policy — Light (§2), Standard (§3)
+# Issue work policy — Light (§2), Standard (§3)
 
 Applies to: issues, the output of capture (1) and refine (2), and the input of refine (2) and
 build (3).
@@ -16,9 +16,10 @@ build (3).
 
 ## 2. Captured
 
-2.1 Claude MUST search the tracker for the same thing before creating an issue, and link a related one.
+2.1 A captured issue MUST NOT duplicate an issue already in the tracker, and MUST link a related one.
     Intent: no duplicates; related work stays connected.
-    Check: a tracker search precedes the save; documented in the impediment log.
+    Check: a tracker search for its title finds no other issue for the same thing; related issues
+    are linked.
 
 2.2 A captured issue MUST hold the owner's words.
     Intent: refinement starts from what the owner actually said.
@@ -26,10 +27,10 @@ build (3).
 
 ## 3. Work-ready
 
-3.1 Claude MUST base every claim about today's behaviour on code read in the current checkout, and
-    name the files.
+3.1 Every claim a work-ready issue makes about today's behaviour MUST hold in the current code, and
+    MUST name its files.
     Intent: the spec describes the system as it is.
-    Check: the "today" section names files; the impediment log shows them read before the save.
+    Check: the "today" section names files; reading them confirms each claim.
 
 3.2 A work-ready issue MUST state why, today, what, acceptance criteria, out of scope, and notes.
     Intent: every builder finds the same things in the same place.
@@ -39,14 +40,16 @@ build (3).
     Intent: done is provable.
     Check: every criterion names a test or a check.
 
-3.4 Claude MUST ask the owner every decision the code can't answer, and the consequences that
-    aren't obvious, and record the answers on the issue.
+3.4 A work-ready issue MUST hold the owner's answer to every decision the code can't answer, and to
+    every consequence that isn't obvious.
     Intent: the owner decides, knowing the cost.
-    Check: the questions and answers are on the issue; the impediment log counts them.
+    Check: the questions and answers are on the issue.
 
-3.5 Claude MUST split work too big for one PR into sub-issues that each ship something usable.
+3.5 A work-ready issue MUST fit in one PR; larger work MUST be split into sub-issues that each ship
+    something usable.
     Intent: every PR is reviewable and every merge leaves the system working.
-    Check: big issues have sub-issues with blocked-by links.
+    Check: no work-ready issue spans more than one PR; split work has sub-issues with blocked-by
+    links.
 
 3.6 An issue MUST become work-ready only on the owner's approval, and MUST then hold a start-work
     brief (`templates/start-work-brief.md`).
@@ -59,7 +62,8 @@ None.
 
 ## 5. When a rule can't be kept
 
-Tell the owner which rule (§<n>) and why, the way the project asks the owner questions, and wait.
+Tell the owner which rule (`issue-policy <rule id>`) and why, the way the project asks the owner
+questions, and wait.
 
 ## Cited by
 
