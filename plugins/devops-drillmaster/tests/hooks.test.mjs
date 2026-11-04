@@ -7,6 +7,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { isCorrectionCue } from '../scripts/frictionCue.mjs'
+import { workProcessesIn } from '../scripts/sessionBrief.mjs'
 
 const scripts = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'scripts')
 
@@ -51,8 +52,49 @@ test('the prompt hook adds the note cue as context on a correction', () => {
   assert.equal(run('frictionCue.mjs', [], project(), { prompt: 'Add a page' }), undefined)
 })
 
+const PROCESS = `# Keeper's process
+
+Priority: Standard
+Log storage: comments
+
+# Work processes, in order
+
+## 1. capture-process — scaffolded
+- Skill: .claude/skills/capture-process/SKILL.md
+- Serves: fewer corrections
+- States: → Backlog, moved by capture-process
+- Hands off to: refine-process
+
+## 3. build-process — adopted
+- Skill: .claude/skills/build-process/SKILL.md
+- States: Ready → In Progress, moved by build-process
+
+# Work policies
+
+## issue-policy — scaffolded
+- Skill: .claude/skills/issue-policy/SKILL.md
+`
+
+test('the work processes are read from process.md, work policies left out', () => {
+  assert.deepEqual(workProcessesIn(PROCESS), [
+    { name: 'capture-process', skill: 'capture-process', states: '→ Backlog, moved by capture-process' },
+    { name: 'build-process', skill: 'build-process', states: 'Ready → In Progress, moved by build-process' },
+  ])
+})
+
+test('the session hook briefs which work process skill to load, and the capture skill', () => {
+  const output = run('sessionBrief.mjs', [], project({ processText: PROCESS }), { source: 'compact' })
+  assert.equal(output.hookSpecificOutput.hookEventName, 'SessionStart')
+  const brief = output.hookSpecificOutput.additionalContext
+  assert.match(brief, /build-process.*Ready → In Progress/)
+  assert.match(brief, /load the work process skill/i)
+  assert.match(brief, /impediment-and-metric-capture/)
+  assert.doesNotMatch(brief, /issue-policy/)
+})
+
 test('every hook is silent in a project without .drillmaster/process.md', () => {
   assert.equal(run('frictionCue.mjs', [], project({ drillmaster: false }), { prompt: 'No, wrong' }), undefined)
+  assert.equal(run('sessionBrief.mjs', [], project({ drillmaster: false }), { source: 'startup' }), undefined)
 })
 
 test('a broken event never fails the hook', () => {

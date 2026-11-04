@@ -67,6 +67,7 @@ They run only in a project with `.drillmaster/process.md`.
 
 | Event | What it does |
 |---|---|
+| `SessionStart` | At startup, resume, clear and after a compaction, briefs Claude from `process.md`: each work process, its skill and its states, so Claude loads the right work process skill before working on a work item. |
 | `UserPromptSubmit` | A message that reads like a correction reminds Claude to record it with `impediment-and-metric-capture`. Claude decides whether it is one. |
 
 ## Files in a project
