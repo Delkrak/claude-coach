@@ -1,11 +1,11 @@
 ## v2 — 04-11-2026 21:28
 - Changed
-  - 2.1 verifies a JSON trace before reading it; 4.4 keeps a JSON trace's file name — follows the trace tool (trace v2)
-- Not working
-  - The retrospective itself is not traced: the owner's answers and orders in Keeper's retrospective 04-11-2026 lived only in the session until rebuilt by hand — the owner: "You not tracing did not record this.." Not changed here: no retrospective has decided it
-  - 2.4 lets the counts be written without counting them: the Keeper report first said 15 impediments; the traces held 14
+  - 2.1 runs a JSON trace through `trace.mjs verify` before reading it — follows `/devops-drillmaster:trace` v2
+  - 4.4 copies a JSON trace as `traces/<key>-trace.json` — follows `/devops-drillmaster:trace` v2
 - Preserved
-  - Every step and id
+  - Every step id — POLICIES §0.8
+  - No trace step for the retrospective itself — no retrospective has decided one yet; the owner raised it in Keeper's retrospective 04-11-2026: "You not tracing did not record this.."
+  - 2.4's counting as written — the Keeper report first said 15 impediments where the traces held 14; recorded for the next retrospective
 
 ## 04-11-2026 20:14
 - Changed

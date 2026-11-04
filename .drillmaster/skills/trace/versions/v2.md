@@ -1,6 +1,6 @@
 ---
 name: trace
-description: Trace a work item - every step's start and end, what went in and came out (linked), decisions, questions and answers, state moves and every impediment - so what happened can be rebuilt and the objective's measures computed from it; close every work process with its process summary and write the item summary on the PR. Every entry is written by the trace tool (scripts/trace.mjs), which stamps the clock and chains an XOR checksum. Where the project's log storage says: a `<key>-trace.json` attached to the issue, a running comment on the issue then the PR, or the repo. Never changes a skill. Use at every step of every work process, whenever friction happens (the owner corrects or redirects Claude, work is redone or stuck, information is missing - the prompt hook cues corrections), and when a PR is marked ready. Only in a project with .drillmaster/process.md.
+description: Trace a work item - every step's start and end, what went in and came out (linked), decisions, questions and answers, state moves and every impediment - so what happened can be rebuilt and the objective's measures computed from it; close every work process with its process summary and write the item summary on the PR. Where the project's log storage says: a `<key>-trace.json` attached to the issue, a running comment on the issue then the PR, or the repo. Never changes a skill. Use at every step of every work process, whenever friction happens (the owner corrects or redirects Claude, work is redone or stuck, information is missing - the prompt hook cues corrections), and when a PR is marked ready. Only in a project with .drillmaster/process.md.
 ---
 
 # Trace
@@ -22,10 +22,10 @@ Every step has an id, cited as `/devops-drillmaster:trace <id>` ← §0.8.
 
 ## 1. Entries
 
-Every entry is written by the trace tool, `scripts/trace.mjs` at the plugin root, at the moment it
-happens; never by hand, and never later from memory. The tool stamps the time from the clock ←
-§4.3, checks the entry's form (`templates/trace.md`), and chains it with an XOR checksum, so a
-trace edited by hand no longer verifies:
+Every entry is written at the moment it happens, never later from memory, with its time read from
+the clock ← §4.3, in the form of `templates/trace.md`. With **attachment** storage, the trace tool
+`scripts/trace.mjs` at the plugin root writes every entry: it stamps the clock, checks the
+entry's form and chains an FNV-1a checksum, so a trace edited by hand no longer verifies.
 
 ```
 node "<plugin root>/scripts/trace.mjs" add --file <folder> --key <work item id> \
@@ -33,10 +33,13 @@ node "<plugin root>/scripts/trace.mjs" add --file <folder> --key <work item id> 
 node "<plugin root>/scripts/trace.mjs" verify --file <folder>/<key>-trace.json
 ```
 
+In Git Bash, run it with `MSYS_NO_PATHCONV=1`: otherwise `/build-process` reaches the tool as a
+Windows path, and the tool refuses it. A refusal from the tool is fixed by adding what it asks
+for, never by writing the file another way.
+
 Each entry names the work process step by id (e.g. `/build-process 3.5`), its kind, and a link as
 evidence ← §2.1. Link what the tracker, the git host and the session already hold (an issue, a
-commit, a PR, a comment, a session id); never copy it. A refusal from the tool is fixed by adding
-what it asks for, never by writing the file another way.
+commit, a PR, a comment, a session id); never copy it.
 
 1.1 **start** and **end** — when a step starts and ends; the start of a work process names the skill
     and its version, and the session.
@@ -61,9 +64,10 @@ what it asks for, never by writing the file another way.
     `.drillmaster/experiments.md`: whether its impediment was seen, and the measure's value. The
     retrospective reads it from the trace; never write to `experiments.md` on a work item's branch.
 
-1.8 **summary** — at the end of a work process: its **process summary**. Give the outcome; the tool
-    counts the time taken, impediments, questions and corrections (an impediment the owner caused
-    by correcting Claude carries `--correction`). **end** is counted the same way.
+1.8 **summary** — at the end of a work process: its **process summary**: outcome, time taken,
+    impediments, questions and corrections counted from the trace, over the whole run of the work
+    process (from its first step's start). With the tool, give the outcome and the tool counts the
+    rest; an impediment the owner caused by correcting Claude carries `--correction`.
 
 1.9 Write it where Log storage says ← §4.2:
     - **attachment**: `<key>-trace.json`, written by the tool in the session's scratch folder and
@@ -78,6 +82,9 @@ what it asks for, never by writing the file another way.
      process gap. Carry on."
 
 1.11 **attachment** storage, at every entry:
+     - The trace begins once the issue exists, since its key names the file. Its first entry is a
+       start whose `--before` says what happened before it: for a capture, "capture 1.1–1.5,
+       before the issue existed"; otherwise "nothing".
      - Before the first entry of a session, download the issue's current `<key>-trace.json` (the
        tracker's attachment) into the scratch folder and run `verify`. A trace that fails is not
        written to: report it to the owner as an impediment.

@@ -1,13 +1,19 @@
 ## v2 — 04-11-2026 21:28
-- Not working
-  - Hand-written traces in Keeper: estimated times shown as read, traces written after the fact, UTC beside local time, wrong skill versions, step ids without their slash — Keeper retrospective 04-11-2026 (Delkrak/Keeper PR #52); the owner: "so you are effectively cooking the books."
 - Changed
-  - Every entry is written by `scripts/trace.mjs`: clock-stamped, form-checked, chained with an XOR checksum; `verify` finds a hand edit — the owner: "We definitely need a tool to create the trace as json, it should have a simple xor based tamper protection."
-  - The tool counts end and summary (time, impediments, questions, corrections), so no summary is counted by hand
-  - New log storage **attachment**: `<key>-trace.json` attached to the issue, uploaded by the agent through the tracker's connector; new step 1.11 — the owner: "as a attachement to linear issue", "No, JSON only", "Agent via connector"
-  - The template is the JSON entry form
+  - New log storage **attachment**: a `<key>-trace.json` attached to the issue — Keeper retrospective 04-11-2026 (Delkrak/Keeper#52), C1; the owner: "as a attachement to linear issue, the key.."
+  - With attachment, every entry is written by `scripts/trace.mjs` — the owner: "We definitely need a tool to create the trace as json, it should have a simple xor based tamper protection."
+  - The tool stamps each entry from the clock — Keeper traces held estimated times shown as read; the owner: "so you are effectively cooking the books."
+  - The tool chains an FNV-1a checksum — the owner: "FNV-1a (Recommended)", after the review found the plain XOR fold missed paired edits
+  - The tool counts end and summary over the work process's whole run — Keeper summaries were counted by hand, once wrongly
+  - Step 1.11 uploads the file through the tracker's connector and unlinks the old one — the owner: "Agent via connector (Recommended)"
+  - The trace begins at the issue, its first entry saying what came before — the owner: "Start the trace at the issue, but it should naturally be in the log that its missing before."
+  - Git Bash needs `MSYS_NO_PATHCONV=1` — it rewrites `/build-process` into a Windows path (local review, Delkrak/claude-coach#7)
+  - The template gives the JSON form beside the line form — comments and items still write lines
 - Preserved
-  - The kinds of entry, the gap classes, comments and items storage, the item summary
+  - The kinds of entry — the tool checks the same kinds
+  - The gap classes — unchanged by the tool
+  - Comments and items storage — the owner: "make it up to the project how it does this"
+  - The item summary — still a PR comment
 
 ## 04-11-2026 20:00
 - Changed

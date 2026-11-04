@@ -73,7 +73,7 @@ const numbered = (text) => {
     const check = text.match(/\nCheck:\s*([\s\S]*)$/)?.[1].replace(/\s+/g, ' ').trim()
     let main = text.replace(/\nIntent:[\s\S]*$/, '')
     const cites = []
-    main = main.replace(/\s*←\s*((?:[^\n]|\n(?=\/?[a-z-]+-policy|§))*)/g, (_, cite) => {
+    main = main.replace(/\s*←\s*((?:[^\n;]|\n(?=\/?[a-z-]+-policy|§))*)/g, (_, cite) => {
       cites.push(...cite.replace(/\n/g, ' ').split(/,\s*(?=\/?[a-z-]+-policy|§)/).map((c) => c.trim().replace(/,$/, '')).filter(Boolean))
       return ''
     })
@@ -94,7 +94,11 @@ const processes = indexEntries(index, 'Work processes').map(({ stage, skill: nam
   return {
     name,
     stage,
-    states: states.split(/,\s*moved by/)[0].split(/\s*→\s*/).map((x) => x.replace(/\(.*?\)/g, '').trim()).filter(Boolean),
+    states: states
+      .split(/,\s*moved by/)[0]
+      .split(/\s*→\s*/)
+      .map((x) => x.replace(/\(.*?\)/g, '').replace(/\s*,?\s*or$/, '').trim())
+      .filter(Boolean),
     number: i + 1,
     title: s.title,
     description: s.description,

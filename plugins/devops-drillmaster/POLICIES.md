@@ -192,11 +192,12 @@ an uncited rule binds anyway.
 4.2 Claude MUST keep each work item's trace and item summary where `process.md`'s Log storage says:
     **attachment** (`<key>-trace.json` attached to the issue, the item summary a PR comment),
     **comments** (one running comment on the issue, then on the PR) or **items**
-    (`.drillmaster/items/<work item id>/`), and nowhere else. Every trace entry MUST be written by
-    the trace tool (`scripts/trace.mjs`).
-    Intent: a work item's record is in one known place, chosen by the owner, and every entry in it
-    went through the tool that stamps its time and chains its checksum.
-    Check: traces and summaries appear only where Log storage says; a JSON trace passes
+    (`.drillmaster/items/<work item id>/`), and nowhere else. The project chooses its log storage
+    in `process.md`. With **attachment**, every trace entry MUST be written by the trace tool
+    (`scripts/trace.mjs`).
+    Intent: a work item's record is in one known place, chosen by the owner; with attachment, every
+    entry went through the tool that stamps its time and chains its checksum.
+    Check: traces and summaries appear only where Log storage says; an attachment trace passes
     `trace.mjs verify`.
 
 4.3 Claude MUST date every entry `DD-MM-YYYY HH:mm`, local time, read from the clock, never guessed.

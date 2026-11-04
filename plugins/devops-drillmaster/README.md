@@ -29,11 +29,12 @@ As light as possible:
 
 ### `/devops-drillmaster:trace`
 
-Traces every step of a work item, one line per entry: start and end, what went in and came out
+Traces every step of a work item, one entry per event: start and end, what went in and came out
 (linked), state moves, decisions, questions and answers, and every impediment (any friction: what
 slowed the work, what was missing, what you had to correct). Your measures are counted from it.
 Every work process closes with a **process summary**; when a PR is marked ready, it writes the
-**item summary**. Kept on the issue and then the PR, or in the repository if you chose.
+**item summary**. Kept where you chose: as `<key>-trace.json` attached to the issue (written by
+`scripts/trace.mjs`), in comments on the issue and then the PR, or in the repository.
 
 ### `/devops-drillmaster:retrospective`
 
@@ -81,7 +82,8 @@ They run only in a project with `.drillmaster/process.md`.
   skills/<skill>/       # how each skill changed: history.md, versions/
   experiments.md        # changes being checked: impediment, measure, baseline, verdict
   retrospectives/       # one short report per retrospective
-  traces/<item id>.md   # merged work items' traces, until a retrospective has used them
+  traces/               # merged work items' traces (<item id>.md, or <key>-trace.json), until a
+                        # retrospective has used them
 process-overview.html   # the process overview
 ```
 
@@ -90,10 +92,11 @@ The plugin's only templates are the trace and the item summary.
 Traces and summaries live on issues and PRs by default ("comments"), as a `<key>-trace.json`
 attached to the issue ("attachment"), or under `items/` if you choose.
 
-Every trace entry is written by `scripts/trace.mjs`, never by hand. It stamps the time from the
-clock, checks the entry's form, and chains an XOR checksum, so a trace edited by hand fails
-`trace.mjs verify`. The checksum catches edits made outside the tool; it is not a signature,
-since anyone who runs the tool can write entries.
+With attachment storage, every trace entry is written by `scripts/trace.mjs`, never by hand. It
+stamps the time from the clock, checks the entry's form, and chains an FNV-1a checksum (XOR, then
+multiply), so a trace edited by hand fails `trace.mjs verify`. The checksum catches edits made
+outside the tool. It is not a signature: anyone who reruns the algorithm can write a trace that
+verifies.
 
 ## Process list and policy list
 

@@ -1,9 +1,11 @@
 ## v2 — 04-11-2026 21:28
 - Changed
-  - §4.2: log storage **attachment** added; every trace entry is written by the trace tool, and a JSON trace passes `trace.mjs verify` — Keeper retrospective 04-11-2026, C1
-  - §4.1: a JSON trace is copied as `traces/<key>-trace.json`
+  - §4.2: log storage **attachment** added — Keeper retrospective 04-11-2026, C1
+  - §4.2: the project chooses its log storage — the owner: "make it up to the project how it does this"
+  - §4.2: with attachment, every entry is written by the trace tool — the owner: "We definitely need a tool to create the trace as json"
+  - §4.1: a JSON trace is copied as `traces/<key>-trace.json` — follows §4.2's attachment storage
 - Preserved
-  - §4.3: time read from the clock, never guessed — now enforced by the tool
+  - §4.3: time read from the clock, never guessed — the tool now enforces it for attachment
 
 ## 04-11-2026 20:14
 - Changed
