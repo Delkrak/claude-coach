@@ -56,14 +56,15 @@ it can be referenced, and says how to verify it.
 
 ### Impediment and metric capture
 
-Every work process records impediments and metrics for each step, as its specification says.
-Impediments: any kind of friction, such as what slowed it down, what was missing, or what the owner
-had to correct. Metrics: what the objective's measures need, such as time taken or corrections made.
-Only what is recorded is used by the retrospective.
+Every work process records impediments and metrics, as its specification says. Impediments: any
+kind of friction, such as what slowed it down, what was missing, or what the owner had to correct.
+Metrics: what the objective's measures need, such as time taken or corrections made. The
+retrospective corrects the specification when it records the wrong thing or too little. Only what
+is recorded is used by the retrospective.
 
-> *Example:* Build's specification says step 3.5 records time and corrections. The owner says *"no,
-> reuse the existing component"*: step 3.5 records the impediment and the gap behind it (the spec
-> never named what to reuse), plus 40 minutes and one correction.
+> *Example:* Build's specification says it records time taken and corrections made. At step 3.5 the
+> owner says *"no, reuse the existing component"*: Build records the impediment and the gap behind
+> it (the spec never named what to reuse), plus 40 minutes and one correction.
 
 ### Retrospective
 
