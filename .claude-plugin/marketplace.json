@@ -3,12 +3,22 @@
   "owner": {
     "name": "delkrak"
   },
+  "description": "Coaching for Claude Code: a coach for your commands, and a drill master for your DevOps way of working.",
   "plugins": [
     {
       "name": "coach",
-      "source": "./",
-      "description": "A coach for your Claude Code workflow.",
-      "version": "1.3.0",
+      "source": "./plugins/coach",
+      "description": "A coach for your Claude Code commands: captures corrections from a session and applies them back to the command.",
+      "version": "2.0.0",
+      "author": {
+        "name": "delkrak"
+      }
+    },
+    {
+      "name": "devops-drillmaster",
+      "source": "./plugins/devops-drillmaster",
+      "description": "A drill sergeant for your agile setup with Claude: sets up work processes and work policies around your objective and toolchain, captures impediments and metrics on every work item, and runs retrospectives whose changes are deliberate and each independently measurable.",
+      "version": "0.1.0",
       "author": {
         "name": "delkrak"
       }
