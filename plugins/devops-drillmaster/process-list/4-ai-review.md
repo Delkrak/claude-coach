@@ -15,12 +15,12 @@ A work process. It serves the objective's measure **<measure>**.
 
 ## Records
 
-- Impediments: at every step, through `capture`.
+- Impediments: at every step, through `impediment-and-metric-capture`.
 - Metrics: review rounds and findings, at 4.5; time taken, at 4.8.
 
 ## Steps
 
-4.1 **capture** — start.
+4.1 **impediment-and-metric-capture** — start.
 4.2 Check the input against each rule its work policies set. On a miss: stop, and report the work
     policy and rule it fails ("PR work policy 2.2").
 4.3 Start a review round with a request naming the code work policies, `pr-policy` and the issue's
@@ -29,7 +29,7 @@ A work process. It serves the objective's measure **<measure>**.
 4.5 Repeat 4.3–4.4 until a round finds nothing, up to the project's cap; past it, go to the owner.
 4.6 Check the review against each rule of `review-policy`.
 4.7 Mark the PR ready.
-4.8 **capture** — process summary: rounds, findings, impediments, time taken; end.
+4.8 **impediment-and-metric-capture** — process summary: rounds, findings, impediments, time taken; end.
 
 ## Output
 
@@ -39,4 +39,4 @@ A work process. It serves the objective's measure **<measure>**.
 
 ## Hands off to
 
-User review (5), with the ready PR. Marking it ready triggers the item summary (`capture` 2).
+User review (5), with the ready PR. Marking it ready triggers the item summary (`impediment-and-metric-capture` 2).

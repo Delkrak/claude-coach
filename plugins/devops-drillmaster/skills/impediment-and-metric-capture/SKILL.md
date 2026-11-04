@@ -1,9 +1,9 @@
 ---
-name: capture
+name: impediment-and-metric-capture
 description: Record a work item's impediments and metrics as each work process's specification says, close every work process with its process summary, and write the item summary on the PR - where the project's log storage says (by default on the issue, then the PR). Never changes a skill. Use at the start and end of every work process, whenever friction happens (the owner corrects or redirects Claude, work is redone or stuck, information is missing - the prompt hook cues corrections), and when a PR is marked ready. Only in a project with .drillmaster/process.md.
 ---
 
-# Capture
+# Impediment and metric capture
 
 The impediment and metric capture is a work item's running record. Each work process's
 specification says what it records; every work process closes with a **process summary**; the
@@ -18,7 +18,7 @@ the templates.
 **Arguments:** $ARGUMENTS: `start`, `entry`, `summary` or `item-summary`. With none, pick from the
 situation.
 
-Every step has an id, cited as `capture <id>` ← §0.8.
+Every step has an id, cited as `impediment-and-metric-capture <id>` ← §0.8.
 
 ## 1. Entries
 

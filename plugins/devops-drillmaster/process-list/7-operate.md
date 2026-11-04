@@ -16,18 +16,18 @@ A work process. It serves the objective's measure **<measure>**.
 
 ## Records
 
-- Impediments: at every step, through `capture`.
+- Impediments: at every step, through `impediment-and-metric-capture`.
 - Metrics: incidents, and time from release to found, at 7.4.
 
 ## Steps
 
-7.1 **capture** — start, on the release.
+7.1 **impediment-and-metric-capture** — start, on the release.
 7.2 Check the input against each rule its work policies set. On a miss: stop, and report the work
     policy and rule it fails ("release work policy 2.2").
 7.3 Watch the signals.
 7.4 For each incident, write an incident issue, linked to the change that caused it when known, and
     check it against each rule of `incident-policy`.
-7.5 **capture** — process summary: incidents found, impediments, time to found; end.
+7.5 **impediment-and-metric-capture** — process summary: incidents found, impediments, time to found; end.
 
 ## Output
 

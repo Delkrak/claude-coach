@@ -16,12 +16,12 @@ A work process. It serves the objective's measure **<measure>**.
 
 ## Records
 
-- Impediments: at every step, through `capture`.
+- Impediments: at every step, through `impediment-and-metric-capture`.
 - Metrics: time taken, at 1.8.
 
 ## Steps
 
-1.1 **capture** — start.
+1.1 **impediment-and-metric-capture** — start.
 1.2 Check the input against each rule its work policies set. On a miss: stop, and report the work
     policy and rule it fails ("incident work policy 2.1").
 1.3 Search the tracker for the same thing; link or add to it instead of creating a duplicate.
@@ -29,7 +29,7 @@ A work process. It serves the objective's measure **<measure>**.
 1.5 Set the kind and the epic or project, when the owner named them.
 1.6 Check the issue against each rule of `issue-policy` §2 (captured).
 1.7 Save it in the backlog state.
-1.8 **capture** — process summary: the issue saved, impediments, time taken; end.
+1.8 **impediment-and-metric-capture** — process summary: the issue saved, impediments, time taken; end.
 
 ## Output
 

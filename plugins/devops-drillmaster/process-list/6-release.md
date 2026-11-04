@@ -15,18 +15,18 @@ A work process. It serves the objective's measure **<measure>**.
 
 ## Records
 
-- Impediments: at every step, through `capture`.
+- Impediments: at every step, through `impediment-and-metric-capture`.
 - Metrics: deploy failures, at 6.3; time taken, at 6.6.
 
 ## Steps
 
-6.1 **capture** — start.
+6.1 **impediment-and-metric-capture** — start.
 6.2 Check the input against each rule its work policies set. On a miss: stop, and report the work
     policy and rule it fails ("PR work policy 3.2").
 6.3 Deploy, or confirm the automatic deploy ran.
 6.4 Verify the change in the deployed environment.
 6.5 Write the release notes; check the release against each rule of `release-policy`.
-6.6 **capture** — process summary: what shipped, impediments, deploy failures, time taken; end.
+6.6 **impediment-and-metric-capture** — process summary: what shipped, impediments, deploy failures, time taken; end.
 
 ## Output
 

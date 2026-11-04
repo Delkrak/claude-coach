@@ -24,7 +24,7 @@ const CORRECTION_CUES = [
 
 export const NOTE_CUE =
   'This message may correct or redirect you. If it does, record it as an impediment with the ' +
-  'devops-drillmaster capture skill, then carry on with what the owner asked.'
+  'devops-drillmaster impediment-and-metric-capture skill, then carry on with what the owner asked.'
 
 export const isCorrectionCue = (prompt = '') =>
   !prompt.trimStart().startsWith('/') && CORRECTION_CUES.some((cue) => cue.test(prompt))

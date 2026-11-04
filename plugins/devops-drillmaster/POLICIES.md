@@ -1,7 +1,7 @@
 # Drill master policies
 
-Applies to: Claude, whenever it runs a devops-drillmaster skill (`setup`, `capture`,
-`retrospective`, `process-change`). The concept these rules serve is [`concept.md`](concept.md).
+Applies to: Claude, whenever it runs a devops-drillmaster skill (`setup`,
+`impediment-and-metric-capture`, `retrospective`, `process-change`). The concept these rules serve is [`concept.md`](concept.md).
 
 A skill step cites the rule it applies as `← POLICIES.md §<n>`. A cited rule binds at that step;
 an uncited rule binds anyway.

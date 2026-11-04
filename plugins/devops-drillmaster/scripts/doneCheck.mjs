@@ -44,7 +44,7 @@ const markerFile = (sessionId) =>
 
 export const askReason = (hint) =>
   `You may have finished a work process (\`${hint}\`). If it is done, write its process summary ` +
-  'with the devops-drillmaster capture skill; if a PR was just marked ready, write its item ' +
+  'with the devops-drillmaster impediment-and-metric-capture skill; if a PR was just marked ready, write its item ' +
   'summary. If it is not done, carry on.'
 
 export const candidate = (event, dir) => {

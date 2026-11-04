@@ -1,6 +1,6 @@
 ## 04-11-2026 01:30
 - Changed
-  - Renamed impediment-log to capture — concept.md's "impediment and metric capture"
+  - Renamed impediment-log to impediment-and-metric-capture — concept.md's term; "capture is a bad skill name", it collided with the capture work process
   - Impediments are any friction; no closed list of kinds — "impediment also includes any kind of friction"
   - Metrics recorded as each work process's specification names — "The metrics are defined on a process level and corrected on retrospective"
   - Item summary folded in from the removed summary process; no tracker-time cross-check — "No need to mention tracker timings"

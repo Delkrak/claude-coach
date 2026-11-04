@@ -33,7 +33,7 @@ process, work policy, impediment and metric capture and retrospective fit togeth
 
 Setup creates once. Every later change goes through a retrospective.
 
-### `/devops-drillmaster:capture`
+### `/devops-drillmaster:impediment-and-metric-capture`
 
 Every work process starts its capture and closes it with a **process summary**. It records every
 impediment (any friction: what slowed the work, what was missing, what you had to correct) and the
@@ -67,7 +67,7 @@ They run only in a project with `.drillmaster/process.md`.
 
 | Event | What it does |
 |---|---|
-| `UserPromptSubmit` | A message that reads like a correction reminds Claude to record it with `capture`. Claude decides whether it is one. |
+| `UserPromptSubmit` | A message that reads like a correction reminds Claude to record it with `impediment-and-metric-capture`. Claude decides whether it is one. |
 | `PostToolUse` (`Bash`, MCP tools) | A call that often ends a work process (`gh pr create`, `gh pr ready`, `gh pr merge`, a tracker's save tool, or a `Done hints:` entry in `process.md`) leaves a marker. |
 | `Stop` | With a marker pending, Claude is asked once whether the work process is done, to write its process summary, and the item summary if a PR was marked ready. |
 

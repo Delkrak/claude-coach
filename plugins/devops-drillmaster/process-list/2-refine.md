@@ -15,12 +15,12 @@ A work process. It serves the objective's measure **<measure>**.
 
 ## Records
 
-- Impediments: at every step, through `capture`.
+- Impediments: at every step, through `impediment-and-metric-capture`.
 - Metrics: questions asked of the owner, at 2.4–2.5; time taken, at 2.9.
 
 ## Steps
 
-2.1 **capture** — start.
+2.1 **impediment-and-metric-capture** — start.
 2.2 Check the input against each rule its work policies set. On a miss: stop, and report the work
     policy and rule it fails ("issue work policy 2.2").
 2.3 Read the docs and the code the issue touches.
@@ -31,7 +31,7 @@ A work process. It serves the objective's measure **<measure>**.
 2.7 Check the spec against each rule of `issue-policy` §3 (work-ready), and the planned change
     against the code work policies it will have to meet.
 2.8 On the owner's approval, write the start-work brief into the issue and move it to ready.
-2.9 **capture** — process summary: the spec, impediments, questions asked, time taken; end.
+2.9 **impediment-and-metric-capture** — process summary: the spec, impediments, questions asked, time taken; end.
 
 ## Output
 
